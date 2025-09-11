@@ -39,7 +39,7 @@
                             </div>
                             @endif
                             <div>
-                                <img src="{{asset ('assets/images/logo.png') }}" alt="..." class="img-circle profile_img" style="width: 40px; height: 40px;">&nbsp; Login Aplikasi MUJ
+                                <img src="{{asset ('assets/images/logo.png') }}" alt="..." class="img-circle profile_img" style="width: 40px; height: 40px;">&nbsp; Login Aplikasi Manrisk MUJ
                             </div>
 
                         </div>
