@@ -65,7 +65,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <!-- Nama Divisi mengikuti dari divisi user saat login -->
-            <h2><b>DASHBOARD MANAJEMEN RESIKO MUJ</b></h2>
+            <h2><b>Dashboard {{$organization_name}}</b></h2>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                 <li class="breadcrumb-item">Dashboard</li>
@@ -96,12 +96,12 @@
                     <div class="block-header">
                         <div class="row align-items-center mb-3">
                             <div class="col-lg-3 col-md-12 col-sm-12 mb-2 mb-lg-0">
-                                <h6 class="mb-0 font-weight-bold text-uppercase text-success">DASHBOARD MONITORING RESIKO</h6>
+                                <h6 class="mb-0 font-weight-bold text-uppercase text-success">DASHBOARD</h6>
                             </div>
 
                             <div class="col-lg-9 col-md-12 col-sm-12">
                                 {{-- FORM FILTER --}}
-                                <form method="GET" action="{{ route('dashboard') }}"
+                                <form method="GET" action="{{ route('dashboard-divisi') }}"
                                     class="form-inline justify-content-end flex-wrap">
 
                                     @php
@@ -224,20 +224,6 @@
                 </div>
             </div>
 
-            <!-- Risk Register by Divisi  -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2><b>RISK REGISTER DIVISI</b></h2>
-                        </div>
-                        <div class="body">
-                            <div id="chart-bar-divisi" style="height: 24rem"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Risk Register Inhern  -->
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-12">
@@ -278,7 +264,7 @@
                     <div class="block-header">
                         <div class="row align-items-center mb-3">
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                <h6 class="mb-0"><b>LIST RESIKO TERBESAR</b></h6>
+                                <h6 class="mb-0"><b>LIST RESIKO</b></h6>
                             </div>
                         </div>
                     </div>
@@ -295,7 +281,6 @@
                                         <tr>
                                         <tr>
                                             <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                            <th class="align-middle text-center" style="width: 15%;">Divisi</th>
                                             <th class="align-middle text-center" style="width: 75%;">Daftar Monitoring Resiko</th>
                                         </tr>
                                         </tr>
@@ -308,34 +293,66 @@
                                         @endphp
                                         <tr>
                                             <td class="align-middle text-center">{{ $tahunRow }}</td>
-                                            <td class="align-middle text-center">{{ $divisi_nama }}</td>
+
                                             <td>
                                                 <table class="table table-bordered m-0">
                                                     <thead>
                                                         <tr>
+
+
                                                             <th class="text-center sticky-col left-col-0">Nama Resiko</th>
                                                             <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
-
-                                                            <th class="text-center">Nilai Inhern</th>
-                                                            <th class="text-center">Kategori Inhern</th>
+                                                            <th class="text-center">Penyebab Resiko</th>
+                                                            <th class="text-center">Dampak</th>
+                                                            <th class="text-center">Strategi</th>
+                                                            <th class="text-center">Prosedur</th>
+                                                            <th class="text-center">Level Inh</th>
+                                                            <th class="text-center">Dampak Inh</th>
+                                                            <th class="text-center">Nilai Inh</th>
+                                                            <th class="text-center">Kategori Inh</th>
                                                             <th class="text-center">Pengendalian Risiko</th>
-
-                                                            <th class="text-center">Nilai Expected</th>
-                                                            <th class="text-center">Kategori Expected</th>
+                                                            <th class="text-center">Level Exp</th>
+                                                            <th class="text-center">Dampak Exp</th>
+                                                            <th class="text-center">Nilai Exp</th>
+                                                            <th class="text-center">Kategori Exp</th>
+                                                            <th class="text-center">PIC</th>
+                                                            <th class="text-center">Jangka Waktu</th>
+                                                            <th class="text-center">Peluang perbaikan</th>
+                                                            <th class="text-center">Status</th>
+                                                            <th class="text-center">Keterangan</th>
+                                                            <th class="text-center">Evidence</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @forelse ($listResiko as $d)
                                                         <tr>
-                                                            <td>{{ $d->resiko_nama }}</td>
-                                                            <td>{{ $d->kategori_nama ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->resiko_nama }}</td>
+                                                            <td class="text-left">{{ $d->kategori_nama ?? '-' }}</td>
 
+                                                            <td class="text-left">{{ $d->resiko_penyebab }}</td>
+                                                            <td class="text-left">{{ $d->dampak ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->strategi }}</td>
+                                                            <td class="text-left">{{ $d->prosedur ?? '-' }}</td>
+
+                                                            <td class="text-right">{{ $d->inhern_dampak ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->inhern_kemungkinan ?? '-' }}</td>
                                                             <td class="text-right">{{ $d->inhern_nilai ?? '-' }}</td>
                                                             <td class="text-center">{{ $d->inhern_bobot ?? '-' }}</td>
+
                                                             <td class="text-left">{{ $d->rencana ?? '-' }}</td>
 
+                                                            <td class="text-right">{{ $d->exp_dampak ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->exp_kemungkinan ?? '-' }}</td>
                                                             <td class="text-right">{{ $d->exp_nilai ?? '-' }}</td>
                                                             <td class="text-center">{{ $d->exp_bobot ?? '-' }}</td>
+
+                                                            <td class="text-left">{{ $d->pic ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->jangka_waktu }}</td>
+                                                            <td class="text-left">{{ $d->peluang_perbaikan ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->status_mitigasi }}</td>
+                                                            <td class="text-left">{{ $d->keterangan ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->evidence ?? '-' }}</td>
+
                                                         </tr>
                                                         @empty
                                                         <tr>

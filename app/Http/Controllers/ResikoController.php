@@ -779,251 +779,190 @@ class ResikoController extends Controller
         return redirect()->back()->with('success');
     }
 
+    private static function emptyRiskMatrix(): array
+    {
+        $m = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $m[$i] = [];
+            for ($j = 1; $j <= 5; $j++) {
+                $m[$i][$j] = 0;
+            }
+        }
+        return $m;
+    }
+
+
     //Dashboard Man Risk All
     public function index_dash(Request $request)
     {
-        $tahun_dash = $request->input('tahun', date('Y'));
         $title = 'Dashboard Man Risk';
 
+        // ---- Filter (tahun & TW default dari bulan berjalan) ----
+        $tahun  = (int) $request->input('tahun', date('Y'));
+        $bulan  = (int) date('n');
+        $tw     = (int) $request->input('tw', $bulan <= 3 ? 1 : ($bulan <= 6 ? 2 : ($bulan <= 9 ? 3 : 4)));
+        $tw     = max(1, min(4, $tw));
 
-        $resiko_monitoring = Resiko::with('namaKategori', 'namaDivisi')
-            ->join('pengukuran', 'indf_resiko.id', '=', 'pengukuran.resiko_id')
-            ->where('indf_resiko.tahun', $tahun_dash)
-            ->orderByDesc('pengukuran.inhern_nilai')
-            ->select('indf_resiko.*') // Pastikan hanya kolom dari tabel resiko yang dipilih
+
+        // ---- Approval Verified by MR (tahun & TW) ----
+        $approvalDiv = Approval_Divisi::with('namaDivisi')
+            ->where('tahun', $tahun)
+            ->where('app_status', 'Verified by MR')
+            ->where('app_name', $tw)
+            ->orderBy('divisi_id')->orderBy('app_name')
             ->get();
 
-        $groupedDataResiko_monitoring = $resiko_monitoring->groupBy(function ($item) {
-            $divisi = $item->namaDivisi->organization_name ?? 'Lainnya';
-            return $item->tahun . '|' . $divisi;
+        $approvalIds = $approvalDiv->pluck('id');
+
+        $detailByApproval = Approval::whereIn('app_divisi_id', $approvalIds)
+            ->where('inhern_nilai', '>=', 10) // hanya inhern >= 10
+            ->orderByDesc('inhern_nilai')     // urut dari nilai terbesar
+            ->get()
+            ->groupBy('app_divisi_id');
+
+
+        $groupedDataResiko_monitoring = $approvalDiv->mapWithKeys(function ($ap) use ($detailByApproval) {
+            $key = "{$ap->tahun}|{$ap->namaDivisi->organization_name}|{$ap->divisi_id}|{$ap->app_name}";
+            return [$key => $detailByApproval->get($ap->id, collect())];
         });
 
-        $resiko_dash = Resiko::where('tahun', $tahun_dash)->get();
+        // ---- DEFAULTS agar tidak undefined ----
+        $matrixInhern = array_fill(0, 6, array_fill(0, 6, 0));
+        $matrixExp    = array_fill(0, 6, array_fill(0, 6, 0));
+        $jumlahResiko = 0;
+        $totalInhern  = 0.0;
+        $totalExp     = 0.0;
+        $avg_inhern   = 0.0;
+        $avg_exp      = 0.0;
+        $jumlahSelesai = 0;
+        $persentaseSelesai = 0.0;
+        $getKategoriRisk_inhern = 'Unknown';
+        $getKategoriRisk_exp    = 'Unknown';
 
-        $jumlahResiko = $resiko_dash->count();
+        if ($approvalIds->isNotEmpty()) {
+            $details = Approval::whereIn('app_divisi_id', $approvalIds)->get([
+                'app_divisi_id',
+                'inhern_dampak',
+                'inhern_kemungkinan',
+                'inhern_nilai',
+                'inhern_bobot',
+                'exp_dampak',
+                'exp_kemungkinan',
+                'exp_nilai',
+                'exp_bobot',
+                'status_mitigasi',
+            ]);
 
-        $resikoIds = $resiko_dash->pluck('id');
+            // Widgets
+            $jumlahResiko  = $details->count();
+            $totalInhern   = (float) $details->sum(fn($r) => (float)($r->inhern_nilai ?? 0));
+            $totalExp      = (float) $details->sum(fn($r) => (float)($r->exp_nilai ?? 0));
+            $avg_inhern    = $jumlahResiko ? round($totalInhern / $jumlahResiko, 2) : 0;
+            $avg_exp       = $jumlahResiko ? round($totalExp / $jumlahResiko, 2) : 0;
+            $jumlahSelesai = $details->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
+            $persentaseSelesai = $jumlahResiko ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
 
-        $totalInhern = Pengukuran::whereIn('resiko_id', $resikoIds)->sum('inhern_nilai');
+            // Heatmap count D×K
+            foreach ($details as $d) {
+                $r = (int) ($d->inhern_dampak ?? 0);
+                $c = (int) ($d->inhern_kemungkinan ?? 0);
+                if ($r >= 1 && $r <= 5 && $c >= 1 && $c <= 5) $matrixInhern[$r][$c]++;
 
-        $totalExp = Pengendalian::whereIn('resiko_id', $resikoIds)->sum('exp_nilai');
-
-        // Hitung rata-rata
-        $avg_inhern = $jumlahResiko > 0 ? round($totalInhern / $jumlahResiko, 2) : 0;
-        $avg_exp = $jumlahResiko > 0 ? round($totalExp / $jumlahResiko, 2) : 0;
-
-        $dataMonitoring = Monitoring::with(['namaResiko'])
-            ->whereHas('namaResiko', function ($query) use ($tahun_dash) {
-                $query->where('tahun', $tahun_dash);
-            })->get();
-
-        $jumlahSelesai = $dataMonitoring->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
-        $persentaseSelesai = $jumlahResiko > 0 ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
-
-        $getKategoriRisk_inhern = Bobot::where('tahun', $tahun_dash)
-            ->where('bobot_nilai', '<=', $avg_inhern)
-            ->orderByDesc('bobot_nilai')
-            ->value('bobot_kategori') ?? 'Unknown';
-
-        $getKategoriRisk_exp = Bobot::where('tahun', $tahun_dash)
-            ->where('bobot_nilai', '<=', $avg_exp)
-            ->orderByDesc('bobot_nilai')
-            ->value('bobot_kategori') ?? 'Unknown';
-
-        $monitoring = Monitoring::with('namaResiko', 'namaPengendalian', 'namaPengukuran')
-            ->whereHas('namaResiko', function ($q) use ($tahun_dash) {
-                $q->where('tahun', $tahun_dash);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
-        $pengendalian = Pengendalian::with('namaResiko.namaKategori', 'namaDampak', 'namaKemungkinan', 'namaBobotExp')
-            ->whereHas('namaResiko', function ($q) use ($tahun_dash) {
-                $q->where('tahun', $tahun_dash);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
-        $pengukuran = Pengukuran::with('namaResiko.namaKategori', 'namaDampak', 'namaKemungkinan', 'namaBobotInhern')
-            ->whereHas('namaResiko', function ($q) use ($tahun_dash) {
-                $q->where('tahun', $tahun_dash);
-            })
-            ->orderByDesc('inhern_nilai')
-            ->get()
-            ->keyBy('resiko_id');
-
-        // Gabungkan per divisi
-        $dataDivisi = [];
-
-        foreach ($pengukuran as $p) {
-            $divisiId = $p->namaResiko->divisi_id ?? null;
-            if ($divisiId) {
-                $divisiNama = $p->namaResiko->namaDivisi->organization_name ?? 'Unknown';
-
-                if (!isset($dataDivisi[$divisiId])) {
-                    $dataDivisi[$divisiId] = [
-                        'divisi' => $divisiNama,
-                        'inhern_total' => 0,
-                        'inhern_count' => 0,
-                        'exp_total' => 0,
-                        'exp_count' => 0,
-                    ];
-                }
-
-                $dataDivisi[$divisiId]['inhern_total'] += $p->inhern_nilai ?? 0;
-                $dataDivisi[$divisiId]['inhern_count']++;
+                $r2 = (int) ($d->exp_dampak ?? 0);
+                $c2 = (int) ($d->exp_kemungkinan ?? 0);
+                if ($r2 >= 1 && $r2 <= 5 && $c2 >= 1 && $c2 <= 5) $matrixExp[$r2][$c2]++;
             }
+
+            // Kategori rata-rata
+            $getKategoriRisk_inhern = Bobot::where('tahun', $tahun)
+                ->where('bobot_nilai', '<=', $avg_inhern)
+                ->orderByDesc('bobot_nilai')->value('bobot_kategori') ?? 'Unknown';
+
+            $getKategoriRisk_exp = Bobot::where('tahun', $tahun)
+                ->where('bobot_nilai', '<=', $avg_exp)
+                ->orderByDesc('bobot_nilai')->value('bobot_kategori') ?? 'Unknown';
         }
 
-        foreach ($pengendalian as $p) {
-            $divisiId = $p->namaResiko->divisi_id ?? null;
-            if ($divisiId && isset($dataDivisi[$divisiId])) {
-                $dataDivisi[$divisiId]['exp_total'] += $p->exp_nilai ?? 0;
-                $dataDivisi[$divisiId]['exp_count']++;
-            }
-        }
-
-        // Hitung rata-rata
-        $labels = [];
-        $inhern = [];
-        $exp = [];
-
-        foreach ($dataDivisi as $d) {
-            $labels[] = $d['divisi'];
-            $inhern[] = $d['inhern_count'] > 0 ? round($d['inhern_total'] / $d['inhern_count'], 2) : 0;
-            $exp[] = $d['exp_count'] > 0 ? round($d['exp_total'] / $d['exp_count'], 2) : 0;
-        }
-
-        $data_inhern = DB::table('pengukuran as p')
-            ->join('indf_resiko as r', 'p.resiko_id', '=', 'r.id')
-            ->join('kategori as k', 'r.kategori_id', '=', 'k.id') // kategori risiko
-            ->join('dampak as kd', 'p.inhern_dampak_id', '=', 'kd.id') // lookup dampak
-            ->join('kemungkinan as kk', 'p.inhern_kemungkinan_id', '=', 'kk.id') // lookup kemungkinan
-            ->where('r.tahun', $tahun_dash)
-            ->select(
-                'k.kategori_nama as kategori',
-                DB::raw('COUNT(p.id) as jumlah_data'),
-                // total & rata-rata inhern untuk ditampilkan (contoh Hukum = (10+20)/2=15)
-                DB::raw('SUM(p.inhern_nilai) as total_inhern'),
-                DB::raw('ROUND(SUM(p.inhern_nilai) / COUNT(p.id)) as rata_inhern'),
-
-                // rata-rata D & K (informasi pendukung)
-                DB::raw('ROUND(AVG(kd.dampak_level), 2) as rata_dampak_inhern'),
-                DB::raw('ROUND(AVG(kk.kmn_level), 2) as rata_kemungkinan_inhern'),
-                DB::raw('LEAST(5, GREATEST(1, ROUND(AVG(kd.dampak_level)))) as dampak_avg_rounded'),
-                DB::raw('LEAST(5, GREATEST(1, ROUND(AVG(kk.kmn_level)))) as kemungkinan_avg_rounded')
-            )
-            ->groupBy('k.kategori_nama')
-            ->orderBy('k.kategori_nama')
-            ->get();
-
-        $data_expected = DB::table('pengendalian as p')
-            ->join('indf_resiko as r', 'p.resiko_id', '=', 'r.id')
-            ->join('kategori as k', 'r.kategori_id', '=', 'k.id') // kategori risiko
-            ->leftJoin('dampak as kd', 'p.exp_dampak_id', '=', 'kd.id')  // lookup dampak expected
-            ->leftJoin('kemungkinan as kk', 'p.exp_kemungkinan_id', '=', 'kk.id') // lookup kemungkinan expected
-            ->when($tahun_dash, fn($q) => $q->where('r.tahun', $tahun_dash))
-            ->select(
-                'k.kategori_nama as kategori',
-                DB::raw('COUNT(p.id) as jumlah_data'),
-
-                // total & rata-rata expected (aman untuk NULL & pembagian 0)
-                DB::raw('COALESCE(SUM(p.exp_nilai), 0) as total_exp'),
-                DB::raw('ROUND(COALESCE(SUM(p.exp_nilai), 0) / NULLIF(COUNT(p.id), 0)) as rata_exp'),
-
-                // rata-rata level dampak & kemungkinan expected
-                DB::raw('ROUND(AVG(kd.dampak_level), 2) as rata_dampak_exp'),
-                DB::raw('ROUND(AVG(kk.kmn_level), 2) as rata_kemungkinan_exp'),
-
-                // versi bulat 1..5 untuk plotting (pakai alias khusus expected)
-                DB::raw('LEAST(5, GREATEST(1, ROUND(AVG(kd.dampak_level)))) as dampak_exp_rounded'),
-                DB::raw('LEAST(5, GREATEST(1, ROUND(AVG(kk.kmn_level)))) as kemungkinan_exp_rounded')
-            )
-            ->groupBy('k.kategori_nama')
-            ->orderBy('k.kategori_nama')
-            ->get();
-
-        // dd($data_expected);
-
+        // ---- Return sekali, lengkap ----
         return view('pages.dashboard', [
-            'title' => $title,
-            'tahun_dash' => $tahun_dash,
+            'title'  => $title,
+            'tahun'  => $tahun,
+            'tw_now' => $tw,
 
-            'resiko_monitoring' => $resiko_monitoring,
             'groupedDataResiko_monitoring' => $groupedDataResiko_monitoring,
 
-            'persentaseSelesai' => $persentaseSelesai,
+            'jumlahResiko'       => $jumlahResiko,
+            'avg_inhern'         => $avg_inhern,
+            'avg_exp'            => $avg_exp,
+            'jumlahSelesai'      => $jumlahSelesai,
+            'persentaseSelesai'  => $persentaseSelesai,
             'getKategoriRisk_inhern' => $getKategoriRisk_inhern,
-            'getKategoriRisk_exp' => $getKategoriRisk_exp,
+            'getKategoriRisk_exp'    => $getKategoriRisk_exp,
 
-            'jumlahResiko' => $jumlahResiko,
-            'avg_inhern' => $avg_inhern,
-            'avg_exp' => $avg_exp,
+            'matrixInhern' => $matrixInhern,
+            'matrixExp'    => $matrixExp,
 
-            'listmonitoring' => $monitoring,
-            'listpengukuran' => $pengukuran,
-            'listpengendalian' => $pengendalian,
-
-            'labels' => $labels,
-            'inhern' => $inhern,
-            'exp' => $exp,
-
-            'data_inhern' => $data_inhern,
-            'data_expected' => $data_expected,
-
+            'listapproval' => $approvalDiv,
         ]);
     }
 
-    public function chartDivisi($tahun = null)
+    public function chartDivisi(Request $request)
     {
-        $tahun = $tahun ?? date('Y');
+        $tahun = $request->input('tahun', date('Y'));
 
-        // Ambil data pengukuran
-        $pengukuran = Pengukuran::with('namaResiko.namaDivisi')
-            ->whereHas('namaResiko', function ($q) use ($tahun) {
-                $q->where('tahun', $tahun);
-            })
+        // Tentukan triwulan default berdasar bulan berjalan
+        $bulan = (int) date('n');
+        $defaultTw = $bulan <= 3 ? 1 : ($bulan <= 6 ? 2 : ($bulan <= 9 ? 3 : 4));
+        $tw = (int) $request->input('tw', $defaultTw);
+
+        // Ambil data approval Verified by MR
+        $approval = Approval_Divisi::with(['namaDivisi'])
+            ->where('tahun', $tahun)
+            ->where('app_status', 'Verified by MR')
+            ->where('app_name', $tw)
+            ->orderBy('divisi_id')
             ->get();
 
-        // Ambil data pengendalian
-        $pengendalian = Pengendalian::with('namaResiko.namaDivisi')
-            ->whereHas('namaResiko', function ($q) use ($tahun) {
-                $q->where('tahun', $tahun);
-            })
-            ->get();
+        if ($approval->isEmpty()) {
+            return response()->json([
+                'labels' => [],
+                'inhern' => [],
+                'exp' => [],
+                'kategoriInhern' => [],
+                'kategoriExp' => [],
+            ]);
+        }
 
-        // Gabungkan per divisi
+        // Ambil detail berdasarkan approval_id
+        $approvalIds = $approval->pluck('id');
+        $details = Approval::whereIn('app_divisi_id', $approvalIds)->get(['app_divisi_id', 'inhern_nilai', 'exp_nilai']);
+        $byAppDiv = $details->groupBy('app_divisi_id');
+
         $dataDivisi = [];
+        foreach ($approval as $ap) {
+            $divisiId   = (int) $ap->divisi_id;
+            $divisiNama = $ap->namaDivisi->organization_name ?? 'Unknown';
 
-        foreach ($pengukuran as $p) {
-            $divisiId = $p->namaResiko->divisi_id ?? null;
-            if ($divisiId) {
-                $divisiNama = $p->namaResiko->namaDivisi->organization_name ?? 'Unknown';
+            if (!isset($dataDivisi[$divisiId])) {
+                $dataDivisi[$divisiId] = [
+                    'divisi' => $divisiNama,
+                    'inhern_total' => 0,
+                    'inhern_count' => 0,
+                    'exp_total' => 0,
+                    'exp_count' => 0,
+                ];
+            }
 
-                if (!isset($dataDivisi[$divisiId])) {
-                    $dataDivisi[$divisiId] = [
-                        'divisi' => $divisiNama,
-                        'inhern_total' => 0,
-                        'inhern_count' => 0,
-                        'exp_total' => 0,
-                        'exp_count' => 0,
-                    ];
-                }
-
-                $dataDivisi[$divisiId]['inhern_total'] += $p->inhern_nilai ?? 0;
-                $dataDivisi[$divisiId]['inhern_count']++;
+            $rows = $byAppDiv->get($ap->id, collect());
+            if ($rows->isNotEmpty()) {
+                $dataDivisi[$divisiId]['inhern_total'] += $rows->sum('inhern_nilai');
+                $dataDivisi[$divisiId]['inhern_count'] += $rows->whereNotNull('inhern_nilai')->count();
+                $dataDivisi[$divisiId]['exp_total'] += $rows->sum('exp_nilai');
+                $dataDivisi[$divisiId]['exp_count'] += $rows->whereNotNull('exp_nilai')->count();
             }
         }
 
-        foreach ($pengendalian as $p) {
-            $divisiId = $p->namaResiko->divisi_id ?? null;
-            if ($divisiId && isset($dataDivisi[$divisiId])) {
-                $dataDivisi[$divisiId]['exp_total'] += $p->exp_nilai ?? 0;
-                $dataDivisi[$divisiId]['exp_count']++;
-            }
-        }
-
-        // Hitung rata-rata + kategori bobot
+        // Hitung rata-rata + kategori
         $labels = [];
         $inhern = [];
         $exp = [];
@@ -1032,10 +971,8 @@ class ResikoController extends Controller
 
         foreach ($dataDivisi as $d) {
             $labels[] = $d['divisi'];
-
             $avgInhern = $d['inhern_count'] > 0 ? round($d['inhern_total'] / $d['inhern_count'], 2) : 0;
             $avgExp = $d['exp_count'] > 0 ? round($d['exp_total'] / $d['exp_count'], 2) : 0;
-
             $inhern[] = $avgInhern;
             $exp[] = $avgExp;
 
@@ -1059,97 +996,184 @@ class ResikoController extends Controller
         ]);
     }
 
+    //Dashboard List Resiko MR
     public function index_dash_divisi(Request $request)
     {
-        $tahun_dash = $request->input('tahun', date('Y'));
-        $title = 'Dashboard Man Risk';
 
-        $resiko_monitoring = Resiko::with('namaKategori', 'namaDivisi')
-            ->join('pengukuran', 'indf_resiko.id', '=', 'pengukuran.resiko_id')
-            ->where('indf_resiko.tahun', $tahun_dash)
-            ->orderByDesc('pengukuran.inhern_nilai')
-            ->select('indf_resiko.*') // Pastikan hanya kolom dari tabel resiko yang dipilih
+        // New Script Dashboard
+        $tahun = $request->input('tahun', date('Y'));
+        $tw         = $request->query('tw', 'all');
+        $kategori   = $request->query('kategori', 'all');
+
+        // Ambil approval yang SUDAH diverifikasi MR saja
+        $approval = Approval_Divisi::with(['namaDivisi'])
+            ->where('tahun', $tahun)
+            ->where('app_status', 'Verified by MR')
+            ->when($tw !== 'all', fn($q) => $q->where('app_name', (int)$tw))
+            ->orderBy('divisi_id')
+            ->orderBy('app_name')
+            ->get();
+
+        $approvalIds = $approval->pluck('id');
+
+        $detailByApproval = Approval::whereIn('app_divisi_id', $approvalIds)
+            ->when($kategori !== 'all', fn($q) => $q->where('kategori_nama', $kategori))
+            ->orderBy('resiko_nama')
+            ->get()
+            ->groupBy('app_divisi_id');
+
+
+        $kategoriOptions = Kategori::orderBy('kategori_nama')->get(['id', 'kategori_nama']);
+
+        $risikoPerDivisi = $approval->groupBy('divisi_id');
+
+        $groupedDataResiko_monitoring = $approval->mapWithKeys(function ($ap) use ($detailByApproval) {
+            $key = "{$ap->tahun}|{$ap->namaDivisi->organization_name}|{$ap->divisi_id}|{$ap->app_name}";
+            return [$key => $detailByApproval->get($ap->id, collect())];
+        });
+
+        $kategoriOptions = \App\Models\Kategori::query()
+            ->select('id', 'kategori_nama')
+            ->where('tahun', $tahun)
+            ->orderBy('kategori_nama')
             ->get();
 
 
-        $groupedDataResiko_monitoring = $resiko_monitoring->groupBy(function ($item) {
-            return $item->tahun . '|' . ($item->namaDivisi->organization_name ?? 'Tanpa Divisi') . '|' . $item->divisi_id;
+        return view('pages.dashboard-list-divisi', [
+
+            'groupedDataResiko_monitoring' => $groupedDataResiko_monitoring,
+            'risikoPerDivisi' => $risikoPerDivisi,
+            'listapproval' => $approval,
+            'kategoriOptions' => $kategoriOptions,
+            'tahun' => $tahun,
+
+
+        ]);
+    }
+
+    //Dashboard Per Divisi
+    public function index_divisi_dash(Request $request)
+    {
+
+        $organization_id = DB::connection('mysql_erp')
+            ->table('employment')
+            ->where('user_id', Auth::user()->user_id)
+            ->value('organization_id');
+
+        $organization_name = DB::connection('mysql_erp')
+            ->table('employment')
+            ->where('organization_id', $organization_id)
+            ->value('organization_name');
+
+        // ---- Filter (tahun & TW default dari bulan berjalan) ----
+        $tahun  = (int) $request->input('tahun', date('Y'));
+        $bulan  = (int) date('n');
+        $tw     = (int) $request->input('tw', $bulan <= 3 ? 1 : ($bulan <= 6 ? 2 : ($bulan <= 9 ? 3 : 4)));
+        $tw     = max(1, min(4, $tw));
+
+
+        // ---- Approval Verified by MR (tahun & TW) ----
+        $approvalDiv = Approval_Divisi::with('namaDivisi')
+            ->where('tahun', $tahun)
+            ->where('divisi_id', $organization_id)
+            ->where('app_status', 'Verified by MR')
+            ->where('app_name', $tw)
+            ->orderBy('divisi_id')->orderBy('app_name')
+            ->get();
+
+        $approvalIds = $approvalDiv->pluck('id');
+
+        $detailByApproval = Approval::whereIn('app_divisi_id', $approvalIds)
+            ->orderByDesc('inhern_nilai')     // urut dari nilai terbesar
+            ->get()
+            ->groupBy('app_divisi_id');
+
+
+        $groupedDataResiko_monitoring = $approvalDiv->mapWithKeys(function ($ap) use ($detailByApproval) {
+            $key = "{$ap->tahun}|{$ap->namaDivisi->organization_name}|{$ap->divisi_id}|{$ap->app_name}";
+            return [$key => $detailByApproval->get($ap->id, collect())];
         });
 
-        $resiko_dash = Resiko::where('tahun', $tahun_dash)->get();
+        // ---- DEFAULTS agar tidak undefined ----
+        $matrixInhern = array_fill(0, 6, array_fill(0, 6, 0));
+        $matrixExp    = array_fill(0, 6, array_fill(0, 6, 0));
+        $jumlahResiko = 0;
+        $totalInhern  = 0.0;
+        $totalExp     = 0.0;
+        $avg_inhern   = 0.0;
+        $avg_exp      = 0.0;
+        $jumlahSelesai = 0;
+        $persentaseSelesai = 0.0;
+        $getKategoriRisk_inhern = 'Unknown';
+        $getKategoriRisk_exp    = 'Unknown';
 
-        $jumlahResiko = $resiko_dash->count();
+        if ($approvalIds->isNotEmpty()) {
+            $details = Approval::whereIn('app_divisi_id', $approvalIds)->get([
+                'app_divisi_id',
+                'inhern_dampak',
+                'inhern_kemungkinan',
+                'inhern_nilai',
+                'inhern_bobot',
+                'exp_dampak',
+                'exp_kemungkinan',
+                'exp_nilai',
+                'exp_bobot',
+                'status_mitigasi',
+            ]);
 
-        $resikoIds = $resiko_dash->pluck('id');
+            // Widgets
+            $jumlahResiko  = $details->count();
+            $totalInhern   = (float) $details->sum(fn($r) => (float)($r->inhern_nilai ?? 0));
+            $totalExp      = (float) $details->sum(fn($r) => (float)($r->exp_nilai ?? 0));
+            $avg_inhern    = $jumlahResiko ? round($totalInhern / $jumlahResiko, 2) : 0;
+            $avg_exp       = $jumlahResiko ? round($totalExp / $jumlahResiko, 2) : 0;
+            $jumlahSelesai = $details->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
+            $persentaseSelesai = $jumlahResiko ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
 
-        $totalInhern = Pengukuran::whereIn('resiko_id', $resikoIds)->sum('inhern_nilai');
+            // Heatmap count D×K
+            foreach ($details as $d) {
+                $r = (int) ($d->inhern_dampak ?? 0);
+                $c = (int) ($d->inhern_kemungkinan ?? 0);
+                if ($r >= 1 && $r <= 5 && $c >= 1 && $c <= 5) $matrixInhern[$r][$c]++;
 
-        $totalExp = Pengendalian::whereIn('resiko_id', $resikoIds)->sum('exp_nilai');
+                $r2 = (int) ($d->exp_dampak ?? 0);
+                $c2 = (int) ($d->exp_kemungkinan ?? 0);
+                if ($r2 >= 1 && $r2 <= 5 && $c2 >= 1 && $c2 <= 5) $matrixExp[$r2][$c2]++;
+            }
 
-        // Hitung rata-rata
-        $avg_inhern = $jumlahResiko > 0 ? round($totalInhern / $jumlahResiko, 2) : 0;
-        $avg_exp = $jumlahResiko > 0 ? round($totalExp / $jumlahResiko, 2) : 0;
+            // Kategori rata-rata
+            $getKategoriRisk_inhern = Bobot::where('tahun', $tahun)
+                ->where('bobot_nilai', '<=', $avg_inhern)
+                ->orderByDesc('bobot_nilai')->value('bobot_kategori') ?? 'Unknown';
 
-        $dataMonitoring = Monitoring::with(['namaResiko'])
-            ->whereHas('namaResiko', function ($query) use ($tahun_dash) {
-                $query->where('tahun', $tahun_dash);
-            })->get();
+            $getKategoriRisk_exp = Bobot::where('tahun', $tahun)
+                ->where('bobot_nilai', '<=', $avg_exp)
+                ->orderByDesc('bobot_nilai')->value('bobot_kategori') ?? 'Unknown';
+        }
 
-        $jumlahSelesai = $dataMonitoring->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
-        $persentaseSelesai = $jumlahResiko > 0 ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
+        // ---- Return sekali, lengkap ----
+        return view('pages.dashboard-divisi', [
 
-        $getKategoriRisk_inhern = Bobot::where('tahun', $tahun_dash)
-            ->where('bobot_nilai', '<=', $avg_inhern)
-            ->orderByDesc('bobot_nilai')
-            ->value('bobot_kategori') ?? 'Unknown';
+            'tahun'  => $tahun,
+            'tw_now' => $tw,
 
-        $getKategoriRisk_exp = Bobot::where('tahun', $tahun_dash)
-            ->where('bobot_nilai', '<=', $avg_exp)
-            ->orderByDesc('bobot_nilai')
-            ->value('bobot_kategori') ?? 'Unknown';
-
-        $monitoring = Monitoring::with('namaResiko', 'namaPengendalian', 'namaPengukuran')
-            ->whereHas('namaResiko', function ($q) use ($tahun_dash) {
-                $q->where('tahun', $tahun_dash);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
-        $pengendalian = Pengendalian::with('namaResiko.namaKategori', 'namaDampak', 'namaKemungkinan', 'namaBobotExp')
-            ->whereHas('namaResiko', function ($q) use ($tahun_dash) {
-                $q->where('tahun', $tahun_dash);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
-        $pengukuran = Pengukuran::with('namaResiko.namaKategori', 'namaDampak', 'namaKemungkinan', 'namaBobotInhern')
-            ->whereHas('namaResiko', function ($q) use ($tahun_dash) {
-                $q->where('tahun', $tahun_dash);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
-
-        return view('pages.dashboard-list-divisi', [
-            'title' => $title,
-            'tahun_dash' => $tahun_dash,
-
-            'resiko_monitoring' => $resiko_monitoring,
             'groupedDataResiko_monitoring' => $groupedDataResiko_monitoring,
 
-            'persentaseSelesai' => $persentaseSelesai,
+            'jumlahResiko'       => $jumlahResiko,
+            'avg_inhern'         => $avg_inhern,
+            'avg_exp'            => $avg_exp,
+            'jumlahSelesai'      => $jumlahSelesai,
+            'persentaseSelesai'  => $persentaseSelesai,
             'getKategoriRisk_inhern' => $getKategoriRisk_inhern,
-            'getKategoriRisk_exp' => $getKategoriRisk_exp,
+            'getKategoriRisk_exp'    => $getKategoriRisk_exp,
 
-            'jumlahResiko' => $jumlahResiko,
-            'avg_inhern' => $avg_inhern,
-            'avg_exp' => $avg_exp,
+            'matrixInhern' => $matrixInhern,
+            'matrixExp'    => $matrixExp,
 
-            'listmonitoring' => $monitoring,
-            'listpengukuran' => $pengukuran,
-            'listpengendalian' => $pengendalian,
+            'listapproval' => $approvalDiv,
 
-
+            'organization_name' => $organization_name,
+            'organization_id' => $organization_id,
         ]);
     }
 }

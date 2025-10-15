@@ -106,7 +106,7 @@
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabPengendalian">3. PENGENDALIAN</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabMonitoring">4. MONITORING</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabView">5. APPROVAL</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabDashboard">6. DASHBOARD</a></li>
+
             </ul>
         </div>
 
@@ -1946,7 +1946,17 @@
                                                                         {{-- Kolom dari Monitoring --}}
                                                                         <td>{{ $item->jangka_waktu ?? '-' }}</td>
                                                                         <td>{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                                        <td>{{ $item->status_mitigasi ?? '-' }}</td>
+                                                                        <td>
+
+                                                                            @if(empty($item->status_mitigasi) || $item->status_mitigasi === 'Selesai Dilaksanakan')
+                                                                            <span class="badge badge-success"><b>{{ $item->status_mitigasi }}</b></span>
+                                                                            @elseif($item->status_mitigasi === 'Sedang Dilaksanakan')
+                                                                            <span class="badge badge-info"><b>{{ $item->status_mitigasi }}</b></span>
+                                                                            @elseif($item->status_mitigasi === 'Belum Dilaksanakan')
+                                                                            <span class="badge badge-warning"><b>{{ $item->status_mitigasi }}</b></span>
+                                                                            @endif
+
+                                                                        </td>
                                                                         <td>{{ $item->keterangan ?? '-' }}</td>
                                                                         <td>
                                                                             @if($item?->evidence)
@@ -2235,7 +2245,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#inputModalApproval">
-                                                <i class="fa fa-plus"></i>&nbsp;REQUEST APPROVAL
+                                                <i class="fa fa-plus"></i>&nbsp;REQUEST NEW APPROVAL
                                             </button>
                                         </div>
 
@@ -2255,10 +2265,11 @@
                                                         <tr>
                                                             <th class="align-middle text-center">Tahun</th>
                                                             <th class="align-middle text-center">Divisi</th>
-                                                            <th class="align-middle text-center">Request By</th>
+                                                            <!-- <th class="align-middle text-center">Request By</th> -->
                                                             <th class="align-middle text-center">Approval Name</th>
-                                                            <th class="align-middle text-center">Approval Status</th>
                                                             <th class="align-middle text-center">Keterangan</th>
+                                                            <th class="align-middle text-center">Approval Status</th>
+                                                            <th class="align-middle text-center">Action</th>
 
                                                         </tr>
                                                     </thead>
@@ -2268,7 +2279,7 @@
 
                                                             <td class="align-middle text-center">{{ $item->tahun ?? '-' }}</td>
                                                             <td class="align-middle text-center">{{ $item->namaDivisi['organization_name'] ?? '-'}}</td>
-                                                            <td class="align-middle text-center">{{ $item->namaPekerja['email'] ?? '-' }}</td>
+                                                            <!-- <td class="align-middle text-center">{{ $item->namaPekerja['email'] ?? '-' }}</td> -->
 
                                                             @php
                                                             $statusMap = [
@@ -2280,8 +2291,38 @@
                                                             @endphp
 
                                                             <td class="align-middle text-center">{{ $statusMap[$item->app_name] ?? $item->app_name ?? '-' }}</td>
-                                                            <td class="align-middle text-center">{{ $item->app_status ?? '-' }}</td>
                                                             <td class="align-middle text-center">{{ $item->keterangan ?? '-' }}</td>
+                                                            <td class="align-middle text-center">
+
+                                                                @if(empty($item->app_status) || $item->app_status === 'Verified by MR')
+                                                                <span class="badge badge-success"><b>{{ $item->app_status }}</b></span>
+                                                                @elseif($item->app_status === 'Hold by MR')
+                                                                <span class="badge badge-info"><b>{{ $item->app_status }}</b></span>
+                                                                @elseif($item->app_status === 'Request Approval')
+                                                                <span class="badge badge-info"><b>{{ $item->app_status }}</b></span>
+                                                                @elseif($item->app_status === 'Approve - Review MR')
+                                                                <span class="badge badge-info"><b>{{ $item->app_status }}</b></span>
+                                                                @elseif($item->app_status === 'Hold')
+                                                                <span class="badge badge-warning"><b>{{ $item->app_status }}</b></span>
+
+                                                                @endif
+
+
+                                                            </td>
+                                                            <td class="align-middle text-center">
+
+                                                                @if(empty($item->app_status) || $item->app_status === 'Verified by MR')
+                                                                <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ViewApproval{{$item->id}}" data-id="{{$item->id}}">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                                @else
+                                                                <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#EditApproval{{$item->id}}" data-id="{{$item->id}}">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                @endif
+
+                                                            </td>
+
 
                                                         </tr>
                                                         @endforeach
@@ -2358,7 +2399,6 @@
                                                 <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
                                                 <div class="col-md-8 col-sm-8">
                                                     <textarea rows="2" name="keterangan" class="form-control">{{ $item->keterangan }}</textarea>
-
                                                 </div>
                                             </div>
 
@@ -2538,171 +2578,398 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. Dashboard -->
-            <div class="tab-pane fade" id="tabDashboard">
-                <div class="card">
-                    <div class="col-md-12 col-sm-12 ">
-
-                        <body data-theme="light" class="font-nunito">
-                            <div id="wrapper" class="theme-cyan">
-                                <div class="block-header">
-                                    <div class="row align-items-center mb-3">
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <h6 class="mb-0"><b>MONITORING RESIKO</b></h6>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <form method="GET" action="{{ route('input-risk') }}" class="d-flex justify-content-end align-items-center">
-                                                <label for="tahun" class="mb-0 mr-2"><b>Tahun</b></label>
-                                                <select name="tahun" id="tahun" class="form-control" style="width: 100px;" onchange="this.form.submit()">
-                                                    @foreach(range(date('Y'), 2020) as $year)
-                                                    <option value="{{ $year }}" {{ $year == $tahun_pengendalian ? 'selected' : '' }}>
-                                                        {{ $year }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </form>
-                                        </div>
+                        <!-- Edit Approval -->
+                        @foreach ($listapproval as $item)
+                        <div class="modal fade" id="EditApproval{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="EditApprovalLabel{{$item->id}}" aria-hidden="true">
+                            <div class="modal-dialog modal-xl custom-width" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="EditApproval{{$item->id}}">Form Edit Approval</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                </div>
-                            </div>
-                        </body>
+                                    <div class="modal-body">
+                                        <form action="{{ route('input-approval-update', ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="_method" value="PUT">
 
-                        <div class="row">
-                            <!-- Widget Jumlah Resiko -->
-                            <div class="col-lg-3 col-md-6 mb-4">
-                                <div class="card top_widget l-turquoise h-80">
-                                    <div class="body">
-                                        <div class="icon bg-light"><i class="fa fa-check-square"></i> </div>
-                                        <div class="content text-light">
-                                            <div class="text mb-2 text-uppercase"><b>JUMLAH RESIKO</b></div>
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tahun</label>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <select name="tahun" class="form-control" style="height: 34px;">
+                                                        @foreach(range(date('Y'), 2020) as $year)
+                                                        <option value="{{ $year }}">{{ $year }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Divisi</label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <input type="text" name="divisi_nama" class="form-control" value="{{ $item->namaDivisi['organization_name'] }}" disabled>
+                                                    <input type="hidden" name="divisi_id" value="{{ $item->divisi_id }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kepala Divisi</label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <input type="text" name="app_kadiv_nama" class="form-control" value="{{ $item->namaKadiv->first_name . ' ' . $item->namaKadiv->last_name }}" disabled>
+                                                    <input type="hidden" name="app_kadiv" value="{{ $item->app_kadiv }}">
+                                                    <input type="hidden" name="user_id" value="{{ $item->user_id }}">
+                                                    <input type="hidden" name="app_status" value="Request Approval">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Request Approval</label>
+                                                <div class="col-md-2 col-sm-2">
+
+                                                    @php
+                                                    $statusMap = [
+                                                    1 => 'Approval TW I',
+                                                    2 => 'Approval TW II',
+                                                    3 => 'Approval TW III',
+                                                    4 => 'Approval TW IV',
+                                                    ];
+                                                    @endphp
+
+
+                                                    <input type="text" name="app_status_nama" class="form-control" value="{{ $statusMap[$item->app_name] ?? '-' }}" disabled>
+                                                    <input type="hidden" name="app_name" value="{{ $item->app_name }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <textarea rows="2" name="keterangan" class="form-control" value="{{ $item->keterangan  }}"> {{ $item->keterangan  }}</textarea>
+                                                </div>
+                                            </div>
+
                                             <hr>
 
-                                            <small class="text-uppercase">TOTAL </small>
-                                            <h5 class="number mb-2">{{$jumlahResiko}}<span class="font-10"></h5>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Widget Inhern -->
-                            <div class="col-lg-3 col-md-6 mb-4">
-                                <div class="card top_widget l-parpl h-80">
-                                    <div class="body">
-                                        <div class="icon bg-light"><i class="fa fa-signal"></i> </div>
-                                        <div class="content text-light">
-                                            <div class="text mb-2 text-uppercase"><b>NILAI INHERN</b></div>
-                                            <hr>
-
-                                            <small class="text-uppercase">Nilai</small>
-                                            <h5 class="number mb-2">{{$avg_inhern}} - {{$getKategoriRisk_inhern}}<span class="font-10"></h5>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Widget Expected -->
-                            <div class="col-lg-3 col-md-6 mb-4">
-                                <div class="card top_widget l-coral h-80">
-                                    <div class="body">
-                                        <div class="icon bg-light"><i class="fa fa-gears"></i> </div>
-                                        <div class="content text-light">
-                                            <div class="text mb-2 text-uppercase"><b>NILAI EXPECTED</b></div>
-                                            <hr>
-
-                                            <small class="text-uppercase">Nilai</small>
-                                            <h5 class="number mb-2">{{$avg_exp}} - {{$getKategoriRisk_exp}}<span class="font-10"></h5>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Widget Laba Kotor -->
-                            <div class="col-lg-3 col-md-6 mb-4">
-                                <div class="card top_widget l-slategray h-80">
-                                    <div class="body">
-                                        <div class="icon bg-light"><i class="fa fa-money"></i> </div>
-                                        <div class="content text-light">
-                                            <div class="text mb-2 text-uppercase"><b>STATUS</b></div>
-                                            <hr>
-
-                                            <small class="text-uppercase">Terselesaikan</small>
-                                            <h5 class="number mb-2">{{$persentaseSelesai}}% <span class="font-10"></h5>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="x_panel">
-                            <div class="x_content">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="table-responsive">
-                                            <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
-                                                <thead class="thead-light">
-                                                    <tr>
-                                                        <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                        <th class="align-middle text-center" style="width: 90%;">Daftar Monitoring Resiko</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($groupedDataResiko_monitoring as $tahun => $listResiko)
-                                                    <tr>
-                                                        <td class="align-middle text-center">{{ $tahun }}</td>
-                                                        <td>
-                                                            <table class="table table-bordered m-0">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center sticky-col left-col-0">Nama Resiko</th>
-                                                                        <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
-                                                                        <th class="text-center">Nilai Inhern</th>
-                                                                        <th class="text-center">Kategori Inhern</th>
-                                                                        <th class="text-center">Nilai Expected</th>
-                                                                        <th class="text-center">Kategori Expected</th>
-                                                                        <th class="text-center">Status</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($listResiko as $resiko)
+                                            <div class="x_panel">
+                                                <div class="x_content">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="table-responsive">
+                                                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                                    <thead class="thead-light">
+                                                                        <tr>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                                        </tr>
+                                                                    </thead>
 
                                                                     @php
-                                                                    $item = $listmonitoring->get($resiko->id);
-                                                                    $item_pengendalian = $listpengendalian->get($resiko->id);
-                                                                    $item_pengukuran = $listpengukuran->get($resiko->id);
+                                                                    // === HANYA DATA UNTUK MODAL/APP DIVISI INI ===
+                                                                    $detail = $list_approval_detail
+                                                                    ->where('app_divisi_id', $item->id)
+                                                                    ->values();
+
+                                                                    // Group bertingkat: sasaran -> tujuan -> event
+                                                                    $grouped = $detail
+                                                                    ->groupBy('sasaran_nama')
+                                                                    ->map(function ($tujuanGroup) {
+                                                                    return $tujuanGroup->groupBy('tujuan_nama')
+                                                                    ->map(function ($eventGroup) {
+                                                                    return $eventGroup->groupBy('event_nama');
+                                                                    });
+                                                                    });
                                                                     @endphp
 
-                                                                    <tr>
-                                                                        <td>{{ $resiko->resiko_nama }}</td>
-                                                                        <td>{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
-                                                                        {{-- Kolom dari Pengukuran --}}
-                                                                        <td class="text-right">{{ $item_pengukuran->inhern_nilai ?? '-' }}</td>
-                                                                        <td class="text-center">{{ $item_pengukuran->namaBobotInhern->bobot_kategori ?? '-' }}</td>
-                                                                        {{-- Kolom dari Pengendalian --}}
-                                                                        <td class="text-right">{{ $item_pengendalian->exp_nilai ?? '-' }}</td>
-                                                                        <td class="text-center">{{ $item_pengendalian->namaBobotExp->bobot_kategori ?? '-' }}</td>
-                                                                        <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
-                                                                    </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                                    <tbody>
+                                                                        @foreach ($grouped as $sasaran => $tujuanGroup)
+                                                                        @php $sasaranRowspan = $tujuanGroup->flatten(2)->count(); @endphp
+                                                                        @foreach ($tujuanGroup as $tujuan => $eventGroup)
+                                                                        @php $tujuanRowspan = $eventGroup->flatten(1)->count(); @endphp
+                                                                        @foreach ($eventGroup as $event => $rows)
+                                                                        @php $eventRowspan = $rows->count(); @endphp
+                                                                        @foreach ($rows as $index => $item)
+                                                                        <tr>
+                                                                            {{-- SASARAN --}}
+                                                                            @if ($loop->parent->first && $loop->parent->parent->first && $index == 0)
+                                                                            <td rowspan="{{ $sasaranRowspan }}">{{ $sasaran ?? '-' }}</td>
+                                                                            @endif
+
+                                                                            {{-- TUJUAN --}}
+                                                                            @if ($loop->parent->first && $index == 0)
+                                                                            <td rowspan="{{ $tujuanRowspan }}">{{ $tujuan ?? '-' }}</td>
+                                                                            @endif
+
+                                                                            {{-- EVENT --}}
+                                                                            @if ($index == 0)
+                                                                            <td rowspan="{{ $eventRowspan }}">{{ $event ?? '-' }}</td>
+                                                                            @endif
+
+                                                                            {{-- Kolom lain tetap biasa --}}
+                                                                            <td>{{ $item->kategori_nama ?? '-' }}</td>
+                                                                            <td>{{ $item->resiko_nama }}</td>
+                                                                            <td>{{ $item->resiko_penyebab ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->dampak ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->strategi ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->rencana ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->evidence ?? '-' }}</td>
+                                                                        </tr>
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <hr>
+                                            <button type=" submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp; <b>REQUEST APPROVAL</b></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+
+                        <!-- View Approval -->
+                        @foreach ($listapproval as $item)
+                        <div class="modal fade" id="ViewApproval{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="ViewApprovalLabel{{$item->id}}" aria-hidden="true">
+                            <div class="modal-dialog modal-xl custom-width" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ViewApproval{{$item->id}}">View Approval</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('input-approval-update', ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="_method" value="PUT">
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tahun</label>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <select name="tahun" class="form-control" style="height: 34px;" disabled>
+                                                        @foreach(range(date('Y'), 2020) as $year)
+                                                        <option value="{{ $year }}">{{ $year }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Divisi</label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <input type="text" name="divisi_nama" class="form-control" value="{{ $item->namaDivisi['organization_name'] }}" disabled>
+                                                    <input type="hidden" name="divisi_id" value="{{ $item->divisi_id }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kepala Divisi</label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <input type="text" name="app_kadiv_nama" class="form-control" value="{{ $item->namaKadiv->first_name . ' ' . $item->namaKadiv->last_name }}" disabled>
+                                                    <input type="hidden" name="app_kadiv" value="{{ $item->app_kadiv }}">
+                                                    <input type="hidden" name="user_id" value="{{ $item->user_id }}">
+                                                    <input type="hidden" name="app_status" value="Request Approval">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Request Approval</label>
+                                                <div class="col-md-2 col-sm-2">
+
+                                                    @php
+                                                    $statusMap = [
+                                                    1 => 'Approval TW I',
+                                                    2 => 'Approval TW II',
+                                                    3 => 'Approval TW III',
+                                                    4 => 'Approval TW IV',
+                                                    ];
+                                                    @endphp
+
+
+                                                    <input type="text" name="app_status_nama" class="form-control" value="{{ $statusMap[$item->app_name] ?? '-' }}" disabled>
+                                                    <input type="hidden" name="app_name" value="{{ $item->app_name }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <textarea rows="2" name="keterangan" class="form-control" value="{{ $item->keterangan  }}" disabled> {{ $item->keterangan  }}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="x_panel">
+                                                <div class="x_content">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="table-responsive">
+                                                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                                    <thead class="thead-light">
+                                                                        <tr>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
+                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    @php
+                                                                    // === HANYA DATA UNTUK MODAL/APP DIVISI INI ===
+                                                                    $detail = $list_approval_detail
+                                                                    ->where('app_divisi_id', $item->id)
+                                                                    ->values();
+
+                                                                    // Group bertingkat: sasaran -> tujuan -> event
+                                                                    $grouped = $detail
+                                                                    ->groupBy('sasaran_nama')
+                                                                    ->map(function ($tujuanGroup) {
+                                                                    return $tujuanGroup->groupBy('tujuan_nama')
+                                                                    ->map(function ($eventGroup) {
+                                                                    return $eventGroup->groupBy('event_nama');
+                                                                    });
+                                                                    });
+                                                                    @endphp
+
+                                                                    <tbody>
+                                                                        @foreach ($grouped as $sasaran => $tujuanGroup)
+                                                                        @php $sasaranRowspan = $tujuanGroup->flatten(2)->count(); @endphp
+                                                                        @foreach ($tujuanGroup as $tujuan => $eventGroup)
+                                                                        @php $tujuanRowspan = $eventGroup->flatten(1)->count(); @endphp
+                                                                        @foreach ($eventGroup as $event => $rows)
+                                                                        @php $eventRowspan = $rows->count(); @endphp
+                                                                        @foreach ($rows as $index => $item)
+                                                                        <tr>
+                                                                            {{-- SASARAN --}}
+                                                                            @if ($loop->parent->first && $loop->parent->parent->first && $index == 0)
+                                                                            <td rowspan="{{ $sasaranRowspan }}">{{ $sasaran ?? '-' }}</td>
+                                                                            @endif
+
+                                                                            {{-- TUJUAN --}}
+                                                                            @if ($loop->parent->first && $index == 0)
+                                                                            <td rowspan="{{ $tujuanRowspan }}">{{ $tujuan ?? '-' }}</td>
+                                                                            @endif
+
+                                                                            {{-- EVENT --}}
+                                                                            @if ($index == 0)
+                                                                            <td rowspan="{{ $eventRowspan }}">{{ $event ?? '-' }}</td>
+                                                                            @endif
+
+                                                                            {{-- Kolom lain tetap biasa --}}
+                                                                            <td>{{ $item->kategori_nama ?? '-' }}</td>
+                                                                            <td>{{ $item->resiko_nama }}</td>
+                                                                            <td>{{ $item->resiko_penyebab ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->dampak ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->strategi ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->rencana ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
+                                                                            <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->evidence ?? '-' }}</td>
+                                                                        </tr>
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <hr>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>

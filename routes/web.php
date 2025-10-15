@@ -76,13 +76,15 @@ Route::get('/input-approval-edit', [ApprovalController::class, 'edit'])->name('i
 Route::match(['put', 'patch'], '/input-approval-update/{id}', [ApprovalController::class, 'update'])->name('input-approval-update');
 Route::get('/input-approval-delete/{id}', [ApprovalController::class, 'destroy'])->name('input-approval-delete');
 
+Route::get('/input-approval-mr', [ApprovalController::class, 'index_mr'])->name('input-approval-mr');
+
 
 // Dashboard
 Route::get('/dashboard', [ResikoController::class, 'index_dash'])->name('dashboard');
 Route::get('/chart-divisi/{tahun?}', [ResikoController::class, 'chartDivisi'])->name('chart.divisi');
 Route::get('/chart/kategori-heatmap', [ResikoController::class, 'rataRataInhernKategori'])->name('chart.kategori.heatmap');
-
 Route::get('/dashboard-list-divisi', [ResikoController::class, 'index_dash_divisi'])->name('dashboard-list-divisi');
+Route::get('/dashboard-divisi', [ResikoController::class, 'index_divisi_dash'])->name('dashboard-divisi');
 
 
 // Risk Register @masing-masing divisi

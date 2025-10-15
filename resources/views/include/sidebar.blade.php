@@ -42,11 +42,13 @@
                                <ul>
                                    <li><a href="/dashboard">Dashboard MUJ</a></li>
                                    <li><a href="/dashboard-list-divisi">List Resiko MUJ</a></li>
+
                                </ul>
                            </li>
                            <li>
                                <a href="#App" class="has-arrow"><i class="fa fa-th-large"></i><span>RISK REGISTER</span></a>
                                <ul>
+                                   <li><a href="/dashboard-divisi">Dashboard Divisi</a></li>
                                    <li><a href="/input-risk">Input Resiko Divisi</a></li>
                                </ul>
                            </li>
@@ -54,6 +56,12 @@
                                <a href="#App" class="has-arrow"><i class="fa fa-th-large"></i><span>APPROVAL</span></a>
                                <ul>
                                    <li><a href="/input-approval">Approval Divisi</a></li>
+                               </ul>
+                           </li>
+                           <li>
+                               <a href="#App" class="has-arrow"><i class="fa fa-th-large"></i><span>APPROVAL MR</span></a>
+                               <ul>
+                                   <li><a href="/input-approval-mr">Approval Manrisk</a></li>
                                </ul>
                            </li>
 

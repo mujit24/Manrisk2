@@ -39,37 +39,36 @@
     }
 </style>
 <style>
-    /* Sticky Columns */
-    .sticky-col {
-        position: sticky;
-        background-color: white;
-        z-index: 2;
+    .form-inline .form-group {
+        display: flex;
+        align-items: center;
     }
 
-    .left-col-0 {
-        left: 0;
-        z-index: 3;
+    .form-inline label {
+        margin-bottom: 0;
+        font-size: 13px;
+        color: #2b6777;
     }
 
-    .left-col-1 {
-        left: 180px;
+    .form-inline select,
+    .form-inline button {
+        font-size: 13px;
     }
 
-    .left-col-2 {
-        left: 360px;
-    }
+    @media (max-width: 991px) {
+        .form-inline {
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
-    .left-col-3 {
-        left: 540px;
-    }
-
-    /* Sticky TH fix */
-    thead .sticky-col {
-        background-color: rgb(87, 91, 96) !important;
-        color: white !important;
-        z-index: 4;
+        .form-inline .form-group {
+            width: 100%;
+            justify-content: flex-start;
+        }
     }
 </style>
+
+
 
 <div class="block-header">
     <div class="row">
@@ -104,23 +103,80 @@
                 <div id="wrapper" class="theme-cyan">
                     <div class="block-header">
                         <div class="row align-items-center mb-3">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <h6 class="mb-0"><b>LIST RESIKO DIVISI</b></h6>
+                            <div class="col-lg-3 col-md-12 col-sm-12 mb-2 mb-lg-0">
+                                <h6 class="mb-0 font-weight-bold text-uppercase text-success">LIST RESIKO DIVISI</h6>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <form method="GET" action="{{ route('dashboard-list-divisi') }}" class="d-flex justify-content-end align-items-center">
-                                    <label for="tahun" class="mb-0 mr-2"><b>Tahun</b></label>
-                                    <select name="tahun" id="tahun" class="form-control" style="width: 100px;" onchange="this.form.submit()">
-                                        @foreach(range(date('Y'), 2020) as $year)
-                                        <option value="{{ $year }}" {{ $year == $tahun_dash ? 'selected' : '' }}>
-                                            {{ $year }}
-                                        </option>
-                                        @endforeach
-                                    </select>
+
+                            <div class="col-lg-9 col-md-12 col-sm-12">
+                                {{-- FORM FILTER --}}
+                                <form method="GET" action="{{ route('dashboard-list-divisi') }}"
+                                    class="form-inline justify-content-end flex-wrap">
+
+                                    @php
+                                    $twNow = request('tw', 'all');
+                                    $katNow = request('kategori', 'all');
+                                    $thNow = request('tahun', $tahun_dash ?? date('Y'));
+                                    $twLabel = [1=>'Triwulan 1',2=>'Triwulan 2',3=>'Triwulan 3',4=>'Triwulan 4'];
+                                    @endphp
+
+                                    {{-- Filter Triwulan --}}
+                                    <div class="form-group mr-2 mb-2">
+                                        <label for="tw" class="mr-2 font-weight-bold">Triwulan</label>
+                                        <select name="tw" id="tw" class="form-control form-control-sm" style="width:130px;">
+                                            <option value="all" {{ $twNow==='all' ? 'selected' : '' }}>All</option>
+                                            @foreach([1,2,3,4] as $tw)
+                                            <option value="{{ $tw }}" {{ (string)$tw === (string)$twNow ? 'selected' : '' }}>
+                                                {{ $twLabel[$tw] }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Filter Kategori --}}
+
+                                    @php
+                                    $katNow = request('kategori', 'all');
+                                    @endphp
+
+                                    <div class="form-group mr-2 mb-2">
+                                        <label for="kategori" class="mr-2 font-weight-bold">Kategori</label>
+                                        <select name="kategori" id="kategori" class="form-control form-control-sm" style="min-width:180px;">
+                                            <option value="all" {{ $katNow==='all' ? 'selected' : '' }}>All</option>
+                                            @forelse($kategoriOptions ?? [] as $opt)
+                                            <option value="{{ $opt->kategori_nama }}"
+                                                {{ (string)$opt->kategori_nama === (string)$katNow ? 'selected' : '' }}>
+                                                {{ $opt->kategori_nama }}
+                                            </option>
+                                            @empty
+                                            <option value="" disabled>— Tidak ada kategori —</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+
+                                    {{-- Filter Tahun --}}
+                                    <div class="form-group mr-2 mb-2">
+                                        <label for="tahun" class="mr-2 font-weight-bold">Tahun</label>
+                                        <select name="tahun" id="tahun" class="form-control form-control-sm" style="width:110px;">
+                                            @foreach(range(date('Y'), 2020) as $year)
+                                            <option value="{{ $year }}" {{ (string)$year === (string)$thNow ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Tombol Filter --}}
+                                    <div class="form-group mb-2">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fa fa-filter"></i> Filter
+                                        </button>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </body>
 
@@ -132,25 +188,25 @@
                                 <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
                                     <thead class="thead-light">
                                         <tr>
-                                        <tr>
-                                            <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                            <th class="align-middle text-center" style="width: 15%;">Divisi</th>
-                                            <th class="align-middle text-center" style="width: 75%;">Daftar Monitoring Resiko</th>
-                                        </tr>
+                                            <th class="align-middle text-center" style="width:10%;">Tahun</th>
+                                            <th class="align-middle text-center" style="width:15%;">Divisi</th>
+                                            <th class="align-middle text-center" style="width:15%;">Approval</th>
+                                            <th class="align-middle text-center" style="width:75%;">Detail Resiko</th>
                                         </tr>
                                     </thead>
+
+                                    @php $twMap = [1=>'Triwulan 1',2=>'Triwulan 2',3=>'Triwulan 3',4=>'Triwulan 4']; @endphp
+
                                     <tbody>
                                         @foreach ($groupedDataResiko_monitoring as $key => $listResiko)
-
                                         @php
-                                        [$tahun, $divisi_nama, $divisi_id] = explode('|', $key);
+                                        $parts = explode('|', $key);
+                                        [$tahunRow, $divisi_nama, $divisi_id, $app_name] = array_pad($parts, 4, null);
                                         @endphp
-
                                         <tr>
-                                            <td class="align-middle text-center">{{ $tahun }}</td>
-                                            <td class="align-middle text-center">
-                                                <a href="{{ route('input-risk-divisi', ['id' => $divisi_id]) }}">{{ $divisi_nama }}</a>
-                                            </td>
+                                            <td class="align-middle text-center">{{ $tahunRow }}</td>
+                                            <td class="align-middle text-center">{{ $divisi_nama }}</td>
+                                            <td class="align-middle text-center">{{ $twMap[(int)$app_name] ?? '-' }}</td>
                                             <td>
                                                 <table class="table table-bordered m-0">
                                                     <thead>
@@ -161,45 +217,49 @@
                                                             <th class="text-center">P Inhern</th>
                                                             <th class="text-center">Nilai Inhern</th>
                                                             <th class="text-center">Kategori Inhern</th>
-                                                            <th class="text-center">Penngendalian Resiko</th>
+                                                            <th class="text-center">Pengendalian Risiko</th>
                                                             <th class="text-center">D Expected</th>
                                                             <th class="text-center">P Expected</th>
                                                             <th class="text-center">Nilai Expected</th>
                                                             <th class="text-center">Kategori Expected</th>
                                                             <th class="text-center">Status</th>
-
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($listResiko as $resiko)
-
-                                                        @php
-                                                        $item = $listmonitoring->get($resiko->id);
-                                                        $item_pengendalian = $listpengendalian->get($resiko->id);
-                                                        $item_pengukuran = $listpengukuran->get($resiko->id);
-                                                        @endphp
-
+                                                        @forelse ($listResiko as $d)
                                                         <tr>
-                                                            <td>{{ $resiko->resiko_nama }}</td>
-                                                            <td>{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
-                                                            <td class="text-right">{{ $item_pengukuran->namaKemungkinan->kmn_level ?? '-' }}</td>
-                                                            <td class="text-right">{{ $item_pengukuran->namaDampak->dampak_level ?? '-' }}</td>
-                                                            <td class="text-right">{{ $item_pengukuran->inhern_nilai ?? '-' }}</td>
-                                                            <td class="text-center">{{ $item_pengukuran->namaBobotInhern->bobot_kategori ?? '-' }}</td>
-                                                            <td class="text-left">{{ $item_pengendalian->rencana ?? '-' }}</td>
-                                                            <td class="text-right">{{ $item_pengendalian->namaKemungkinan->kmn_level ?? '-' }}</td>
-                                                            <td class="text-right">{{ $item_pengendalian->namaDampak->dampak_level ?? '-' }}</td>
-                                                            <td class="text-right">{{ $item_pengendalian->exp_nilai ?? '-' }}</td>
-                                                            <td class="text-center">{{ $item_pengendalian->namaBobotExp->bobot_kategori ?? '-' }}</td>
-                                                            <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
+                                                            <td>{{ $d->resiko_nama }}</td>
+                                                            <td>{{ $d->kategori_nama ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->inhern_dampak ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->inhern_kemungkinan ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->inhern_nilai ?? '-' }}</td>
+                                                            <td class="text-center">{{ $d->inhern_bobot ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->rencana ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->exp_dampak ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->exp_kemungkinan ?? '-' }}</td>
+                                                            <td class="text-right">{{ $d->exp_nilai ?? '-' }}</td>
+                                                            <td class="text-center">{{ $d->exp_bobot ?? '-' }}</td>
+                                                            <td class="text-center">
 
+                                                                @if(empty($d->status_mitigasi) || $d->status_mitigasi === 'Selesai Dilaksanakan')
+                                                                <span class="badge badge-success"><b>{{ $d->status_mitigasi }}</b></span>
+                                                                @elseif($d->status_mitigasi === 'Sedang Dilaksanakan')
+                                                                <span class="badge badge-info"><b>{{ $d->status_mitigasi }}</b></span>
+                                                                @elseif($d->status_mitigasi === 'Belum Dilaksanakan')
+                                                                <span class="badge badge-warning"><b>{{ $d->status_mitigasi }}</b></span>
+                                                                @endif
+
+                                                            </td>
                                                         </tr>
-                                                        @endforeach
+                                                        @empty
+                                                        <tr>
+                                                            <td colspan="12" class="text-center text-muted">Tidak ada data.</td>
+                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </td>
                                         </tr>
-
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -211,6 +271,7 @@
         </div>
     </div>
 </div>
+
 
 
 @endsection
