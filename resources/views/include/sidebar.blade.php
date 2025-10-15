@@ -68,7 +68,7 @@
                            <li>
                                <a href="#App" class="has-arrow"><i class="fa fa-gears"></i><span>MASTER</span></a>
                                <ul>
-                                   <li class="{{ Request::is('divisi') ? 'active' : '' }}"><a href="/input-divisi">Divisi</a></li>
+
                                    <li class="{{ Request::is('kemungkinan') ? 'active' : '' }}"><a href="/input-kemungkinan">Kemungkinan</a></li>
                                    <li class="{{ Request::is('kategori') ? 'active' : '' }}"><a href="/input-kategori">Kategori</a></li>
                                    <li class="{{ Request::is('dampak') ? 'active' : '' }}"><a href="/input-dampak">Dampak</a></li>

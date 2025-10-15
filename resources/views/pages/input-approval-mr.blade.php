@@ -289,7 +289,7 @@
                                                     <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
                                                     <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
                                                     <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5ff;">Exp Nilai</th>
                                                     <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
                                                     <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
                                                     <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>

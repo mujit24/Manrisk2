@@ -299,7 +299,6 @@
                                                     <thead>
                                                         <tr>
 
-
                                                             <th class="text-center sticky-col left-col-0">Nama Resiko</th>
                                                             <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
                                                             <th class="text-center">Penyebab Resiko</th>
