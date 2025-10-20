@@ -7,6 +7,57 @@
     }
 </style>
 
+<style>
+    /* Kunci perilaku tabel */
+    .table-fixed {
+        table-layout: fixed;
+        /* penting: paksa patuhi width kolom */
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        /* biar teks turun baris */
+        word-break: break-word !important;
+    }
+
+    /* Level tabel utama */
+    .col-tahun {
+        width: 15% !important;
+        text-align: center;
+    }
+
+    .col-tujuan-list {
+        width: 85% !important;
+    }
+
+    /* Tabel di dalam kolom "Daftar Tujuan" */
+    .col-sasaran {
+        width: 30% !important;
+    }
+
+    .col-tujuan {
+        width: 75% !important;
+    }
+
+    /* kolom isi tujuan */
+    .col-action {
+        width: 25% !important;
+        text-align: center;
+    }
+
+    /* kolom aksi */
+    .col-action a {
+        margin: 2px;
+    }
+
+    /* tombol rapi */
+</style>
+
+
 <body data-theme="light" class="font-nunito">
     <div id="wrapper" class="theme-cyan">
         <div class="block-header">
@@ -214,35 +265,33 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="table-responsive">
-                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                        <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                             <thead class="thead-light">
                                                 <tr>
-
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
-
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Sasaran</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Tujuan</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Event</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Strategi</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prosedur</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Level</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Dampak</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prb Kategori</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Level</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Peluang perbaikan</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Status</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                 </tr>
                                             </thead>
 
@@ -315,7 +364,6 @@
                                                 @endforeach
                                                 @endforeach
                                             </tbody>
-
                                         </table>
 
                                     </div>

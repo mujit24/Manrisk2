@@ -38,6 +38,7 @@
         color: black;
     }
 </style>
+
 <style>
     /* Sticky Columns */
     .sticky-col {
@@ -52,7 +53,7 @@
     }
 
     .left-col-1 {
-        left: 180px;
+        left: 10px;
     }
 
     .left-col-2 {
@@ -71,6 +72,328 @@
     }
 </style>
 
+<!-- Table Tujuan -->
+<style>
+    /* Kunci perilaku tabel */
+    .table-fixed {
+        table-layout: fixed;
+        /* penting: paksa patuhi width kolom */
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        /* biar teks turun baris */
+        word-break: break-word !important;
+    }
+
+    /* Level tabel utama */
+    .col-tahun {
+        width: 15% !important;
+        text-align: center;
+    }
+
+    .col-tujuan-list {
+        width: 85% !important;
+    }
+
+    /* Tabel di dalam kolom "Daftar Tujuan" */
+    .col-sasaran {
+        width: 30% !important;
+    }
+
+    .col-tujuan {
+        width: 75% !important;
+    }
+
+    /* kolom isi tujuan */
+    .col-action {
+        width: 25% !important;
+        text-align: center;
+    }
+
+    /* kolom aksi */
+    .col-action a {
+        margin: 2px;
+    }
+
+    /* tombol rapi */
+</style>
+
+<!-- Table Event -->
+<style>
+    .table-fixed {
+        table-layout: fixed;
+        width: 100%;
+        word-wrap: break-word
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        word-break: break-word !important
+    }
+
+    /* Level 1 (utama) */
+    .col-thn-10 {
+        width: 10% !important;
+        text-align: center
+    }
+
+    .col-main-90 {
+        width: 90% !important
+    }
+
+    /* Level 2 (dalam "Daftar Sasaran, Tujuan & Event") */
+    .col-sasaran-20 {
+        width: 20% !important
+    }
+
+    .col-tujuanlist-80 {
+        width: 80% !important
+    }
+
+    /* Level 3 (dalam "List Tujuan") */
+    .col-tujuan-20 {
+        width: 20% !important
+    }
+
+    .col-eventlist-80 {
+        width: 80% !important
+    }
+
+    /* Level 4 (dalam "List Event") */
+    .col-event-85 {
+        width: 85% !important
+    }
+
+    .col-action-15 {
+        width: 15% !important;
+        text-align: center
+    }
+
+    .col-action-15 a {
+        margin: 2px
+    }
+
+    /* Hilangkan padding berlebihan antar tabel bersarang */
+    .table-nested {
+        margin: 0
+    }
+</style>
+
+<!-- Table Resiko -->
+<style>
+    /* Paksa semua tabel (utama & nested) stabil + wrap teks */
+    .table-fixed {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+
+    /* Lebar kolom level-atas (tahun / konten) */
+    .col-year-10 {
+        width: 10%;
+    }
+
+    .col-wide-90 {
+        width: 90%;
+    }
+
+    /* Lebar kolom nested tingkat 1–3 */
+    .col-20 {
+        width: 20%;
+    }
+
+    .col-80 {
+        width: 80%;
+    }
+
+    /* Lebar kolom nested paling dalam (list resiko) – total = 100% */
+    .col-kategori {
+        width: 20%;
+    }
+
+    .col-nama {
+        width: 30%;
+    }
+
+    .col-penyebab {
+        width: 35%;
+    }
+
+    .col-action15 {
+        width: 15%;
+        text-align: center;
+    }
+
+    .col-action15 .btn {
+        margin: 2px;
+    }
+</style>
+
+<!-- Table Pengukuran -->
+<style>
+    /* Paksa semua tabel (utama & nested) stabil + wrap teks */
+    .table-fixed {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+
+    /* Lebar kolom level-atas (tahun / konten) */
+    .col-year-10 {
+        width: 5%;
+    }
+
+    .col-wide-90 {
+        width: 90%;
+    }
+
+    /* Lebar kolom nested tingkat 1–3 */
+    .col-10 {
+        width: 10%;
+    }
+
+    .col-5 {
+        width: 5%;
+    }
+
+    .col-90 {
+        width: 90%;
+    }
+
+    /* Lebar kolom nested paling dalam (list resiko) – total = 100% */
+    .col-kategori {
+        width: 20%;
+    }
+
+    .col-nama {
+        width: 30%;
+    }
+
+    .col-dampak {
+        width: 35%;
+    }
+
+    .col-strategi {
+        width: 35%;
+    }
+
+    .col-prosedur {
+        width: 35%;
+    }
+
+    .col-action15 {
+        width: 15%;
+        text-align: center;
+    }
+
+    .col-action15 .btn {
+        margin: 2px;
+    }
+</style>
+
+<!-- Table Pengendalian -->
+<style>
+    /* Paksa semua tabel (utama & nested) stabil + wrap teks */
+    .table-fixed {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+
+    /* Lebar kolom level-atas (tahun / konten) */
+    .col-year-5 {
+        width: 5%;
+    }
+
+    .col-wide-95 {
+        width: 95%;
+    }
+
+    /* Lebar kolom nested tingkat 1–3 */
+    .col-10 {
+        width: 10%;
+    }
+
+    .col-5-pengendalian {
+        width: 5%;
+    }
+
+    .col-90 {
+        width: 90%;
+    }
+
+    .col-15 {
+        width: 15%;
+    }
+
+    .col-95-pengendalian {
+        width: 95%;
+    }
+
+    /* Lebar kolom nested paling dalam (list resiko) – total = 100% */
+    .col-kategori {
+        width: 30%;
+    }
+
+    .col-nama {
+        width: 30%;
+    }
+
+    .col-inhern-bobot {
+        width: 10%;
+    }
+
+    .col-inhern-kategori {
+        width: 15%;
+    }
+
+    .col-rencana {
+        width: 35%;
+    }
+
+    .col-pic {
+        width: 20%;
+    }
+
+    .col-action15 {
+        width: 15%;
+        text-align: center;
+    }
+
+    .col-action15 .btn {
+        margin: 2px;
+    }
+</style>
+
+
 <div class="block-header">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -86,14 +409,14 @@
             <div class="d-flex flex-row-reverse">
                 <div class="page_action">
                     <!-- <a href="/muji-input-bisnis" class="btn btn-primary"><i class="fa fa-mail-reply"></i> &nbsp; BACK</a> -->
-                </div>
+                </div
 
-                <div class="p-2 d-flex">
+                    <div class="p-2 d-flex">
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div class="row clearfix">
@@ -184,7 +507,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="table-responsive">
-                                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                        <table id="datatable_sasaran" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
                                                             <thead class="thead-light">
                                                                 <tr>
                                                                     <th class="align-middle text-center" style="width: 10%;">Tahun</th>
@@ -375,43 +698,43 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="table-responsive">
-                                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                        <table id="datatable-tujuan" class="table table-bordered table-hover js-basic-example dataTable" style="width:100%">
                                                             <thead class="thead-light">
                                                                 <tr>
-                                                                    <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                                    <th class="align-middle text-center" style="width: 90%;">Daftar Tujuan</th>
+                                                                    <th class="align-middle text-center col-tahun">Tahun</th>
+                                                                    <th class="align-middle text-center col-tujuan-list">Daftar Tujuan</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach ($groupedDataTujuan as $tahun => $dataTahun)
                                                                 <tr>
-                                                                    <td class="align-middle text-center">{{ $tahun }}</td>
-                                                                    <td>
-                                                                        <table class="table table-bordered m-0">
+                                                                    <td class="align-middle text-center col-tahun">{{ $tahun }}</td>
+                                                                    <td class="col-tujuan-list">
+                                                                        <table class="table table-bordered m-0 table-fixed">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center" style="width: 40%;">Sasaran</th>
-                                                                                    <th class="align-middle text-center" style="width: 60%;">List Tujuan</th>
+                                                                                    <th class="align-middle text-center col-sasaran">Sasaran</th>
+                                                                                    <th class="align-middle text-center col-tujuan">List Tujuan</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
 
                                                                                 @foreach ($dataTahun as $namaSasaran => $itemSasaran)
                                                                                 <tr>
-                                                                                    <td class="align-middle text-center">{{ $namaSasaran }}</td>
+                                                                                    <td class="align-middle text-left">{{ $namaSasaran }}</td>
                                                                                     <td>
-                                                                                        <table class="table table-bordered m-0">
+                                                                                        <table class="table table-bordered table-fixed">
                                                                                             <thead>
                                                                                                 <tr>
-                                                                                                    <th class="align-middle text-center" style="width: 85%;">Tujuan</th>
-                                                                                                    <th class="align-middle text-center" style="width: 15%;">Action</th>
+                                                                                                    <th class="align-middle text-center col-tujuan">Tujuan</th>
+                                                                                                    <th class="align-middle text-center col-action">Action</th>
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
                                                                                                 @foreach ($itemSasaran as $item)
                                                                                                 <tr>
-                                                                                                    <td>{{ $item->tujuan_nama }}</td>
-                                                                                                    <td class="align-middle text-center">
+                                                                                                    <td class="col-tujuan">{{ $item->tujuan_nama }}</td>
+                                                                                                    <td class="col-action">
                                                                                                         <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalTujuan{{$item->id}}" data-id="{{$item->id}}">
                                                                                                             <i class="fa fa-edit"></i>
                                                                                                         </a>
@@ -608,58 +931,87 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="table-responsive">
-                                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                        <table id="datatable-event"
+                                                            class="table table-bordered table-hover dataTable table-fixed" style="width:100%">
+
+                                                            <!-- Kunci width untuk DataTables -->
+                                                            <colgroup>
+                                                                <col style="width:10%">
+                                                                <col style="width:90%">
+                                                            </colgroup>
+
                                                             <thead class="thead-light">
                                                                 <tr>
-                                                                    <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                                    <th class="align-middle text-center" style="width: 90%;">Daftar Sasaran, Tujuan & Event</th>
+                                                                    <th class="align-middle text-center col-thn-10">Tahun</th>
+                                                                    <th class="align-middle text-center col-main-90">Daftar Sasaran, Tujuan & Event</th>
                                                                 </tr>
                                                             </thead>
+
                                                             <tbody>
                                                                 @foreach ($groupedDataEvent as $tahun => $dataTahun)
                                                                 <tr>
-                                                                    <td class="align-middle text-center">{{ $tahun }}</td>
-                                                                    <td>
-                                                                        <table class="table table-bordered m-0">
+                                                                    <td class="align-middle text-center col-thn-10">{{ $tahun }}</td>
+                                                                    <td class="col-main-90">
+                                                                        <!-- Level 2 -->
+                                                                        <table class="table table-bordered table-fixed table-nested">
+                                                                            <colgroup>
+                                                                                <col style="width:20%">
+                                                                                <col style="width:80%">
+                                                                            </colgroup>
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center" style="width: 20%;">Sasaran</th>
-                                                                                    <th class="align-middle text-center" style="width: 80%;">List Tujuan</th>
+                                                                                    <th class="align-middle text-center col-sasaran-20">Sasaran</th>
+                                                                                    <th class="align-middle text-center col-tujuanlist-80">List Tujuan</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 @foreach ($dataTahun as $namaSasaran => $dataSasaran)
                                                                                 <tr>
-                                                                                    <td class="align-middle text-center">{{ $namaSasaran }}</td>
-                                                                                    <td>
-                                                                                        <table class="table table-bordered m-0">
+                                                                                    <td class="align-middle text-left col-sasaran-20">{{ $namaSasaran }}</td>
+                                                                                    <td class="col-tujuanlist-80">
+                                                                                        <!-- Level 3 -->
+                                                                                        <table class="table table-bordered table-fixed table-nested">
+                                                                                            <colgroup>
+                                                                                                <col style="width:20%">
+                                                                                                <col style="width:80%">
+                                                                                            </colgroup>
                                                                                             <thead>
                                                                                                 <tr>
-                                                                                                    <th class="align-middle text-center" style="width: 20%;">Tujuan</th>
-                                                                                                    <th class="align-middle text-center" style="width: 80%;">List Event</th>
+                                                                                                    <th class="align-middle text-center col-tujuan-20">Tujuan</th>
+                                                                                                    <th class="align-middle text-center col-eventlist-80">List Event</th>
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
                                                                                                 @foreach ($dataSasaran as $namaTujuan => $itemTujuan)
                                                                                                 <tr>
-                                                                                                    <td class="align-middle text-center">{{ $namaTujuan }}</td>
-                                                                                                    <td>
-                                                                                                        <table class="table table-bordered m-0">
+                                                                                                    <td class="align-middle text-left col-tujuan-20">{{ $namaTujuan }}</td>
+                                                                                                    <td class="col-eventlist-80">
+                                                                                                        <!-- Level 4 -->
+                                                                                                        <table class="table table-bordered table-fixed table-nested">
+                                                                                                            <colgroup>
+                                                                                                                <col style="width:85%">
+                                                                                                                <col style="width:15%">
+                                                                                                            </colgroup>
                                                                                                             <thead>
                                                                                                                 <tr>
-                                                                                                                    <th class="align-middle text-center" style="width: 85%;">Event</th>
-                                                                                                                    <th class="align-middle text-center" style="width: 15%;">Action</th>
+                                                                                                                    <th class="align-middle text-center col-event-85">Event</th>
+                                                                                                                    <th class="align-middle text-center col-action-15">Action</th>
                                                                                                                 </tr>
                                                                                                             </thead>
                                                                                                             <tbody>
                                                                                                                 @foreach ($itemTujuan as $item)
                                                                                                                 <tr>
-                                                                                                                    <td>{{ $item->event_nama }}</td>
-                                                                                                                    <td class="align-middle text-center">
-                                                                                                                        <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalEvent{{$item->id}}" data-id="{{$item->id}}">
+                                                                                                                    <td class="col-event-85">{{ $item->event_nama }}</td>
+                                                                                                                    <td class="align-middle text-center col-action-15">
+                                                                                                                        <a href="#" class="btn btn-sm btn-info"
+                                                                                                                            data-toggle="modal"
+                                                                                                                            data-target="#editModalEvent{{$item->id}}"
+                                                                                                                            data-id="{{$item->id}}">
                                                                                                                             <i class="fa fa-edit"></i>
                                                                                                                         </a>
-                                                                                                                        <a href="input-event-delete/{{$item->id}}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data?');">
+                                                                                                                        <a href="input-event-delete/{{$item->id}}"
+                                                                                                                            class="btn btn-sm btn-danger"
+                                                                                                                            onclick="return confirm('Yakin Akan Menghapus Data?');">
                                                                                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                                                                                         </a>
                                                                                                                     </td>
@@ -859,11 +1211,11 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="table-responsive">
-                                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                        <table id="datatable-resiko" class="table table-bordered table-hover dataTable table-fixed" style="width:100%">
                                                             <thead class="thead-light">
                                                                 <tr>
-                                                                    <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                                    <th class="align-middle text-center" style="width: 90%;">Daftar Sasaran, Tujuan, Event & Resiko</th>
+                                                                    <th class="align-middle text-center col-year-10">Tahun</th>
+                                                                    <th class="align-middle text-center col-wide-90">Daftar Sasaran, Tujuan, Event & Resiko</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -871,62 +1223,67 @@
                                                                 <tr>
                                                                     <td class="align-middle text-center">{{ $tahun }}</td>
                                                                     <td>
-                                                                        <table class="table table-bordered m-0">
+                                                                        <table class="table table-bordered m-0 table-fixed">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center" style="width: 20%;">Sasaran</th>
-                                                                                    <th class="align-middle text-center" style="width: 80%;">List Tujuan</th>
+                                                                                    <th class="align-middle text-center col-20">Sasaran</th>
+                                                                                    <th class="align-middle text-center col-80">List Tujuan</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 @foreach ($dataTahun as $namaSasaran => $dataSasaran)
                                                                                 <tr>
-                                                                                    <td class="align-middle text-center">{{ $namaSasaran }}</td>
+                                                                                    <td class="align-middle text-left">{{ $namaSasaran }}</td>
                                                                                     <td>
-                                                                                        <table class="table table-bordered m-0">
+                                                                                        <table class="table table-bordered m-0 table-fixed">
                                                                                             <thead>
                                                                                                 <tr>
-                                                                                                    <th class="align-middle text-center" style="width: 20%;">Tujuan</th>
-                                                                                                    <th class="align-middle text-center" style="width: 80%;">List Event</th>
+                                                                                                    <th class="align-middle text-center col-20">Tujuan</th>
+                                                                                                    <th class="align-middle text-center col-80">List Event</th>
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
                                                                                                 @foreach ($dataSasaran as $namaTujuan => $dataTujuan)
                                                                                                 <tr>
-                                                                                                    <td class="align-middle text-center">{{ $namaTujuan }}</td>
+                                                                                                    <td class="align-middle text-left">{{ $namaTujuan }}</td>
                                                                                                     <td>
-                                                                                                        <table class="table table-bordered m-0">
+                                                                                                        <table class="table table-bordered m-0 table-fixed">
                                                                                                             <thead>
                                                                                                                 <tr>
-                                                                                                                    <th class="align-middle text-center" style="width: 20%;">Event</th>
-                                                                                                                    <th class="align-middle text-center" style="width: 80%;">List Resiko</th>
+                                                                                                                    <th class="align-middle text-center col-20">Event</th>
+                                                                                                                    <th class="align-middle text-center col-80">List Resiko</th>
                                                                                                                 </tr>
                                                                                                             </thead>
                                                                                                             <tbody>
                                                                                                                 @foreach ($dataTujuan as $namaEvent => $itemResiko)
                                                                                                                 <tr>
-                                                                                                                    <td class="align-middle text-center">{{ $namaEvent }}</td>
+                                                                                                                    <td class="align-middle text-left">{{ $namaEvent }}</td>
                                                                                                                     <td>
-                                                                                                                        <table class="table table-bordered m-0">
+                                                                                                                        <table class="table table-bordered m-0 table-fixed">
                                                                                                                             <thead>
                                                                                                                                 <tr>
-                                                                                                                                    <th class="align-middle text-center" style="width: 85%;">Kategori Resiko</th>
-                                                                                                                                    <th class="align-middle text-center" style="width: 85%;">Nama Resiko</th>
-                                                                                                                                    <th class="align-middle text-center" style="width: 85%;">Penyebab Resiko</th>
-                                                                                                                                    <th class="align-middle text-center" style="width: 15%;">Action</th>
+                                                                                                                                    <th class="align-middle text-center col-kategori">Kategori Resiko</th>
+                                                                                                                                    <th class="align-middle text-center col-nama">Nama Resiko</th>
+                                                                                                                                    <th class="align-middle text-center col-penyebab">Penyebab Resiko</th>
+                                                                                                                                    <th class="align-middle text-center col-action15">Action</th>
                                                                                                                                 </tr>
                                                                                                                             </thead>
                                                                                                                             <tbody>
                                                                                                                                 @foreach ($itemResiko as $item)
                                                                                                                                 <tr>
-                                                                                                                                    <td>{{$item->namaKategori['kategori_nama']??''}}</td>
+                                                                                                                                    <td>{{ $item->namaKategori['kategori_nama'] ?? '-' }}</td>
                                                                                                                                     <td>{{ $item->resiko_nama }}</td>
                                                                                                                                     <td>{{ $item->resiko_penyebab }}</td>
-                                                                                                                                    <td class="align-middle text-center">
-                                                                                                                                        <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalResiko{{$item->id}}" data-id="{{$item->id}}">
+                                                                                                                                    <td class="col-action15">
+                                                                                                                                        <a href="#" class="btn btn-sm btn-info"
+                                                                                                                                            data-toggle="modal"
+                                                                                                                                            data-target="#editModalResiko{{ $item->id }}"
+                                                                                                                                            data-id="{{ $item->id }}">
                                                                                                                                             <i class="fa fa-edit"></i>
                                                                                                                                         </a>
-                                                                                                                                        <a href="input-resiko-delete/{{$item->id}}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data?');">
+                                                                                                                                        <a href="input-resiko-delete/{{ $item->id }}"
+                                                                                                                                            class="btn btn-sm btn-danger"
+                                                                                                                                            onclick="return confirm('Yakin Akan Menghapus Data?');">
                                                                                                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                                                                                                         </a>
                                                                                                                                     </td>
@@ -954,6 +1311,7 @@
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
+
 
                                                     </div>
                                                 </div>
@@ -1176,31 +1534,32 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="table-responsive">
-                                            <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+
+                                            <table id="datatable-pengukuran" class="table table-bordered table-hover dataTable table-fixed" style="width:100%">
                                                 <thead class="thead-light">
                                                     <tr>
-                                                        <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                        <th class="align-middle text-center" style="width: 90%;">Daftar Pengukuran Resiko</th>
+                                                        <th class="align-middle text-center col-year-10">Tahun</th>
+                                                        <th class="align-middle text-center col-90">Daftar Pengukuran Resiko</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($groupedDataResiko_pengukuran as $tahun => $listResiko)
                                                     <tr>
-                                                        <td class="align-middle text-center">{{ $tahun }}</td>
+                                                        <td class="align-middle text-center col-year-10">{{ $tahun }}</td>
                                                         <td>
-                                                            <table class="table table-bordered m-0">
+                                                            <table class="table table-bordered m-0 table-fixed">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center sticky-col left-col-0">Nama Resiko</th>
-                                                                        <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
-                                                                        <th class="text-center">Dampak</th>
-                                                                        <th class="text-center">Strategi</th>
-                                                                        <th class="text-center">Prosedur</th>
-                                                                        <th class="text-center">Level P</th>
-                                                                        <th class="text-center">Level D</th>
-                                                                        <th class="text-center">Bobot Nilai</th>
-                                                                        <th class="text-center">Bobot Kategori</th>
-                                                                        <th class="text-center">Action</th>
+                                                                        <th class="text-center sticky-col left-col-0 col-nama">Resiko</th>
+                                                                        <th class="text-center sticky-col col-kategori">Kategori</th>
+                                                                        <th class="text-center col-dampak">Dampak</th>
+                                                                        <th class="text-center col-strategi">Strategi</th>
+                                                                        <th class="text-center col-prosedur">Prosedur</th>
+                                                                        <th class="text-center col-10">inh P</th>
+                                                                        <th class="text-center col-10">inh D</th>
+                                                                        <th class="text-center col-10">inh Nilai</th>
+                                                                        <th class="text-center col-10">Kategori</th>
+                                                                        <th class="text-center col-10">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1209,14 +1568,14 @@
                                                                     $item = $listpengukuran->get($resiko->id);
                                                                     @endphp
                                                                     <tr>
-                                                                        <td>{{ $resiko->resiko_nama }}</td>
-                                                                        <td>{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
+                                                                        <td class="sticky-col left-col-0">{{ $resiko->resiko_nama }}</td>
+                                                                        <td class="sticky-col ">{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
                                                                         <td>{{ $item->dampak ?? '-' }}</td>
                                                                         <td>{{ $item->strategi ?? '-' }}</td>
                                                                         <td>{{ $item->prosedur ?? '-' }}</td>
-                                                                        <td>{{ $item->namaKemungkinan->kmn_level ?? '-' }}</td>
-                                                                        <td>{{ $item->namaDampak->dampak_level ?? '-' }}</td>
-                                                                        <td>{{ $item->inhern_nilai ?? '-' }}</td>
+                                                                        <td class="text-right">{{ $item->namaKemungkinan->kmn_level ?? '-' }}</td>
+                                                                        <td class="text-right">{{ $item->namaDampak->dampak_level ?? '-' }}</td>
+                                                                        <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
                                                                         <td>{{ $item->namaBobotInhern->bobot_kategori ?? '-' }}</td>
                                                                         <td class="align-middle text-center">
                                                                             @if($item?->namaBobotInhern?->bobot_kategori === null )
@@ -1238,6 +1597,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+
                                         </div>
                                     </div>
                                 </div>
@@ -1526,32 +1886,32 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="table-responsive">
-                                            <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                            <table id="datatable-pengendalian" class="table table-bordered table-hover dataTable table-fixed" style="width:100%">
                                                 <thead class="thead-light">
                                                     <tr>
-                                                        <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                        <th class="align-middle text-center" style="width: 90%;">Daftar Pengendalian Resiko</th>
+                                                        <th class="align-middle text-center col-5-pengendalian">Tahun</th>
+                                                        <th class="align-middle text-center col-95-pengendalian">Daftar Pengendalian Resiko</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($groupedDataResiko_pengendalian as $tahun => $listResiko)
                                                     <tr>
-                                                        <td class="align-middle text-center">{{ $tahun }}</td>
+                                                        <td class="align-middle text-center col-5">{{ $tahun }}</td>
                                                         <td>
-                                                            <table class="table table-bordered m-0">
+                                                            <table class="table table-bordered m-0 table-fixed">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center sticky-col left-col-0">Nama Resiko</th>
-                                                                        <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
-                                                                        <th class="text-center">Inhern Bobot</th>
-                                                                        <th class="text-center">Inhern Kategori</th>
-                                                                        <th class="text-center">Rencana Pengendalian</th>
-                                                                        <th class="text-center">PIC</th>
-                                                                        <th class="text-center">Expc Level P</th>
-                                                                        <th class="text-center">Expc Level D</th>
-                                                                        <th class="text-center">Expc Bobot Nilai</th>
-                                                                        <th class="text-center">Expc Bobot Kategori</th>
-                                                                        <th class="text-center">Action</th>
+                                                                        <th class="text-center sticky-col col-nama">Resiko</th>
+                                                                        <th class="text-center sticky-col col-15">Kategori</th>
+                                                                        <th class="text-center col-inhern-bobot">Inh Nilai</th>
+                                                                        <th class="text-center col-inhern-kategori">Inh Kategori</th>
+                                                                        <th class="text-center col-rencana">Rencana Pengendalian</th>
+                                                                        <th class="text-center col-pic">PIC</th>
+                                                                        <th class="text-center col-10">Exp P</th>
+                                                                        <th class="text-center col-10">Exp D</th>
+                                                                        <th class="text-center col-10">Exp Nilai</th>
+                                                                        <th class="text-center col-10">Exp Kategori</th>
+                                                                        <th class="text-center col-10">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1561,19 +1921,19 @@
                                                                     $item_pengukuran = $listpengukuran->get($resiko->id);
                                                                     @endphp
                                                                     <tr>
-                                                                        <td>{{ $resiko->resiko_nama }}</td>
-                                                                        <td>{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
+                                                                        <td class="text-left sticky-col col-nama">{{ $resiko->resiko_nama }}</td>
+                                                                        <td class="text-left sticky-col col-10">{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
                                                                         {{-- Kolom dari Pengukuran --}}
-                                                                        <td class="text-right">{{ $item_pengukuran?->inhern_nilai ?? '-' }}</td>
-                                                                        <td class="text-center">{{ $item_pengukuran?->namaBobotInhern->bobot_kategori ?? '-' }}</td>
+                                                                        <td class="text-right col-inhern-bobot">{{ $item_pengukuran?->inhern_nilai ?? '-' }}</td>
+                                                                        <td class="text-center col-inhern-kategori">{{ $item_pengukuran?->namaBobotInhern->bobot_kategori ?? '-' }}</td>
                                                                         {{-- Kolom dari Pengendalian --}}
-                                                                        <td>{{ $item_pengendalian?->rencana ?? '-' }}</td>
-                                                                        <td>{{ $item_pengendalian?->pic ?? '-' }}</td>
-                                                                        <td class="text-right">{{ $item_pengendalian?->namaKemungkinan->kmn_level ?? '-' }}</td>
-                                                                        <td class="text-right">{{ $item_pengendalian?->namaDampak->dampak_level ?? '-' }}</td>
-                                                                        <td class="text-right">{{ $item_pengendalian?->exp_nilai ?? '-' }}</td>
-                                                                        <td class="text-center">{{ $item_pengendalian?->namaBobotExp->bobot_kategori ?? '-' }}</td>
-                                                                        <td class="align-middle text-center">
+                                                                        <td class="text-left col-rencana"> {{ $item_pengendalian?->rencana ?? '-' }}</td>
+                                                                        <td class="text-left col-pic">{{ $item_pengendalian?->pic ?? '-' }}</td>
+                                                                        <td class="text-right col-5">{{ $item_pengendalian?->namaKemungkinan->kmn_level ?? '-' }}</td>
+                                                                        <td class="text-right col-5">{{ $item_pengendalian?->namaDampak->dampak_level ?? '-' }}</td>
+                                                                        <td class="text-right col-5">{{ $item_pengendalian?->exp_nilai ?? '-' }}</td>
+                                                                        <td class="text-center col-10">{{ $item_pengendalian?->namaBobotExp->bobot_kategori ?? '-' }}</td>
+                                                                        <td class="align-middle text-center col-action15">
 
                                                                             @if ($item_pengukuran && ($item_pengendalian === null || $item_pengendalian->exp_nilai === null))
                                                                             <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalinputPengendalian{{$item_pengukuran->id}}" data-id="{{$item_pengukuran->id}}">
@@ -1902,7 +2262,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="table-responsive">
-                                            <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                            <table id="datatable-monitoring" class="table table-bordered table-hover dataTable table-fixed" style="width:100%">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th class="align-middle text-center" style="width: 10%;">Tahun</th>
@@ -1914,19 +2274,19 @@
                                                     <tr>
                                                         <td class="align-middle text-center">{{ $tahun }}</td>
                                                         <td>
-                                                            <table class="table table-bordered m-0">
+                                                            <table class="table table-bordered m-0 table-fixed">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center sticky-col left-col-0">Nama Resiko</th>
-                                                                        <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
+                                                                        <th class="text-center sticky-col">Resiko</th>
+                                                                        <th class="text-center sticky-col">Kategori</th>
                                                                         <th class="text-center">Rencana Pengendalian</th>
                                                                         <th class="text-center">PIC</th>
                                                                         <th class="text-center">Jangka Waktu</th>
                                                                         <th class="text-center">Peluang Perbaikan</th>
                                                                         <th class="text-center">Status</th>
                                                                         <th class="text-center">Keterangan</th>
-                                                                        <th class="text-center">Evidence</th>
-                                                                        <th class="text-center">Action</th>
+                                                                        <th class="text-center col-5">Evidence</th>
+                                                                        <th class="text-center col-5">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1946,19 +2306,25 @@
                                                                         {{-- Kolom dari Monitoring --}}
                                                                         <td>{{ $item->jangka_waktu ?? '-' }}</td>
                                                                         <td>{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                                        <td>
+                                                                        <td class="text-center">
 
-                                                                            @if(empty($item->status_mitigasi) || $item->status_mitigasi === 'Selesai Dilaksanakan')
+                                                                            @if (isset($item) && ($item->status_mitigasi ?? null))
+                                                                            @if ($item->status_mitigasi === 'Selesai Dilaksanakan')
                                                                             <span class="badge badge-success"><b>{{ $item->status_mitigasi }}</b></span>
-                                                                            @elseif($item->status_mitigasi === 'Sedang Dilaksanakan')
+                                                                            @elseif ($item->status_mitigasi === 'Sedang Dilaksanakan')
                                                                             <span class="badge badge-info"><b>{{ $item->status_mitigasi }}</b></span>
-                                                                            @elseif($item->status_mitigasi === 'Belum Dilaksanakan')
+                                                                            @elseif ($item->status_mitigasi === 'Belum Dilaksanakan')
                                                                             <span class="badge badge-warning"><b>{{ $item->status_mitigasi }}</b></span>
+                                                                            @else
+                                                                            <span class="badge badge-secondary"><b>{{ $item->status_mitigasi }}</b></span>
+                                                                            @endif
+                                                                            @else
+                                                                            <span class="badge badge-light text-muted"><b>-</b></span>
                                                                             @endif
 
                                                                         </td>
                                                                         <td>{{ $item->keterangan ?? '-' }}</td>
-                                                                        <td>
+                                                                        <td class="align-middle text-center col-5">
                                                                             @if($item?->evidence)
                                                                             <a href="{{asset($item->evidence) }}" target="_blank">View File</a>
                                                                             @else
@@ -1966,7 +2332,7 @@
                                                                             @endif
                                                                         </td>
 
-                                                                        <td class="align-middle text-center">
+                                                                        <td class="align-middle text-center col-5">
                                                                             @if(optional($item)->peluang_perbaikan === null)
                                                                             @if($item_pengendalian)
                                                                             <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalinputMonitoring{{ $item_pengendalian->id }}" data-id="{{ $item_pengendalian->id }}">
@@ -2260,7 +2626,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="table-responsive">
-                                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                <table id="datatable_approval" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th class="align-middle text-center">Tahun</th>
@@ -2322,7 +2688,6 @@
                                                                 @endif
 
                                                             </td>
-
 
                                                         </tr>
                                                         @endforeach
@@ -2398,7 +2763,7 @@
                                             <div class="form-group row align-items-center">
                                                 <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
                                                 <div class="col-md-8 col-sm-8">
-                                                    <textarea rows="2" name="keterangan" class="form-control">{{ $item->keterangan }}</textarea>
+                                                    <textarea rows="2" name="keterangan" class="form-control"></textarea>
                                                 </div>
                                             </div>
 
@@ -2409,11 +2774,11 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <div class="table-responsive">
-                                                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                                <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                                                     <thead class="thead-light">
                                                                         <tr>
-                                                                            <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                                            <th class="align-middle text-center" style="width: 70%;">Daftar Sasaran, Tujuan, Event & Resiko</th>
+                                                                            <th class="align-middle text-center col-year-10">Tahun</th>
+                                                                            <th class="align-middle text-center col-wide-90">Daftar Sasaran, Tujuan, Event & Resiko</th>
 
                                                                         </tr>
                                                                     </thead>
@@ -2422,11 +2787,11 @@
                                                                         <tr>
                                                                             <td class="align-middle text-center">{{ $tahun }}</td>
                                                                             <td>
-                                                                                <table class="table table-bordered m-0">
+                                                                                <table class="table table-bordered m-0 table-fixed">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th class="align-middle text-center" style="width: 20%; background-color: #f0f0f5;">Sasaran</th>
-                                                                                            <th class="align-middle text-center" style="width: 80%; background-color: #f0f0f5;">List Tujuan</th>
+                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Sasaran</th>
+                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Tujuan</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
@@ -2434,11 +2799,11 @@
                                                                                         <tr>
                                                                                             <td class="align-middle text-center">{{ $namaSasaran }}</td>
                                                                                             <td>
-                                                                                                <table class="table table-bordered m-0">
+                                                                                                <table class="table table-bordered m-0 table-fixed">
                                                                                                     <thead>
                                                                                                         <tr>
-                                                                                                            <th class="align-middle text-center" style="width: 20%; background-color: #f0f0f5;">Tujuan</th>
-                                                                                                            <th class="align-middle text-center" style="width: 80%; background-color: #f0f0f5;">List Event</th>
+                                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Tujuan</th>
+                                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Event</th>
                                                                                                         </tr>
                                                                                                     </thead>
                                                                                                     <tbody>
@@ -2446,11 +2811,11 @@
                                                                                                         <tr>
                                                                                                             <td class="align-middle text-center">{{ $namaTujuan }}</td>
                                                                                                             <td>
-                                                                                                                <table class="table table-bordered m-0">
+                                                                                                                <table class="table table-bordered m-0 table-fixed">
                                                                                                                     <thead>
                                                                                                                         <tr>
-                                                                                                                            <th class="align-middle text-center" style="width: 20%; background-color: #f0f0f5;">Event</th>
-                                                                                                                            <th class="align-middle text-center" style="width: 80%; background-color: #f0f0f5;">List Resiko</th>
+                                                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Event</th>
+                                                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Resiko</th>
                                                                                                                         </tr>
                                                                                                                     </thead>
                                                                                                                     <tbody>
@@ -2458,30 +2823,30 @@
                                                                                                                         <tr>
                                                                                                                             <td class="align-middle text-center">{{ $namaEvent }}</td>
                                                                                                                             <td>
-                                                                                                                                <table class="table table-bordered m-0">
+                                                                                                                                <table class="table table-bordered m-0 table-fixed">
                                                                                                                                     <thead>
                                                                                                                                         <tr>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Strategi</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prosedur</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Level</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Dampak</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Nilai</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prb Kategori</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Level</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Peluang perbaikan</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Status</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                                                                                                         </tr>
                                                                                                                                     </thead>
                                                                                                                                     <tbody>
@@ -2578,6 +2943,7 @@
                             </div>
                         </div>
 
+
                         <!-- Edit Approval -->
                         @foreach ($listapproval as $item)
                         <div class="modal fade" id="EditApproval{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="EditApprovalLabel{{$item->id}}" aria-hidden="true">
@@ -2657,33 +3023,33 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <div class="table-responsive">
-                                                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                                <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                                                     <thead class="thead-light">
                                                                         <tr>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Sasaran</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Tujuan</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Event</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Strategi</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prosedur</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Level</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prb Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Level</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Peluang perbaikan</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Status</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                                         </tr>
                                                                     </thead>
 
@@ -3251,7 +3617,57 @@ return [$bobot->bobot_nilai => ['kategori' => $bobot->bobot_kategori, 'id' => $b
     });
 </script>
 
+<script>
+    (function($) {
+        $(function() {
+            /**
+             * Helper function untuk inisialisasi DataTables
+             * agar tidak error reinit & menjaga layout
+             */
+            function initDataTable(selector, colWidths) {
+                const $t = $(selector);
+                if (!$t.length) return;
 
+                // Jika sudah pernah di-init, jangan inisialisasi ulang
+                if ($.fn.DataTable.isDataTable(selector)) {
+                    $t.DataTable().columns.adjust();
+                    return;
+                }
 
+                $t.DataTable({
+                    autoWidth: false,
+                    pageLength: 10,
+                    lengthMenu: [10, 25, 50, 100],
+                    order: [],
+                    retrieve: true, // biar aman dipanggil ulang
+                    columnDefs: colWidths.map((width, i) => ({
+                        targets: i,
+                        width: width
+                    }))
+                });
+            }
 
+            /** ----------------------------
+             * 1️⃣ TABEL TUJUAN
+             * ---------------------------- */
+            initDataTable('#datatable-tujuan', ['15%', '85%']);
+
+            /** ----------------------------
+             * 2️⃣ TABEL EVENT
+             * ---------------------------- */
+            initDataTable('#datatable-event', ['10%', '90%']);
+
+            /** ----------------------------
+             * 3️⃣ TABEL RESIKO
+             * ---------------------------- */
+            initDataTable('#datatable-resiko', ['10%', '90%']);
+
+            initDataTable('#datatable-pengukuran', ['5%', '95%']);
+
+            initDataTable('#datatable-pengendalian', ['5%', '95%']);
+
+            initDataTable('#datatable-monitoring', ['5%', '95%']);
+        });
+    })(jQuery);
+</script>
 @endpush
