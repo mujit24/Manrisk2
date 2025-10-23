@@ -15,6 +15,10 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        $permissions = session('akses', []);
+        if (in_array($request->segment(1), $permissions)) {
+            return $next($request);
+        }
+        abort(403, 'Unauthorized');
     }
 }

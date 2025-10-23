@@ -44,7 +44,7 @@
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         padding: 20px;
-        background-color: #f4f4f4;
+        background-color: #ffffff;
     }
 
     #heatmap-risk {
