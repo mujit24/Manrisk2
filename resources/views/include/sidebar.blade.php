@@ -7,7 +7,11 @@
                <div class="dropdown">
                    <span>Welcome,</span>
                    @auth
-                   <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ Auth::user()->first_name }}-{{ Auth::user()->user_id }}</strong></a>
+                   <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown">
+                        <strong>
+                            {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                        </strong>
+                   </a>
                    <ul class="dropdown-menu dropdown-menu-right account">
                        <li><a href="page-profile2.html"><i class="icon-user"></i>My Profile</a></li>
                        <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -35,6 +39,40 @@
            <!-- Tab panes -->
            <div class="tab-content padding-0">
                <div class="tab-pane active" id="menu">
+                @if (env('DEVELOPMENT', false))
+                       <nav id="left-sidebar-nav" class="sidebar-nav">
+                           <ul id="main-menu" class="metismenu animation-li-delay">
+                               @php
+                                   $permissions = session('menu');
+                               @endphp
+                               @foreach ($permissions as $items)
+                                   @if (isset($items['menu']))
+                                       @php
+                                           $list_menu = array_column($items['menu'], 1);
+                                       @endphp
+                                       <li
+                                           class="{{ collect($list_menu)->contains(fn($p) => Request::is($p)) ? 'active' : '' }}">
+                                           <a href="/{{ $items['modul'][0][1] }}" class="has-arrow"><i
+                                                   class="fa {{ $items['modul'][0][2] }}"></i><span>{{ $items['modul'][0][0] }}</span></a>
+                                           <ul>
+                                               @foreach ($items['menu'] as $item)
+                                                   <li class="{{ Request::is($item[1]) ? 'active' : '' }}"><a
+                                                           href="/{{ $item[1] }}">{{ $item[0] }}</a></li>
+                                               @endforeach
+                                           </ul>
+                                       </li>
+                                   @else
+                                       <li class="{{ Request::is($items['modul'][0][1], '/') ? 'active' : '' }}">
+                                           <a href="/{{ $items['modul'][0][1] == '/' ? '' : $items['modul'][0][1] }}">
+                                               <i
+                                                   class="fa {{ $items['modul'][0][2] }}"></i><span>{{ $items['modul'][0][0] }}</span>
+                                           </a>
+                                       </li>
+                                   @endif
+                               @endforeach
+                           </ul>
+                       </nav>
+                @else
                    <nav id="left-sidebar-nav" class="sidebar-nav">
                        <ul id="main-menu" class="metismenu li_animation_delay">
                            <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
@@ -79,6 +117,7 @@
 
                        </ul>
                    </nav>
+                @endif
                </div>
 
                <div class="tab-pane" id="Chat">
@@ -183,11 +222,4 @@
                </div>
            </div>
        </div>
-   </div>
-
-   <!-- rightbar icon div -->
-   <div class="right_icon_bar">
-       <ul>
-           <li><a href="javascript:void(0);" class="right_icon_btn"><i class="fa fa-angle-right"></i></a></li>
-       </ul>
    </div>
