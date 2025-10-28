@@ -325,8 +325,12 @@ class ApprovalController extends Controller
 
         // Ambil approval yang SUDAH diverifikasi MR saja
         $approval = Approval_Divisi::with(['namaDivisi'])
-            ->where('tahun', $tahun)               // kalau kolomnya memang `tahun`
-            ->where('app_status', 'Verified by MR')
+            ->where('tahun', $tahun)
+            ->whereIn('app_status', [
+                'Approve - Review MR',
+                'Verified by MR',
+                'Hold by MR'
+            ])
             ->orderBy('divisi_id')
             ->orderBy('app_name')
             ->get();

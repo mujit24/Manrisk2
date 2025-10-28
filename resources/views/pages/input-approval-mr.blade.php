@@ -72,7 +72,7 @@
                     <div class="col-12">
                         <div class="d-flex justify-content-end align-items-center mtop20">
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                <form method="GET" action="{{ route('input-approval') }}" class="d-flex justify-content-end align-items-center">
+                                <form method="GET" action="{{ route('input-approval-mr') }}" class="d-flex justify-content-end align-items-center">
                                     <label for="tahun" class="mb-0 mr-2"><b>Tahun</b></label>
                                     <select name="tahun" id="tahun" class="form-control" style="width: 100px;" onchange="this.form.submit()">
                                         @foreach(range(date('Y'), 2020) as $year)
@@ -748,7 +748,7 @@
             const src = document.querySelector('#print-area-' + id);
             if (!src) return;
 
-            // --- Ambil header (opsional) ---
+            // --- Ambil header informasi ---
             const rr = src.querySelector('.rr-header');
             const head = {
                 tahun: '',
@@ -764,21 +764,21 @@
                 head.status = inputs[3]?.value || inputs[3]?.textContent || '';
             }
 
-            // --- Ambil tabel risk register (satu tabel) ---
+            // --- Ambil tabel utama ---
             const table = src.querySelector('table');
             if (!table) return;
 
-            // Clone & bersihkan inline style yang bikin melebar
+            // Clone tabel & hilangkan inline style bawaan
             const cleanTable = table.cloneNode(true);
             cleanTable.removeAttribute('style');
             cleanTable.querySelectorAll('[style]').forEach(el => el.removeAttribute('style'));
             cleanTable.querySelectorAll('colgroup, col').forEach(el => el.remove());
 
-            // --- Ambil blok tanda tangan dari HTML kamu ---
+            // --- Ambil tanda tangan (opsional) ---
             const signatureSection = src.querySelector('.signatures');
             const signaturesHTML = signatureSection ? signatureSection.outerHTML : '';
 
-            // --- Iframe print ---
+            // --- Buat iframe print ---
             const frame = document.createElement('iframe');
             frame.style.position = 'fixed';
             frame.style.right = '0';
@@ -791,59 +791,113 @@
             const w = frame.contentWindow;
             const d = w.document;
 
-            const html = `<!doctype html>
-                <html>
-                <head>
-                <meta charset="utf-8">
-                <title>Risk Register Divisi</title>
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-                <style>
+            // --- HTML print lengkap ---
+            const html = `
+        <!doctype html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Risk Register Divisi</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+            <style>
                 @page { size: A4 landscape; margin: 1cm; }
                 body { margin:0; font-size:10px; color:#111; }
                 h5 { font-size: 16px; font-weight: 700; margin: 0 0 10px; }
                 .hr { border-top:1px solid #e5e7eb; margin: 6px 0 12px; }
 
-                .hdr { display:grid; grid-template-columns: 120px 1fr; grid-row-gap:6px; grid-column-gap:10px; max-width:70%; margin-bottom:10px; }
+                .hdr {
+                    display: grid;
+                    grid-template-columns: 120px 1fr;
+                    grid-row-gap: 6px;
+                    grid-column-gap: 10px;
+                    max-width: 70%;
+                    margin-bottom: 10px;
+                }
                 .hdr .lbl { font-weight:700; }
-                .hdr .val { background:#eef2f7; border:1px solid #e0e6ed; border-radius:6px; padding:6px 8px; }
+                .hdr .val {
+                    background:#eef2f7;
+                    border:1px solid #e0e6ed;
+                    border-radius:6px;
+                    padding:6px 8px;
+                }
 
+                /* ====== TABLE STYLE ====== */
                 .table-responsive { overflow: visible !important; }
-                table { width:100%; border-collapse:collapse; table-layout:fixed; }
-                .table { font-size:10px; }
-                .table th, .table td { border:1px solid #cfd6de; padding:4px 6px; vertical-align:middle; word-wrap:break-word; }
+                table { 
+                    width:100%; 
+                    border-collapse:collapse; 
+                    table-layout:auto; /* biar fleksibel */
+                }
+                .table { font-size:9.5px; }
+                .table th, .table td {
+                    border:1px solid #cfd6de;
+                    padding:4px 6px;
+                    vertical-align:middle;
+                    word-wrap:break-word;
+                    white-space:normal;
+                }
                 thead.thead-light th { background:#f0f0f5 !important; }
                 tr, td, th { page-break-inside: avoid; }
 
-                /* Gaya untuk .signatures yang sudah ada di HTML kamu */
-                .signatures{ page-break-before:always; min-height:80vh; display:flex; justify-content:space-between; align-items:flex-start; padding:8vh 3vw 0; font-size:12px; }
-                .signature-box{ width:46%; text-align:center; }
-                .sig-title{ font-weight:700; margin-bottom:2px; }
-                .sig-sub{ margin:0 0 60px; }
-                .sig-space{ height:90px; }
-                .sig-line{ display:inline-block; min-width:260px; margin-top:10px; border-top:1px solid #000; padding-top:6px; font-weight:600; }
+                /* ====== ATUR LEBAR KOLOM ====== */
+                .table th:nth-child(1)  { width:3%;  }  /* No */
+                .table th:nth-child(2)  { width:15%; } /* Nama Resiko */
+                .table th:nth-child(3)  { width:10%; } /* Kategori Resiko */
+                .table th:nth-child(4)  { width:5%;  } /* Inhern Prob */
+                .table th:nth-child(5)  { width:5%;  } /* Inhern Dampak */
+                .table th:nth-child(6)  { width:5%;  } /* Inhern Nilai */
+                .table th:nth-child(7)  { width:8%;  } /* Kategori Inhern */
+                .table th:nth-child(8)  { width:15%; } /* Pengendalian Resiko */
+                .table th:nth-child(9)  { width:5%;  } /* Exp Dampak */
+                .table th:nth-child(10) { width:5%;  } /* Exp Prob */
+                .table th:nth-child(11) { width:5%;  } /* Exp Nilai */
+                .table th:nth-child(12) { width:8%;  } /* Kategori Exp */
+                .table th:nth-child(13) { width:8%;  } /* Status */
 
+                /* ====== SIGNATURE SECTION ====== */
+                .signatures {
+                    page-break-before:always;
+                    min-height:80vh;
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:flex-start;
+                    padding:8vh 3vw 0;
+                    font-size:12px;
+                }
+                .signature-box { width:46%; text-align:center; }
+                .sig-title { font-weight:700; margin-bottom:2px; }
+                .sig-sub { margin:0 0 60px; }
+                .sig-space { height:90px; }
+                .sig-line { display:inline-block; min-width:260px; margin-top:10px; border-top:1px solid #000; padding-top:6px; font-weight:600; }
+
+                /* ====== HIDE ELEMENT NON-PRINT ====== */
                 .no-print, .btn, .btn-print-preview { display:none !important; }
-                @media print { header, footer { display:none !important; } .table{ font-size:9.5px; } .table th,.table td{ padding:3px 5px; } }
-                </style>
-                </head>
-                <body>
 
-                <h5>Risk Register Divisi</h5>
-                <div class="hr"></div>
+                @media print {
+                    header, footer { display:none !important; }
+                    .table { font-size:9px; }
+                    .table th, .table td { padding:3px 5px; }
+                }
+            </style>
+        </head>
+        <body>
 
-                <div class="hdr">
-                    <div class="lbl">Tahun</div>   <div class="val">${head.tahun || '-'}</div>
-                    <div class="lbl">Divisi</div>  <div class="val">${head.divisi || '-'}</div>
-                    <div class="lbl">Approval</div><div class="val">${head.approval || '-'}</div>
-                    <div class="lbl">Status</div>  <div class="val">${head.status || '-'}</div>
-                </div>
+            <h5>Risk Register Divisi</h5>
+            <div class="hr"></div>
 
-                <div class="table-responsive">${cleanTable.outerHTML}</div>
+            <div class="hdr">
+                <div class="lbl">Tahun</div><div class="val">${head.tahun || '-'}</div>
+                <div class="lbl">Divisi</div><div class="val">${head.divisi || '-'}</div>
+                <div class="lbl">Approval</div><div class="val">${head.approval || '-'}</div>
+                <div class="lbl">Status</div><div class="val">${head.status || '-'}</div>
+            </div>
 
-                ${signaturesHTML}
+            <div class="table-responsive">${cleanTable.outerHTML}</div>
 
-                </body>
-                </html>`;
+            ${signaturesHTML}
+
+        </body>
+        </html>`;
 
             d.open();
             d.write(html);
@@ -857,6 +911,7 @@
         });
     });
 </script>
+
 
 
 

@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ResikoDIvisiController extends Controller
+class ResikoDivisiController extends Controller
 {
     public function index(Request $request, $id = null)
     {
