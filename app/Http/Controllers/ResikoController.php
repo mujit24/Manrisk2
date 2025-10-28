@@ -603,10 +603,44 @@ class ResikoController extends Controller
         return redirect()->back()->with('success', 'Data berhasil diupdate!');
     }
 
+    //delete data dari database
     public function destroy_resiko($id)
     {
 
         $resiko = Resiko::findOrFail($id);
+
+        $pengukuranIds = DB::table('pengukuran')
+            ->where('resiko_id', $id)
+            ->pluck('id');
+
+        if ($pengukuranIds->isNotEmpty()) {
+
+            $pengendalianIds = DB::table('pengendalian')
+                ->whereIn('pengukuran_id', $pengukuranIds)
+                ->pluck('id');
+
+            if ($pengendalianIds->isNotEmpty()) {
+
+                $hasMonitoring = DB::table('monitoring')
+                    ->whereIn('pengendalian_id', $pengendalianIds)
+                    ->exists();
+
+                if ($hasMonitoring) {
+                    DB::table('monitoring')
+                        ->whereIn('pengendalian_id', $pengendalianIds)
+                        ->delete();
+                }
+
+                DB::table('pengendalian')
+                    ->whereIn('id', $pengendalianIds)
+                    ->delete();
+            }
+
+            DB::table('pengukuran')
+                ->whereIn('id', $pengukuranIds)
+                ->delete();
+        }
+
         $resiko->delete();
 
         return redirect()->back()->with('success', 'Data berhasil diupdate!');
@@ -658,10 +692,34 @@ class ResikoController extends Controller
         return redirect()->back()->with('success', 'Data berhasil diupdate!');
     }
 
+    //delete data dari database
     public function destroy_pengukuran($id)
     {
 
         $pengukuran = Pengukuran::findOrFail($id);
+
+        $pengendalianIds = DB::table('pengendalian')
+            ->where('pengukuran_id', $id)
+            ->pluck('id');
+
+        if ($pengendalianIds->isNotEmpty()) {
+
+            $hasMonitoring = DB::table('monitoring')
+                ->whereIn('pengendalian_id', $pengendalianIds)
+                ->exists();
+
+            if ($hasMonitoring) {
+
+                DB::table('monitoring')
+                    ->whereIn('pengendalian_id', $pengendalianIds)
+                    ->delete();
+            }
+
+            DB::table('pengendalian')
+                ->where('pengukuran_id', $id)
+                ->delete();
+        }
+
         $pengukuran->delete();
 
         return redirect()->back()->with('success', 'Data berhasil diupdate!');
@@ -715,8 +773,15 @@ class ResikoController extends Controller
         return redirect()->back()->with('success');
     }
 
+    //delete data dari database
     public function destroy_pengendalian($id)
     {
+
+        $hasMonitoring = DB::table('monitoring')->where('pengendalian_id', $id)->exists();
+
+        if ($hasMonitoring) {
+            DB::table('monitoring')->where('pengendalian_id', $id)->delete();
+        }
 
         $pengendalian = Pengendalian::findOrFail($id);
         $pengendalian->delete();
@@ -790,7 +855,6 @@ class ResikoController extends Controller
         }
         return $m;
     }
-
 
     //Dashboard Man Risk All
     public function index_dash(Request $request)

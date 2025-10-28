@@ -1586,6 +1586,9 @@
                                                                             <a href=" #" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalPengukuran{{$item->id}}" data-id="{{$item->id}}">
                                                                                 <i class="fa fa-edit"></i>
                                                                             </a>
+                                                                            <a href="input-pengukuran-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Pengukuran?');">
+                                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                            </a>
                                                                             @endif
                                                                         </td>
                                                                     </tr>
@@ -1944,6 +1947,9 @@
                                                                             @if($item_pengendalian)
                                                                             <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalPengendalian{{$item_pengendalian->id}}" data-id="{{$item_pengendalian->id}}">
                                                                                 <i class="fa fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="input-pengendalian-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Pengendalian?');">
+                                                                                <i class="fa fa-trash" aria-hidden="true"></i>
                                                                             </a>
                                                                             @endif
                                                                             @endif
@@ -2345,6 +2351,9 @@
                                                                             @if($item)
                                                                             <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalMonitoring{{ $item->id }}" data-id="{{ $item->id }}">
                                                                                 <i class="fa fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="input-monitoring-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Monitoring?');">
+                                                                                <i class="fa fa-trash" aria-hidden="true"></i>
                                                                             </a>
                                                                             @else
                                                                             <span class="text-danger">Data tidak ditemukan</span>
