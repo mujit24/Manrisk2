@@ -418,6 +418,19 @@
     </div>
 </div>
 
+<form id="formExportDocx" action="{{ route('laporan.export.docx') }}" method="POST" enctype="multipart/form-data" target="_blank" style="display:none;">
+    @csrf
+
+    <input type="hidden" name="organization">
+    <input type="hidden" name="periode">
+    <input type="hidden" name="tahun">
+
+    <!-- Input file untuk gambar -->
+    <input type="file" name="riskRegisterImg">
+    <input type="file" name="heatmapExpected">
+    <input type="file" name="heatmapRealisasi">
+    <input type="file" name="averageChart">
+</form>
 
 @endsection
 
@@ -905,16 +918,33 @@
         const modal = $("#modalPrintPreview");
         const modalBody = document.getElementById("print-preview-content");
 
-        const btnPrintNow = document.querySelector(".btn-print-now");
         const btnDownload = document.querySelector(".btn-download-docx");
+        const btnPrintNow = document.querySelector(".btn-print-now");
 
         const ORG_NAME = "{{ $organization_name ?? 'Divisi Anda' }}";
-        const CSRF_TOKEN = "{{ csrf_token() }}";
-        const EXPORT_URL = "{{ route('laporan.export.docx') }}";
 
-        // =====================================================
-        // 1. OPEN MODAL PREVIEW
-        // =====================================================
+        // ======================================================
+        // FUNCTION: Capture HTML element → Blob PNG
+        // ======================================================
+        async function captureBlob(id) {
+            const el = document.getElementById(id);
+
+            if (!el) {
+                const canvas = document.createElement("canvas");
+                canvas.width = 10;
+                canvas.height = 10;
+                return await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+            }
+
+            const canvas = await html2canvas(el, {
+                scale: 2
+            });
+            return await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+        }
+
+        // ======================================================
+        // 1. Buka Modal Print Preview
+        // ======================================================
         btnCetak.addEventListener("click", () => {
 
             const triwulanText =
@@ -924,15 +954,9 @@
                 document.querySelector('select[name="tahun"]')?.value || new Date().getFullYear();
 
             const htmlTable = document.querySelector(".table.table-bordered")?.outerHTML || "<p>Tidak ada data</p>";
-
-            const htmlHeatmapExpected =
-                document.getElementById("heatmap-inhern-risk")?.outerHTML || "<p>Tidak ada data</p>";
-
-            const htmlHeatmapRealisasi =
-                document.getElementById("heatmap-exp-risk")?.outerHTML || "<p>Tidak ada data</p>";
-
-            const htmlAverage =
-                document.getElementById("average-risk-chart")?.outerHTML || "<p>Tidak ada data</p>";
+            const htmlHeatmapExpected = document.getElementById("heatmap-inhern-risk")?.outerHTML || "<p>Tidak ada data</p>";
+            const htmlHeatmapRealisasi = document.getElementById("heatmap-exp-risk")?.outerHTML || "<p>Tidak ada data</p>";
+            const htmlAverage = document.getElementById("average-risk-chart")?.outerHTML || "<p>Tidak ada data</p>";
 
             modalBody.innerHTML = `
             <div id="laporanPrintArea" style="font-family:Arial; line-height:1.5; font-size:11pt;">
@@ -941,7 +965,6 @@
                 <p style="text-align:center">Penyusun: ${ORG_NAME}</p>
 
                 <h5><b>1. Profil Risiko Unit Kerja</b></h5>
-
                 <p><b>a. Risk Register</b></p>
                 <div id="riskRegisterContainer">${htmlTable}</div>
 
@@ -954,42 +977,83 @@
                 <p><b>c. Trend Perubahan Risiko</b></p>
                 <div id="averageChartContainer">${htmlAverage}</div>
 
-                <h5><b>2. Peristiwa Risiko</b></h5> 
-                <p>(Diisi oleh Divisi terkait)</p>
+                <br>
+                <h5><b>2. Peristiwa Risiko</b></h5> <p>(Diisi oleh Divisi terkait)</p>
+                <h5><b>3. Kejadian Luar Biasa</b></h5> <p>(Diisi oleh Divisi terkait)</p>
+                <h5><b>4. Produk Aktivitas Baru</b></h5> <p>(Diisi oleh Divisi terkait)</p>
 
-                <h5><b>3. Kejadian Luar Biasa</b></h5> 
-                <p>(Diisi oleh Divisi terkait)</p> 
-
-                <h5><b>4. Produk Aktivitas Baru</b></h5> 
-                <p>(Diisi oleh Divisi terkait)</p>
-
-                <br><br> 
-                    <table style="width:100%; text-align:center;"> 
-                        <tr> 
-                            <td><b>Disusun oleh,</b></td> 
-                            <td><b>Disetujui oleh,</b></td> 
-                        </tr> 
-                        
-                        <tr>
-                            <td style="height:60px"></td>
-                            <td></td>
-                        </tr>
-
-                        <tr> 
-                            <td><u>Kepala ${ORG_NAME}</u></td> 
-                            <td><u>Kepala Divisi Manajemen Risiko</u></td> 
-                        </tr> 
-                    </table>
+                <br><br>
+                <table style="width:100%; text-align:center;">
+                    <tr>
+                        <td><b>Disusun oleh,</b></td>
+                        <td><b>Disetujui oleh,</b></td>
+                    </tr>
+                    <tr><td style="height:60px"></td><td></td></tr>
+                    <tr>
+                        <td><u>Kepala ${ORG_NAME}</u></td>
+                        <td><u>Kepala Divisi Manajemen Risiko</u></td>
+                    </tr>
+                </table>
             </div>
         `;
 
             modal.modal("show");
         });
 
+        // ======================================================
+        // 2. DOWNLOAD DOCX via HIDDEN FORM (ANTI 403 SERVER)
+        // ======================================================
+        btnDownload.addEventListener("click", async () => {
 
-        // =====================================================
-        // 2. PRINT
-        // =====================================================
+            btnDownload.disabled = true;
+            btnDownload.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Memproses...';
+
+            try {
+                // Capture image blobs
+                const riskRegisterBlob = await captureBlob("riskRegisterContainer");
+                const heatmapExpectedBlob = await captureBlob("heatmapExpectedWrapper");
+                const heatmapRealisasiBlob = await captureBlob("heatmapRealisasiWrapper");
+                const averageBlob = await captureBlob("averageChartContainer");
+
+                const triwulanText = document.querySelector('select[name="tw"] option:checked')?.textContent;
+                const tahunText = document.querySelector('select[name="tahun"]')?.value;
+
+                const form = document.getElementById("formExportDocx");
+
+                // Set text fields
+                form.organization.value = ORG_NAME;
+                form.periode.value = triwulanText;
+                form.tahun.value = tahunText;
+
+                // Convert blob → File untuk input file
+                function assignFile(input, blob, name) {
+                    const dt = new DataTransfer();
+                    dt.items.add(new File([blob], name, {
+                        type: "image/png"
+                    }));
+                    input.files = dt.files;
+                }
+
+                assignFile(form.riskRegisterImg, riskRegisterBlob, "risk.png");
+                assignFile(form.heatmapExpected, heatmapExpectedBlob, "expected.png");
+                assignFile(form.heatmapRealisasi, heatmapRealisasiBlob, "realisasi.png");
+                assignFile(form.averageChart, averageBlob, "average.png");
+
+                // Submit → Browser auto-download (AMAN DI SERVER)
+                form.submit();
+
+            } catch (e) {
+                console.error(e);
+                alert("Gagal membuat file DOCX.");
+            }
+
+            btnDownload.disabled = false;
+            btnDownload.innerHTML = '<i class="fa fa-file-word"></i> Download DOCX';
+        });
+
+        // ======================================================
+        // 3. PRINT
+        // ======================================================
         btnPrintNow.addEventListener("click", () => {
             const area = document.getElementById("laporanPrintArea");
             const win = window.open("", "_blank");
@@ -1003,87 +1067,6 @@
 
             win.document.close();
             win.print();
-        });
-
-
-        // =====================================================
-        // 3. DOWNLOAD DOCX (FINAL)
-        // =====================================================
-        btnDownload.addEventListener("click", async () => {
-
-            btnDownload.disabled = true;
-            btnDownload.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Memproses...';
-
-            try {
-
-                // --- Fungsi helper capture ---
-                async function captureBlob(id) {
-                    const el = document.getElementById(id);
-
-                    if (!el) {
-                        console.warn("Element not found:", id);
-                        const canvas = document.createElement("canvas");
-                        canvas.width = 10;
-                        canvas.height = 10;
-                        return await new Promise(r => canvas.toBlob(r, "image/png"));
-                    }
-
-                    let canvas = await html2canvas(el, {
-                        scale: 2
-                    });
-                    return await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
-                }
-
-                // --- A. Capture semua elemen ---
-                const riskRegisterBlob = await captureBlob("riskRegisterContainer");
-                const heatmapExpectedBlob = await captureBlob("heatmapExpectedWrapper");
-                const heatmapRealisasiBlob = await captureBlob("heatmapRealisasiWrapper");
-                const averageBlob = await captureBlob("averageChartContainer");
-
-                // --- B. Kumpulkan FormData ---
-                const triwulanText = document.querySelector('select[name="tw"] option:checked')?.textContent;
-                const tahunText = document.querySelector('select[name="tahun"]')?.value;
-
-                let fd = new FormData();
-                fd.append("_token", CSRF_TOKEN);
-
-                fd.append("organization", ORG_NAME);
-                fd.append("periode", triwulanText);
-                fd.append("tahun", tahunText);
-
-                // === FILE IMAGE (ini yg penting) ===
-                fd.append("riskRegisterImg", riskRegisterBlob, "risk_register.png");
-                fd.append("heatmapExpected", heatmapExpectedBlob, "heatmap_expected.png");
-                fd.append("heatmapRealisasi", heatmapRealisasiBlob, "heatmap_realisasi.png");
-                fd.append("averageChart", averageBlob, "average_chart.png");
-
-                // --- C. Send ke backend ---
-                const response = await fetch(EXPORT_URL, {
-                    method: "POST",
-                    body: fd
-                });
-
-                if (!response.ok) {
-                    throw new Error("Gagal membuat DOCX");
-                }
-
-                const blob = await response.blob();
-
-                // --- D. Download file ---
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "Laporan_Manajemen_Risiko.docx";
-                a.click();
-                URL.revokeObjectURL(url);
-
-            } catch (err) {
-                alert("❌ Gagal membuat file DOCX. Lihat console.");
-                console.error(err);
-            }
-
-            btnDownload.disabled = false;
-            btnDownload.innerHTML = '<i class="fa fa-file-word"></i> Download DOCX';
         });
 
     });
