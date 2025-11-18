@@ -267,28 +267,25 @@
                                         <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Sasaran</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Tujuan</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Event</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">KPI</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Program Kerja</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kegiatan</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
                                                     <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
                                                     <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Strategi</th>
-                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prosedur</th>
-                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Level</th>
-                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Pengendalian</th>
                                                     <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
-                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Level</th>
-                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp P</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp D</th>
                                                     <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
                                                     <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Status</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Realisasi</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real P</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real D</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Real Kategori</th>
                                                     <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
                                                     <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                 </tr>
@@ -340,21 +337,18 @@
                                                     <td>{{ $item->resiko_nama }}</td>
                                                     <td>{{ $item->resiko_penyebab ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->dampak ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->strategi ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->pengendalian ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                    <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
                                                     <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->rencana ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->realisasi ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
                                                     <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
-                                                    <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                    <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->evidence ?? '-' }}</td>
                                                 </tr>
@@ -373,7 +367,7 @@
 
                     <br>
                     <hr>
-                    <button type=" submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp; <b>SIMPAN</b></button>
+                    <button type=" submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp; <b>APPROVE</b></button>
                 </form>
             </div>
         </div>
@@ -471,33 +465,30 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="table-responsive">
-                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                        <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">KPI</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Program Kerja</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kegiatan</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Pengendalian</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp P</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp D</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Realisasi</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real P</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real D</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Real Kategori</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                 </tr>
                                             </thead>
 
@@ -547,21 +538,18 @@
                                                     <td>{{ $item->resiko_nama }}</td>
                                                     <td>{{ $item->resiko_penyebab ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->dampak ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->strategi ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->pengendalian ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                    <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
                                                     <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->rencana ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->realisasi ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
                                                     <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
-                                                    <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                    <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->evidence ?? '-' }}</td>
                                                 </tr>
@@ -673,33 +661,30 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="table-responsive">
-                                        <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                        <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
-                                                    <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">KPI</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Program Kerja</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kegiatan</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Pengendalian</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp P</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp D</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Realisasi</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real P</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real D</th>
+                                                    <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real Nilai</th>
+                                                    <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Real Kategori</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
+                                                    <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                 </tr>
                                             </thead>
 
@@ -749,21 +734,18 @@
                                                     <td>{{ $item->resiko_nama }}</td>
                                                     <td>{{ $item->resiko_penyebab ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->dampak ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->strategi ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->pengendalian ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                    <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
                                                     <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->rencana ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                    <td class="text-left">{{ $item->realisasi ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
                                                     <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
                                                     <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
-                                                    <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
-                                                    <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                    <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
                                                     <td class="text-left">{{ $item->evidence ?? '-' }}</td>
                                                 </tr>

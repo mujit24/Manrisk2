@@ -172,13 +172,13 @@
                     </div>
                 </div>
 
-                <!-- Widget Inhern -->
+                <!-- Widget Inhern/Expected -->
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card top_widget l-parpl h-80">
                         <div class="body">
                             <div class="icon bg-light"><i class="fa fa-signal"></i> </div>
                             <div class="content text-light">
-                                <div class="text mb-2 text-uppercase"><b>NILAI INHERN</b></div>
+                                <div class="text mb-2 text-uppercase"><b>NILAI EXPECTED</b></div>
                                 <hr>
 
                                 <small class="text-uppercase">Nilai</small>
@@ -189,13 +189,13 @@
                     </div>
                 </div>
 
-                <!-- Widget Expected -->
+                <!-- Widget expected/Realisasi -->
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card top_widget l-coral h-80">
                         <div class="body">
                             <div class="icon bg-light"><i class="fa fa-gears"></i> </div>
                             <div class="content text-light">
-                                <div class="text mb-2 text-uppercase"><b>NILAI EXPECTED</b></div>
+                                <div class="text mb-2 text-uppercase"><b>NILAI REALISASI</b></div>
                                 <hr>
 
                                 <small class="text-uppercase">Nilai</small>
@@ -238,12 +238,12 @@
                 </div>
             </div>
 
-            <!-- Risk Register Inhern  -->
+            <!-- Risk Register Inhern->expected  -->
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2><b>INHERN MUJ</b></h2>
+                            <h2><b>EXPECTED MUJ</b></h2>
                         </div>
                         <div class="body">
                             <div id="heatmap-inhern-risk" style="height: 500px;"></div>
@@ -251,11 +251,11 @@
                     </div>
                 </div>
 
-                <!-- Risk Register Expected  -->
+                <!-- Risk Register Expected-realisasi  -->
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2><b>EXPECTED MUJ</b></h2>
+                            <h2><b>REALISASI MUJ</b></h2>
                         </div>
                         <div class="body">
                             <div id="heatmap-exp-risk" style="height: 500px"></div>
@@ -314,14 +314,14 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center sticky-col left-col-0">Nama Resiko</th>
-                                                            <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
-
-                                                            <th class="text-center">Nilai Inhern</th>
-                                                            <th class="text-center">Kategori Inhern</th>
-                                                            <th class="text-center">Pengendalian Risiko</th>
+                                                            <th class="text-center sticky-col left-col-1">Kriteria Resiko</th>
 
                                                             <th class="text-center">Nilai Expected</th>
                                                             <th class="text-center">Kategori Expected</th>
+                                                            <th class="text-center">Realisasi</th>
+
+                                                            <th class="text-center">Nilai Realisasi</th>
+                                                            <th class="text-center">Kategori Realisasi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -332,7 +332,7 @@
 
                                                             <td class="text-right">{{ $d->inhern_nilai ?? '-' }}</td>
                                                             <td class="text-center">{{ $d->inhern_bobot ?? '-' }}</td>
-                                                            <td class="text-left">{{ $d->rencana ?? '-' }}</td>
+                                                            <td class="text-left">{{ $d->realisasi ?? '-' }}</td>
 
                                                             <td class="text-right">{{ $d->exp_nilai ?? '-' }}</td>
                                                             <td class="text-center">{{ $d->exp_bobot ?? '-' }}</td>
@@ -419,12 +419,12 @@
                         }
                     },
                     series: [{
-                            name: 'Nilai Inhern',
+                            name: 'Nilai Expected',
                             data: data.inhern,
                             color: '#9c27b0'
                         },
                         {
-                            name: 'Nilai Expected',
+                            name: 'Nilai Realisasi',
                             data: data.exp,
                             color: '#f44336'
                         }

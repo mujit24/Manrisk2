@@ -62,7 +62,6 @@ class ApprovalController extends Controller
         $approval_detail = Approval::whereIn('app_divisi_id', $approval->pluck('id'))->get();
 
 
-
         $pengukuran = Pengukuran::with('namaResiko.namaKategori', 'namaDampak', 'namaKemungkinan', 'namaBobotInhern')
             ->whereHas('namaResiko', function ($q) use ($organization_id, $tahun) {
                 $q->where('divisi_id', $organization_id)
@@ -72,14 +71,6 @@ class ApprovalController extends Controller
             ->keyBy('resiko_id');
 
         $pengendalian = Pengendalian::with('namaResiko.namaKategori', 'namaDampak', 'namaKemungkinan', 'namaBobotExp')
-            ->whereHas('namaResiko', function ($q) use ($organization_id, $tahun) {
-                $q->where('divisi_id', $organization_id)
-                    ->where('tahun', $tahun);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
-        $monitoring = Monitoring::with('namaResiko', 'namaPengendalian', 'namaPengukuran')
             ->whereHas('namaResiko', function ($q) use ($organization_id, $tahun) {
                 $q->where('divisi_id', $organization_id)
                     ->where('tahun', $tahun);
@@ -103,8 +94,7 @@ class ApprovalController extends Controller
             'namaPengukuran.namaBobotInhern',
             'namaPengendalian.namaDampak',
             'namaPengendalian.namaKemungkinan',
-            'namaPengendalian.namaBobotExp',
-            'namaMonitoring'
+            'namaPengendalian.namaBobotExp'
         ])
             ->where('tahun', $tahun)
             ->where('divisi_id', $organization_id)
@@ -124,16 +114,9 @@ class ApprovalController extends Controller
         $avg_inhern = $jumlahResiko > 0 ? round($totalInhern / $jumlahResiko, 2) : 0;
         $avg_exp = $jumlahResiko > 0 ? round($totalExp / $jumlahResiko, 2) : 0;
 
-        $dataMonitoring = Monitoring::with(['namaResiko'])
-            ->whereHas('namaResiko', function ($query) use ($tahun, $organization_id) {
-                $query->where('tahun', $tahun);
-                if ($organization_id) {
-                    $query->where('divisi_id', $organization_id);
-                }
-            })
-            ->get();
-
-        $jumlahSelesai = $dataMonitoring->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
+        $jumlahSelesai = Pengendalian::whereNotNull('evidence')
+            ->where('evidence', '<>', '')
+            ->count();
         $persentaseSelesai = $jumlahResiko > 0 ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
 
         $getKategoriRisk_inhern = Bobot::where('tahun', $tahun)
@@ -157,7 +140,6 @@ class ApprovalController extends Controller
 
             'listpengukuran' => $pengukuran,
             'listpengendalian' => $pengendalian,
-            'listmonitoring' => $monitoring,
 
             'groupedDataResiko_monitoring' => $groupedDataResiko_monitoring,
 
@@ -225,21 +207,18 @@ class ApprovalController extends Controller
                 $detail->resiko_nama = $data['resiko_nama'] ?? null;
                 $detail->resiko_penyebab = $data['resiko_penyebab'] ?? null;
                 $detail->dampak = $data['dampak'] ?? null;
-                $detail->strategi = $data['strategi'] ?? null;
-                $detail->prosedur = $data['prosedur'] ?? null;
+                $detail->pengendalian = $data['pengendalian'] ?? null;
+                $detail->pic = $data['pic'] ?? null;
+                $detail->jangka_waktu = $data['jangka_waktu'] ?? null;
                 $detail->inhern_dampak = $data['inhern_dampak'] ?? null;
                 $detail->inhern_kemungkinan = $data['inhern_kemungkinan'] ?? null;
                 $detail->inhern_nilai = $data['inhern_nilai'] ?? null;
                 $detail->inhern_bobot = $data['inhern_bobot'] ?? null;
-                $detail->rencana = $data['rencana'] ?? null;
+                $detail->realisasi = $data['realisasi'] ?? null;
                 $detail->exp_kemungkinan = $data['exp_kemungkinan'] ?? null;
                 $detail->exp_dampak = $data['exp_dampak'] ?? null;
                 $detail->exp_nilai = $data['exp_nilai'] ?? null;
                 $detail->exp_bobot = $data['exp_bobot'] ?? null;
-                $detail->pic = $data['pic'] ?? null;
-                $detail->jangka_waktu = $data['jangka_waktu'] ?? null;
-                $detail->peluang_perbaikan = $data['peluang_perbaikan'] ?? null;
-                $detail->status_mitigasi = $data['status_mitigasi'] ?? null;
                 $detail->keterangan = $data['keterangan'] ?? null;
                 $detail->evidence = $data['evidence'] ?? null;
                 $detail->save();
@@ -303,8 +282,6 @@ class ApprovalController extends Controller
             return redirect()->route('login');
         }
 
-
-
         $tahun = $request->input('tahun', date('Y'));
 
         $resiko = Resiko::with([
@@ -315,8 +292,8 @@ class ApprovalController extends Controller
             'namaPengukuran.namaBobotInhern',
             'namaPengendalian.namaDampak',
             'namaPengendalian.namaKemungkinan',
-            'namaPengendalian.namaBobotExp',
-            'namaMonitoring'
+            'namaPengendalian.namaBobotExp'
+
         ])
             ->where('tahun', $tahun)
             ->where('divisi_id', $organization_id)
@@ -379,14 +356,6 @@ class ApprovalController extends Controller
             ->get()
             ->keyBy('resiko_id');
 
-        $monitoring = Monitoring::with('namaResiko', 'namaPengendalian', 'namaPengukuran')
-            ->whereHas('namaResiko', function ($q) use ($organization_id, $tahun) {
-                $q->where('divisi_id', $organization_id)
-                    ->where('tahun', $tahun);
-            })
-            ->get()
-            ->keyBy('resiko_id');
-
         $resiko_monitoring = Resiko::with('namaKategori')
             ->where('divisi_id', $organization_id)
             ->where('tahun', $tahun)
@@ -394,8 +363,6 @@ class ApprovalController extends Controller
             ->get();
 
         $groupedDataResiko_monitoring = $resiko_monitoring->groupBy('tahun');
-
-
 
         $jumlahResiko = $resiko->count();
         $resikoIds = $resiko->pluck('id');
@@ -410,16 +377,9 @@ class ApprovalController extends Controller
         $avg_inhern = $jumlahResiko > 0 ? round($totalInhern / $jumlahResiko, 2) : 0;
         $avg_exp = $jumlahResiko > 0 ? round($totalExp / $jumlahResiko, 2) : 0;
 
-        $dataMonitoring = Monitoring::with(['namaResiko'])
-            ->whereHas('namaResiko', function ($query) use ($tahun, $organization_id) {
-                $query->where('tahun', $tahun);
-                if ($organization_id) {
-                    $query->where('divisi_id', $organization_id);
-                }
-            })
-            ->get();
-
-        $jumlahSelesai = $dataMonitoring->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
+        $jumlahSelesai = Pengendalian::whereNotNull('evidence')
+            ->where('evidence', '<>', '')
+            ->count();
         $persentaseSelesai = $jumlahResiko > 0 ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
 
         $getKategoriRisk_inhern = Bobot::where('tahun', $tahun)
@@ -443,7 +403,6 @@ class ApprovalController extends Controller
 
             'listpengukuran' => $pengukuran,
             'listpengendalian' => $pengendalian,
-            'listmonitoring' => $monitoring,
 
             'groupedDataResiko_monitoring' => $groupedDataResiko_monitoring,
 

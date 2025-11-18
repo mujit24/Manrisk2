@@ -53,4 +53,5 @@
 <script src="{{ asset('js/pages/charts/chartjs.js') }}"></script>
 <script src="{{ asset('js/pages/charts/morris.js') }}"></script>
 
+
 <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->

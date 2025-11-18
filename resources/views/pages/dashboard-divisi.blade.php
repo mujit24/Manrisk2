@@ -61,14 +61,68 @@
     }
 </style>
 
+<style>
+    /* Kunci perilaku tabel */
+    .table-fixed {
+        table-layout: fixed;
+        /* penting: paksa patuhi width kolom */
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        vertical-align: middle;
+        white-space: normal !important;
+        /* biar teks turun baris */
+        word-break: break-word !important;
+    }
+
+    /* Buat tabel lebih padat */
+    .table-sm th,
+    .table-sm td {
+        padding: 4px 6px !important;
+        font-size: 12px;
+    }
+
+    /* Ukuran kolom */
+    .small-col {
+        width: 20%;
+    }
+
+    .mid-col {
+        width: 25%;
+    }
+
+    .tiny-col {
+        width: 10%;
+    }
+
+    /* Bungkus teks biar gak meluber */
+    td,
+    th {
+        white-space: normal !important;
+        word-wrap: break-word;
+        vertical-align: middle !important;
+    }
+
+    /* Teks lebih kecil dan rapi */
+    .small-text {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    /* tombol rapi */
+</style>
+
 <div class="block-header">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <!-- Nama Divisi mengikuti dari divisi user saat login -->
-            <h2><b>Dashboard {{$organization_name}}</b></h2>
+            <h2><b>Dashboard</b></h2>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
-                <li class="breadcrumb-item">Dashboard</li>
+                <li class="breadcrumb-item">Dashboard </li>
 
             </ul>
         </div>
@@ -96,7 +150,7 @@
                     <div class="block-header">
                         <div class="row align-items-center mb-3">
                             <div class="col-lg-3 col-md-12 col-sm-12 mb-2 mb-lg-0">
-                                <h6 class="mb-0 font-weight-bold text-uppercase text-success">DASHBOARD</h6>
+                                <h6 class="mb-0 font-weight-bold text-uppercase text-success">{{$organization_name}}</h6>
                             </div>
 
                             <div class="col-lg-9 col-md-12 col-sm-12">
@@ -144,6 +198,13 @@
                                     <div class="form-group mb-2">
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fa fa-filter"></i> Filter
+                                        </button>
+                                    </div>
+
+                                    &nbsp;
+                                    <div class="form-group mb-2">
+                                        <button type="button" class="btn btn-secondary btn-sm btn-print-laporan">
+                                            <i class="fa fa-print"></i> Cetak Laporan
                                         </button>
                                     </div>
 
@@ -226,10 +287,10 @@
 
             <!-- Risk Register Inhern  -->
             <div class="row clearfix">
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-4 col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2><b>INHERN MUJ</b></h2>
+                            <h2><b>EXPECTED MUJ</b></h2>
                         </div>
                         <div class="body">
                             <div id="heatmap-inhern-risk" style="height: 500px;"></div>
@@ -238,23 +299,37 @@
                 </div>
 
                 <!-- Risk Register Expected  -->
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-4 col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2><b>EXPECTED MUJ</b></h2>
+                            <h2><b>REALISASI MUJ</b></h2>
                         </div>
                         <div class="body">
                             <div id="heatmap-exp-risk" style="height: 500px"></div>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2><b>AVERAGE RESIKO</b></h2>
+                        </div>
+                        <div class="body">
+                            <div id="average-risk-chart" style="height: 510px"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
+
     </div>
 </div>
 
-<!-- Risk Register Top 20  -->
+
+<!-- Risk Register Divisi  -->
 <div class="row clearfix">
     <div class="card">
         <div class="col-md-12 col-sm-12 ">
@@ -276,99 +351,68 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                <table id="datatable" class="table table-sm table-bordered table-hover" style="width:100%;">
                                     <thead class="thead-light">
                                         <tr>
-                                        <tr>
-                                            <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                            <th class="align-middle text-center" style="width: 75%;">Daftar Monitoring Resiko</th>
-                                        </tr>
+                                            <th class="align-middle text-center small-col">Nama Resiko</th>
+                                            <th class="align-middle text-center tiny-col">Kriteria</th>
+                                            <th class="align-middle text-center tiny-col">Exp<br>Nilai</th>
+                                            <th class="align-middle text-center tiny-col">Exp<br>Kat</th>
+                                            <!-- <th class="align-middle text-center mid-col">Realisasi</th> -->
+                                            <th class="align-middle text-center tiny-col">Real<br>Nilai</th>
+                                            <th class="align-middle text-center tiny-col">Real<br>Kat</th>
                                         </tr>
                                     </thead>
+
+                                    @php
+                                    $approvalId = $approvalDiv->first()->id ?? null;
+                                    $item = $approvalId && isset($detailByApproval[$approvalId])
+                                    ? $detailByApproval[$approvalId]
+                                    : collect();
+                                    @endphp
+
                                     <tbody>
-                                        @foreach ($groupedDataResiko_monitoring as $key => $listResiko)
-                                        @php
-                                        $parts = explode('|', $key);
-                                        [$tahunRow, $divisi_nama, $divisi_id, $app_name] = array_pad($parts, 4, null);
-                                        @endphp
+                                        @forelse ($item as $index => $data)
                                         <tr>
-                                            <td class="align-middle text-center">{{ $tahunRow }}</td>
-
-                                            <td>
-                                                <table class="table table-bordered m-0">
-                                                    <thead>
-                                                        <tr>
-
-                                                            <th class="text-center sticky-col left-col-0">Nama Resiko</th>
-                                                            <th class="text-center sticky-col left-col-1">Kategori Resiko</th>
-                                                            <th class="text-center">Penyebab Resiko</th>
-                                                            <th class="text-center">Dampak</th>
-                                                            <th class="text-center">Strategi</th>
-                                                            <th class="text-center">Prosedur</th>
-                                                            <th class="text-center">Level Inh</th>
-                                                            <th class="text-center">Dampak Inh</th>
-                                                            <th class="text-center">Nilai Inh</th>
-                                                            <th class="text-center">Kategori Inh</th>
-                                                            <th class="text-center">Pengendalian Risiko</th>
-                                                            <th class="text-center">Level Exp</th>
-                                                            <th class="text-center">Dampak Exp</th>
-                                                            <th class="text-center">Nilai Exp</th>
-                                                            <th class="text-center">Kategori Exp</th>
-                                                            <th class="text-center">PIC</th>
-                                                            <th class="text-center">Jangka Waktu</th>
-                                                            <th class="text-center">Peluang perbaikan</th>
-                                                            <th class="text-center">Status</th>
-                                                            <th class="text-center">Keterangan</th>
-                                                            <th class="text-center">Evidence</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @forelse ($listResiko as $d)
-                                                        <tr>
-                                                            <td class="text-left">{{ $d->resiko_nama }}</td>
-                                                            <td class="text-left">{{ $d->kategori_nama ?? '-' }}</td>
-
-                                                            <td class="text-left">{{ $d->resiko_penyebab }}</td>
-                                                            <td class="text-left">{{ $d->dampak ?? '-' }}</td>
-                                                            <td class="text-left">{{ $d->strategi }}</td>
-                                                            <td class="text-left">{{ $d->prosedur ?? '-' }}</td>
-
-                                                            <td class="text-right">{{ $d->inhern_dampak ?? '-' }}</td>
-                                                            <td class="text-right">{{ $d->inhern_kemungkinan ?? '-' }}</td>
-                                                            <td class="text-right">{{ $d->inhern_nilai ?? '-' }}</td>
-                                                            <td class="text-center">{{ $d->inhern_bobot ?? '-' }}</td>
-
-                                                            <td class="text-left">{{ $d->rencana ?? '-' }}</td>
-
-                                                            <td class="text-right">{{ $d->exp_dampak ?? '-' }}</td>
-                                                            <td class="text-right">{{ $d->exp_kemungkinan ?? '-' }}</td>
-                                                            <td class="text-right">{{ $d->exp_nilai ?? '-' }}</td>
-                                                            <td class="text-center">{{ $d->exp_bobot ?? '-' }}</td>
-
-                                                            <td class="text-left">{{ $d->pic ?? '-' }}</td>
-                                                            <td class="text-left">{{ $d->jangka_waktu }}</td>
-                                                            <td class="text-left">{{ $d->peluang_perbaikan ?? '-' }}</td>
-                                                            <td class="text-left">{{ $d->status_mitigasi }}</td>
-                                                            <td class="text-left">{{ $d->keterangan ?? '-' }}</td>
-                                                            <td class="text-left">{{ $d->evidence ?? '-' }}</td>
-
-                                                        </tr>
-                                                        @empty
-                                                        <tr>
-                                                            <td colspan="12" class="text-center text-muted">Tidak ada data.</td>
-                                                        </tr>
-                                                        @endforelse
-                                                    </tbody>
-                                                </table>
-                                            </td>
+                                            <td class="text-left small-text">{{ $data->resiko_nama }}</td>
+                                            <td class="text-center">{{ $data->kategori_nama ?? '-' }}</td>
+                                            <td class="text-right">{{ $data->inhern_nilai ?? '-' }}</td>
+                                            <td class="text-center">{{ $data->inhern_bobot ?? '-' }}</td>
+                                            <!-- <td class="text-left small-text">{{ $data->realisasi ?? '-' }}</td> -->
+                                            <td class="text-right">{{ $data->exp_nilai ?? '-' }}</td>
+                                            <td class="text-center">{{ $data->exp_bobot ?? '-' }}</td>
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted">Tidak ada data</td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Print Preview -->
+<div class="modal fade" id="modalPrintPreview" tabindex="-1" role="dialog" aria-labelledby="modalPrintPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title font-weight-bold" id="modalPrintPreviewLabel">Print Preview Laporan Manajemen Risiko</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="print-preview-content" style="max-height: 80vh; overflow-y: auto;"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-print-now"><i class="fa fa-print"></i> Print</button>
+                <button type="button" class="btn btn-success btn-download-docx"><i class="fa fa-file-word"></i> Download DOCX</button>
             </div>
         </div>
     </div>
@@ -415,7 +459,6 @@
         }
     });
 </script>
-
 
 <!-- Bar Chart Divisi-->
 <script>
@@ -484,7 +527,6 @@
             .catch(err => console.error('Error load chart:', err));
     });
 </script>
-
 
 <!-- Heatmap INHERN: COUNT per sel D-K -->
 <script>
@@ -557,6 +599,14 @@
                             },
                         ]
                     }
+                }
+            },
+            title: {
+                text: 'Expected Risk',
+                align: 'center',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold'
                 }
             },
             dataLabels: {
@@ -686,6 +736,14 @@
                     }
                 }
             },
+            title: {
+                text: 'Realisasi Risk',
+                align: 'center',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold'
+                }
+            },
             dataLabels: {
                 enabled: true,
                 formatter: function(val, opts) {
@@ -738,6 +796,296 @@
         };
 
         new ApexCharts(el, options).render();
+    });
+</script>
+
+<!-- Average chart -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const el = document.querySelector('#average-risk-chart');
+        if (!el) return;
+
+        // Data dari backend (controller Laravel)
+        // Bentuk data: [{triwulan: 1, inhern_avg: 8.5, exp_avg: 6.2}, ...]
+        const data = @json($averageRisk ?? []);
+
+        // Siapkan data untuk chart
+        const triwulanLabels = ['Triwulan I', 'Triwulan II', 'Triwulan III', 'Triwulan IV'];
+        const inhernSeries = [];
+        const expectedSeries = [];
+
+        for (let i = 1; i <= 4; i++) {
+            const item = data.find(d => d.triwulan == i);
+            inhernSeries.push(item ? parseFloat(item.inhern_avg) : 0);
+            expectedSeries.push(item ? parseFloat(item.exp_avg) : 0);
+        }
+
+        const options = {
+            chart: {
+                type: 'line',
+                height: 400,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: false
+                },
+                fontFamily: 'Arial, sans-serif'
+            },
+            title: {
+                text: 'Average Risk',
+                align: 'center',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold'
+                }
+            },
+            xaxis: {
+                categories: triwulanLabels,
+                title: {
+                    text: 'Triwulan',
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Rata-rata',
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                },
+                min: 0
+            },
+            stroke: {
+                width: 3,
+                curve: 'smooth'
+            },
+            markers: {
+                size: 5
+            },
+            colors: ['#e74c3c', '#3498db'],
+            series: [{
+                    name: 'Exp Risk',
+                    data: inhernSeries
+                },
+                {
+                    name: 'Real Risk',
+                    data: expectedSeries
+                }
+            ],
+            dataLabels: {
+                enabled: true,
+                formatter: val => val.toFixed(1)
+            },
+            tooltip: {
+                y: {
+                    formatter: val => `Rata-rata: ${val.toFixed(0)}`
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'center'
+            }
+        };
+
+        new ApexCharts(el, options).render();
+    });
+</script>
+
+<!-- print preview -->
+<!-- Dependency -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const btnCetak = document.querySelector(".btn-print-laporan");
+        const modal = $("#modalPrintPreview");
+        const modalBody = document.getElementById("print-preview-content");
+
+        const btnPrintNow = document.querySelector(".btn-print-now");
+        const btnDownload = document.querySelector(".btn-download-docx");
+
+        const ORG_NAME = "{{ $organization_name ?? 'Divisi Anda' }}";
+        const CSRF_TOKEN = "{{ csrf_token() }}";
+        const EXPORT_URL = "{{ route('laporan.export.docx') }}";
+
+        // =====================================================
+        // 1. OPEN MODAL PREVIEW
+        // =====================================================
+        btnCetak.addEventListener("click", () => {
+
+            const triwulanText =
+                document.querySelector('select[name="tw"] option:checked')?.textContent || "Triwulan I";
+
+            const tahunText =
+                document.querySelector('select[name="tahun"]')?.value || new Date().getFullYear();
+
+            const htmlTable = document.querySelector(".table.table-bordered")?.outerHTML || "<p>Tidak ada data</p>";
+
+            const htmlHeatmapExpected =
+                document.getElementById("heatmap-inhern-risk")?.outerHTML || "<p>Tidak ada data</p>";
+
+            const htmlHeatmapRealisasi =
+                document.getElementById("heatmap-exp-risk")?.outerHTML || "<p>Tidak ada data</p>";
+
+            const htmlAverage =
+                document.getElementById("average-risk-chart")?.outerHTML || "<p>Tidak ada data</p>";
+
+            modalBody.innerHTML = `
+            <div id="laporanPrintArea" style="font-family:Arial; line-height:1.5; font-size:11pt;">
+                <h4 style="text-align:center"><b>LAPORAN MANAJEMEN RISIKO - ${ORG_NAME}</b></h4>
+                <p style="text-align:center">Periode: ${triwulanText} Tahun ${tahunText}</p>
+                <p style="text-align:center">Penyusun: ${ORG_NAME}</p>
+
+                <h5><b>1. Profil Risiko Unit Kerja</b></h5>
+
+                <p><b>a. Risk Register</b></p>
+                <div id="riskRegisterContainer">${htmlTable}</div>
+
+                <p><b>b. Peta Risiko</b></p>
+                <div style="display:flex; gap:15px;">
+                    <div id="heatmapExpectedWrapper" style="width:49%">${htmlHeatmapExpected}</div>
+                    <div id="heatmapRealisasiWrapper" style="width:49%">${htmlHeatmapRealisasi}</div>
+                </div>
+
+                <p><b>c. Trend Perubahan Risiko</b></p>
+                <div id="averageChartContainer">${htmlAverage}</div>
+
+                <h5><b>2. Peristiwa Risiko</b></h5> 
+                <p>(Diisi oleh Divisi terkait)</p>
+
+                <h5><b>3. Kejadian Luar Biasa</b></h5> 
+                <p>(Diisi oleh Divisi terkait)</p> 
+
+                <h5><b>4. Produk Aktivitas Baru</b></h5> 
+                <p>(Diisi oleh Divisi terkait)</p>
+
+                <br><br> 
+                    <table style="width:100%; text-align:center;"> 
+                        <tr> 
+                            <td><b>Disusun oleh,</b></td> 
+                            <td><b>Disetujui oleh,</b></td> 
+                        </tr> 
+                        
+                        <tr>
+                            <td style="height:60px"></td>
+                            <td></td>
+                        </tr>
+
+                        <tr> 
+                            <td><u>Kepala ${ORG_NAME}</u></td> 
+                            <td><u>Kepala Divisi Manajemen Risiko</u></td> 
+                        </tr> 
+                    </table>
+            </div>
+        `;
+
+            modal.modal("show");
+        });
+
+
+        // =====================================================
+        // 2. PRINT
+        // =====================================================
+        btnPrintNow.addEventListener("click", () => {
+            const area = document.getElementById("laporanPrintArea");
+            const win = window.open("", "_blank");
+
+            win.document.write(`
+            <html>
+            <head><title>Print</title><style>body{font-family:Arial}</style></head>
+            <body>${area.innerHTML}</body>
+            </html>
+        `);
+
+            win.document.close();
+            win.print();
+        });
+
+
+        // =====================================================
+        // 3. DOWNLOAD DOCX (FINAL)
+        // =====================================================
+        btnDownload.addEventListener("click", async () => {
+
+            btnDownload.disabled = true;
+            btnDownload.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Memproses...';
+
+            try {
+
+                // --- Fungsi helper capture ---
+                async function captureBlob(id) {
+                    const el = document.getElementById(id);
+
+                    if (!el) {
+                        console.warn("Element not found:", id);
+                        const canvas = document.createElement("canvas");
+                        canvas.width = 10;
+                        canvas.height = 10;
+                        return await new Promise(r => canvas.toBlob(r, "image/png"));
+                    }
+
+                    let canvas = await html2canvas(el, {
+                        scale: 2
+                    });
+                    return await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+                }
+
+                // --- A. Capture semua elemen ---
+                const riskRegisterBlob = await captureBlob("riskRegisterContainer");
+                const heatmapExpectedBlob = await captureBlob("heatmapExpectedWrapper");
+                const heatmapRealisasiBlob = await captureBlob("heatmapRealisasiWrapper");
+                const averageBlob = await captureBlob("averageChartContainer");
+
+                // --- B. Kumpulkan FormData ---
+                const triwulanText = document.querySelector('select[name="tw"] option:checked')?.textContent;
+                const tahunText = document.querySelector('select[name="tahun"]')?.value;
+
+                let fd = new FormData();
+                fd.append("_token", CSRF_TOKEN);
+
+                fd.append("organization", ORG_NAME);
+                fd.append("periode", triwulanText);
+                fd.append("tahun", tahunText);
+
+                // === FILE IMAGE (ini yg penting) ===
+                fd.append("riskRegisterImg", riskRegisterBlob, "risk_register.png");
+                fd.append("heatmapExpected", heatmapExpectedBlob, "heatmap_expected.png");
+                fd.append("heatmapRealisasi", heatmapRealisasiBlob, "heatmap_realisasi.png");
+                fd.append("averageChart", averageBlob, "average_chart.png");
+
+                // --- C. Send ke backend ---
+                const response = await fetch(EXPORT_URL, {
+                    method: "POST",
+                    body: fd
+                });
+
+                if (!response.ok) {
+                    throw new Error("Gagal membuat DOCX");
+                }
+
+                const blob = await response.blob();
+
+                // --- D. Download file ---
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "Laporan_Manajemen_Risiko.docx";
+                a.click();
+                URL.revokeObjectURL(url);
+
+            } catch (err) {
+                alert("❌ Gagal membuat file DOCX. Lihat console.");
+                console.error(err);
+            }
+
+            btnDownload.disabled = false;
+            btnDownload.innerHTML = '<i class="fa fa-file-word"></i> Download DOCX';
+        });
+
     });
 </script>
 

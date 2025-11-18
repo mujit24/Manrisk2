@@ -1,6 +1,10 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\File;
 
 use App\Models\Kategori;
 use App\Models\Dampak;
@@ -18,6 +22,10 @@ use App\Models\Monitoring;
 
 use App\Models\Approval;
 use App\Models\Approval_Divisi;
+
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Shared\Html;
 
 use Illuminate\Http\Request;
 
@@ -172,7 +180,6 @@ class ResikoController extends Controller
             ->get();
         $groupedDataResiko_pengukuran = $resiko_pengukuran->groupBy('tahun');
 
-
         // 3. Pengendalian
         $tahun_pengendalian = $request->input('tahun', date('Y'));
 
@@ -301,11 +308,16 @@ class ResikoController extends Controller
 
         $groupedResiko = $get_resiko->groupBy('event_id');
 
+
+
+        // Ambil data approval divisi
         $approval = Approval_Divisi::with(['namaDivisi', 'namaPekerja'])
             ->where('divisi_id', $organization_id)
             ->get();
 
-        $approval_detail = Approval::whereIn('app_divisi_id', $approval->pluck('id'))->get();
+        // Ambil detail yang terkait dari tabel app_detail
+        $approval_detail = Approval::whereIn('app_divisi_id', $approval->pluck('id'))
+            ->get();
 
 
         $listdivisi = Divisi::all();
@@ -376,8 +388,6 @@ class ResikoController extends Controller
 
             'listapproval' => $approval,
             'list_approval_detail' => $approval_detail,
-
-
 
         ]);
     }
@@ -573,6 +583,7 @@ class ResikoController extends Controller
         $resiko->kategori_id = $request->kategori_id;
         $resiko->resiko_nama = $request->resiko_nama;
         $resiko->resiko_penyebab = $request->resiko_penyebab;
+        $resiko->dampak = $request->dampak;
         $resiko->save();
 
         return redirect()->back()->with('success');
@@ -597,6 +608,7 @@ class ResikoController extends Controller
         $resiko->kategori_id = $request->kategori_id;
         $resiko->resiko_nama = $request->resiko_nama;
         $resiko->resiko_penyebab = $request->resiko_penyebab;
+        $resiko->dampak = $request->dampak;
         $resiko->save();
 
         // Redirect kembali dengan pesan sukses
@@ -653,9 +665,9 @@ class ResikoController extends Controller
         // Membuat objek baru
         $pengukuran = new Pengukuran();
         $pengukuran->resiko_id = $request->resiko_id;
-        $pengukuran->dampak = $request->dampak;
-        $pengukuran->strategi = $request->strategi;
-        $pengukuran->prosedur = $request->prosedur;
+        $pengukuran->pengendalian = $request->pengendalian;
+        $pengukuran->pic = $request->pic;
+        $pengukuran->jangka_waktu = $request->jangka_waktu;
         $pengukuran->inhern_kemungkinan_id = $request->inhern_kemungkinan_id;
         $pengukuran->inhern_dampak_id = $request->inhern_dampak_id;
         $pengukuran->inhern_nilai = $request->inhern_nilai;
@@ -679,9 +691,9 @@ class ResikoController extends Controller
 
         $pengukuran = Pengukuran::findOrFail($id);
         $pengukuran->resiko_id = $request->resiko_id;
-        $pengukuran->dampak = $request->dampak;
-        $pengukuran->strategi = $request->strategi;
-        $pengukuran->prosedur = $request->prosedur;
+        $pengukuran->pengendalian = $request->pengendalian;
+        $pengukuran->pic = $request->pic;
+        $pengukuran->jangka_waktu = $request->jangka_waktu;
         $pengukuran->inhern_kemungkinan_id = $request->inhern_kemungkinan_id;
         $pengukuran->inhern_dampak_id = $request->inhern_dampak_id;
         $pengukuran->inhern_nilai = $request->inhern_nilai;
@@ -734,12 +746,13 @@ class ResikoController extends Controller
         $pengendalian->resiko_id = $request->resiko_id;
         $pengendalian->kategori_id = $request->kategori_id;
         $pengendalian->pengukuran_id = $request->pengukuran_id;
-        $pengendalian->rencana = $request->rencana;
+        $pengendalian->realisasi = $request->realisasi;
         $pengendalian->exp_kemungkinan_id = $request->exp_kemungkinan_id;
         $pengendalian->exp_dampak_id = $request->exp_dampak_id;
         $pengendalian->exp_nilai = $request->exp_nilai;
         $pengendalian->exp_bobot_id = $request->exp_bobot_id;
-        $pengendalian->pic = $request->pic;
+        $pengendalian->keterangan = $request->keterangan;
+        $pengendalian->evidence = $request->evidence;
         $pengendalian->save();
 
         return redirect()->back()->with('success');
@@ -761,12 +774,13 @@ class ResikoController extends Controller
         $pengendalian->resiko_id = $request->resiko_id;
         $pengendalian->kategori_id = $request->kategori_id;
         $pengendalian->pengukuran_id = $request->pengukuran_id;
-        $pengendalian->rencana = $request->rencana;
+        $pengendalian->realisasi = $request->realisasi;
         $pengendalian->exp_kemungkinan_id = $request->exp_kemungkinan_id;
         $pengendalian->exp_dampak_id = $request->exp_dampak_id;
         $pengendalian->exp_nilai = $request->exp_nilai;
         $pengendalian->exp_bobot_id = $request->exp_bobot_id;
-        $pengendalian->pic = $request->pic;
+        $pengendalian->keterangan = $request->keterangan;
+        $pengendalian->evidence = $request->evidence;
         $pengendalian->save();
 
         // Redirect kembali dengan pesan sukses
@@ -777,72 +791,12 @@ class ResikoController extends Controller
     public function destroy_pengendalian($id)
     {
 
-        $hasMonitoring = DB::table('monitoring')->where('pengendalian_id', $id)->exists();
-
-        if ($hasMonitoring) {
-            DB::table('monitoring')->where('pengendalian_id', $id)->delete();
-        }
-
         $pengendalian = Pengendalian::findOrFail($id);
         $pengendalian->delete();
 
         return redirect()->back()->with('success');
     }
 
-    // 4. -> Monitoring
-    public function store_monitoring(Request $request)
-    {
-
-        // Membuat objek baru
-        $monitoring = new Monitoring();
-        $monitoring->resiko_id = $request->resiko_id;
-        $monitoring->pengukuran_id = $request->pengukuran_id;
-        $monitoring->pengendalian_id = $request->pengendalian_id;
-        $monitoring->jangka_waktu = $request->jangka_waktu;
-        $monitoring->peluang_perbaikan = $request->peluang_perbaikan;
-        $monitoring->status_mitigasi = $request->status_mitigasi;
-        $monitoring->keterangan = $request->keterangan;
-        $monitoring->evidence = $request->evidence;
-        $monitoring->save();
-
-        return redirect()->back()->with('success');
-    }
-
-    //edit file dari database
-    public function edit_monitoring($id)
-    {
-
-        $monitoring = Monitoring::findOrFail($id);
-        return view('monitoring.edit', compact('monitoring'));
-    }
-
-    //update save ke database
-    public function update_monitoring(Request $request, $id)
-    {
-
-        $monitoring = Monitoring::findOrFail($id);
-        $monitoring->resiko_id = $request->resiko_id;
-        $monitoring->pengukuran_id = $request->pengukuran_id;
-        $monitoring->pengendalian_id = $request->pengendalian_id;
-        $monitoring->jangka_waktu = $request->jangka_waktu;
-        $monitoring->peluang_perbaikan = $request->peluang_perbaikan;
-        $monitoring->status_mitigasi = $request->status_mitigasi;
-        $monitoring->keterangan = $request->keterangan;
-        $monitoring->evidence = $request->evidence;
-        $monitoring->save();
-
-        // Redirect kembali dengan pesan sukses
-        return redirect()->back()->with('success');
-    }
-
-    public function destroy_monitoring($id)
-    {
-
-        $monitoring = Monitoring::findOrFail($id);
-        $monitoring->delete();
-
-        return redirect()->back()->with('success');
-    }
 
     private static function emptyRiskMatrix(): array
     {
@@ -913,8 +867,7 @@ class ResikoController extends Controller
                 'exp_dampak',
                 'exp_kemungkinan',
                 'exp_nilai',
-                'exp_bobot',
-                'status_mitigasi',
+                'exp_bobot'
             ]);
 
             // Widgets
@@ -923,7 +876,7 @@ class ResikoController extends Controller
             $totalExp      = (float) $details->sum(fn($r) => (float)($r->exp_nilai ?? 0));
             $avg_inhern    = $jumlahResiko ? round($totalInhern / $jumlahResiko, 2) : 0;
             $avg_exp       = $jumlahResiko ? round($totalExp / $jumlahResiko, 2) : 0;
-            $jumlahSelesai = $details->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
+            $jumlahSelesai = $details->whereNotNull('exp_nilai')->count();
             $persentaseSelesai = $jumlahResiko ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
 
             // Heatmap count D×K
@@ -1153,6 +1106,20 @@ class ResikoController extends Controller
             ->groupBy('app_divisi_id');
 
 
+        $averageRisk = DB::table('app_detail as d')
+            ->join('app_divisi as v', 'd.app_divisi_id', '=', 'v.id')
+            ->selectRaw('
+                v.app_name as triwulan,
+                AVG(d.inhern_nilai) as inhern_avg,
+                AVG(d.exp_nilai) as exp_avg
+            ')
+            ->where('v.tahun', $tahun)
+            ->where('v.divisi_id', $organization_id)
+            ->groupBy('v.app_name')
+            ->orderBy('v.app_name')
+            ->get();
+
+
         $groupedDataResiko_monitoring = $approvalDiv->mapWithKeys(function ($ap) use ($detailByApproval) {
             $key = "{$ap->tahun}|{$ap->namaDivisi->organization_name}|{$ap->divisi_id}|{$ap->app_name}";
             return [$key => $detailByApproval->get($ap->id, collect())];
@@ -1181,8 +1148,7 @@ class ResikoController extends Controller
                 'exp_dampak',
                 'exp_kemungkinan',
                 'exp_nilai',
-                'exp_bobot',
-                'status_mitigasi',
+                'exp_bobot'
             ]);
 
             // Widgets
@@ -1191,7 +1157,7 @@ class ResikoController extends Controller
             $totalExp      = (float) $details->sum(fn($r) => (float)($r->exp_nilai ?? 0));
             $avg_inhern    = $jumlahResiko ? round($totalInhern / $jumlahResiko, 2) : 0;
             $avg_exp       = $jumlahResiko ? round($totalExp / $jumlahResiko, 2) : 0;
-            $jumlahSelesai = $details->where('status_mitigasi', 'Selesai Dilaksanakan')->count();
+            $jumlahSelesai = $details->whereNotNull('exp_nilai')->count();
             $persentaseSelesai = $jumlahResiko ? round(($jumlahSelesai / $jumlahResiko) * 100, 2) : 0;
 
             // Heatmap count D×K
@@ -1235,9 +1201,229 @@ class ResikoController extends Controller
             'matrixExp'    => $matrixExp,
 
             'listapproval' => $approvalDiv,
+            'detailByApproval' => $detailByApproval,
+            'approvalDiv' => $approvalDiv,
+            'averageRisk' => $averageRisk,
 
             'organization_name' => $organization_name,
             'organization_id' => $organization_id,
         ]);
+    }
+
+    public function exportDocx(Request $request)
+    {
+        $organization_id = DB::connection('mysql_erp')
+            ->table('employment')
+            ->where('user_id', Auth::user()->user_id)
+            ->value('organization_id');
+
+        $organization_name = DB::connection('mysql_erp')
+            ->table('employment')
+            ->where('organization_id', $organization_id)
+            ->value('organization_name');
+
+        // ------------------------------------------------------------------
+        // SETUP PHPWORD
+        // ------------------------------------------------------------------
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        // Default Font (Arial 11)
+        $phpWord->setDefaultFontName('Arial');
+        $phpWord->setDefaultFontSize(11);
+
+        // Default Paragraph Style → Line spacing 1.5
+        $phpWord->setDefaultParagraphStyle([
+            'alignment'   => \PhpOffice\PhpWord\SimpleType\Jc::LEFT,
+            'lineHeight'  => 1.5,      // TRUE 1.5 lines
+            'lineSpacing' => 360,      // default spacing
+            'spaceBefore' => 0,
+            'spaceAfter'  => 0,
+        ]);
+
+        // Section (A4)
+        $section = $phpWord->addSection([
+            'marginLeft'   => 900,
+            'marginRight'  => 900,
+            'marginTop'    => 900,
+            'marginBottom' => 900,
+        ]);
+
+        // ------------------------------------------------------------------
+        // TEMP DIRECTORY
+        // ------------------------------------------------------------------
+        $tempDir = storage_path('app/temp');
+        if (!File::exists($tempDir)) {
+            File::makeDirectory($tempDir, 0777, true);
+        }
+
+        $tempImages = [];
+
+        // Helper save image
+        function saveTempImage($file, $prefix, &$tempImages, $tempDir)
+        {
+            $path = $tempDir . '/' . uniqid($prefix . '_') . '.png';
+            File::put($path, $file->getContent());
+            $tempImages[] = $path;
+            return $path;
+        }
+
+        // ------------------------------------------------------------------
+        // HEADER
+        // ------------------------------------------------------------------
+        $section->addText(
+            "LAPORAN MANAJEMEN RISIKO - " . $request->organization,
+            ['bold' => true, 'size' => 16],
+            ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER]
+        );
+
+        $section->addText(
+            "Periode: {$request->periode}  Tahun {$request->tahun}",
+            [],
+            ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER]
+        );
+
+        $section->addText(
+            "Penyusun: {$request->organization}",
+            [],
+            ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER]
+        );
+
+        $section->addTextBreak(1);
+
+
+        // ------------------------------------------------------------------
+        // 1. PROFIL RISIKO
+        // ------------------------------------------------------------------
+        $section->addText("1. Profil Risiko Unit Kerja", ['bold' => true, 'size' => 14]);
+        $section->addText("a. Risk Register", ['bold' => true]);
+
+        // TABLE SCREENSHOT
+        if ($request->hasFile('riskRegisterImg')) {
+            $tablePath = saveTempImage(
+                $request->file('riskRegisterImg'),
+                'table',
+                $tempImages,
+                $tempDir
+            );
+
+            $section->addImage($tablePath, [
+                'width' => 520,  // <= diperkecil supaya tidak melebihi A4
+                'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER
+            ]);
+        }
+
+        $section->addTextBreak(1);
+
+
+        // ------------------------------------------------------------------
+        // 2. PETA RISIKO
+        // ------------------------------------------------------------------
+        $section->addText("b. Peta Risiko", ['bold' => true]);
+
+        $table = $section->addTable();
+        $table->addRow();
+
+        // Expected
+        if ($request->hasFile('heatmapExpected')) {
+            $expPath = saveTempImage($request->file('heatmapExpected'), 'exp', $tempImages, $tempDir);
+            $table->addCell(5000)->addImage($expPath, ['width' => 240]);
+        } else {
+            $table->addCell(5000)->addText("Tidak ada gambar Expected");
+        }
+
+        // Realisasi
+        if ($request->hasFile('heatmapRealisasi')) {
+            $realPath = saveTempImage($request->file('heatmapRealisasi'), 'real', $tempImages, $tempDir);
+            $table->addCell(5000)->addImage($realPath, ['width' => 240]);
+        } else {
+            $table->addCell(5000)->addText("Tidak ada gambar Realisasi");
+        }
+
+        $section->addTextBreak(1);
+
+
+        // ------------------------------------------------------------------
+        // 3. TREND PERUBAHAN RISIKO
+        // ------------------------------------------------------------------
+        $section->addText("c. Trend Perubahan Risiko", ['bold' => true]);
+
+        if ($request->hasFile('averageChart')) {
+            $avgPath = saveTempImage($request->file('averageChart'), 'avg', $tempImages, $tempDir);
+            $section->addImage($avgPath, [
+                'width' => 380,
+                'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER
+            ]);
+
+            // HILANGKAN JARAK TERLALU BESAR
+            $section->addText("", [], [
+                'spaceBefore' => 0,
+                'spaceAfter'  => 0,
+                'lineHeight'  => 1.0,
+            ]);
+        }
+
+        $section->addTextBreak(1);
+
+
+        // ------------------------------------------------------------------
+        // 4. FOOTER & TANDA TANGAN
+        // ------------------------------------------------------------------
+        $section->addText("d. Uraian Pelaksanaan Manajemen Risiko", ['bold' => true]);
+        $section->addText("(Diisi oleh Divisi terkait)");
+        $section->addTextBreak(1);
+
+        $section->addText("2. Peristiwa Risiko", ['bold' => true]);
+        $section->addText("(Diisi oleh Divisi terkait)");
+        $section->addTextBreak(1);
+
+        $section->addText("3. Kejadian Luar Biasa", ['bold' => true]);
+        $section->addText("(Diisi oleh Divisi terkait)");
+        $section->addTextBreak(1);
+
+        $section->addText("4. Produk Aktivitas Baru", ['bold' => true]);
+        $section->addText("(Diisi oleh Divisi terkait)");
+        $section->addTextBreak(1);
+
+        // -------------------------------------------------------------
+        // TANDA TANGAN
+        // -------------------------------------------------------------
+        $ttd = $section->addTable([
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER,
+            'cellMarginLeft' => 200,
+            'cellMarginRight' => 200,
+        ]);
+
+        // Header TTD
+        $ttd->addRow();
+        $ttd->addCell(5000)->addText("Disusun oleh,", ['bold' => true], ['alignment' => 'center']);
+        $ttd->addCell(5000)->addText("Disetujui oleh,", ['bold' => true], ['alignment' => 'center']);
+
+        // Ruang tanda tangan
+        $ttd->addRow();
+        $ttd->addCell(5000)->addTextBreak(3);
+        $ttd->addCell(5000)->addTextBreak(3);
+
+        // Nama pejabat
+        $ttd->addRow();
+        $ttd->addCell(5000)->addText("Kepala $organization_name", ['underline' => 'single'], ['alignment' => 'center']);
+        $ttd->addCell(5000)->addText("Kepala Divisi Manajemen Risiko", ['underline' => 'single'], ['alignment' => 'center']);
+
+
+
+        // ------------------------------------------------------------------
+        // GENERATE DOCX
+        // ------------------------------------------------------------------
+        $docxPath = $tempDir . '/' . uniqid('laporan_') . '.docx';
+        $writer = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save($docxPath);
+
+        register_shutdown_function(function () use ($tempImages, $docxPath) {
+            foreach ($tempImages as $img) {
+                if (File::exists($img)) File::delete($img);
+            }
+            if (File::exists($docxPath)) File::delete($docxPath);
+        });
+
+        return response()->download($docxPath, "Laporan_Manajemen_Risiko.docx");
     }
 }

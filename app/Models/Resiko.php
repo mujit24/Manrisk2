@@ -10,16 +10,19 @@ class Resiko extends Model
     use HasFactory;
     protected $table = 'indf_resiko';
 
+    // sasaran = KPI
     public function namaSasaran()
     {
         return $this->belongsTo(Sasaran::class, 'sasaran_id', 'id');
     }
 
+    // tujuan = program kerja
     public function namaTujuan()
     {
         return $this->belongsTo(Tujuan::class, 'tujuan_id', 'id');
     }
 
+    // event = kegiatan
     public function namaEvent()
     {
         return $this->belongsTo(Event::class, 'event_id', 'id');

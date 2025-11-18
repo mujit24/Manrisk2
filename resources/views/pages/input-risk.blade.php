@@ -409,14 +409,14 @@
             <div class="d-flex flex-row-reverse">
                 <div class="page_action">
                     <!-- <a href="/muji-input-bisnis" class="btn btn-primary"><i class="fa fa-mail-reply"></i> &nbsp; BACK</a> -->
-                </div
+                </div>
 
-                    <div class="p-2 d-flex">
+                <div class="p-2 d-flex">
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="row clearfix">
@@ -425,10 +425,9 @@
         <div class="card">
             <ul class="nav nav-tabs-new">
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tabIdentifikasi">1. IDENTIFIKASI</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabPengukuran">2. PENGUKURAN</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabPengendalian">3. PENGENDALIAN</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabMonitoring">4. MONITORING</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabView">5. APPROVAL</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabPengukuran">2. ANALISA EVALUASI</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabPengendalian">3. REALISASI</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabView">4. APPROVAL</a></li>
 
             </ul>
         </div>
@@ -466,17 +465,17 @@
                     </div>
 
                     <ul class="nav nav-tabs-new2">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-sasaran">1. SASARAN</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-tujuan">2. TUJUAN</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-event">3. EVENT</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-resiko">4. RESIKO</a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-sasaran">1. KPI</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-tujuan">2. PROGRAM KERJA</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-event">3. KEGIATAN</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-resiko">4. NAMA RESIKO</a></li>
                     </ul>
 
                     <div class="tab-content">
-                        <!-- 1.1 sasaran -->
+                        <!-- 1.1 KPI/sasaran -->
                         <div class="tab-pane fade show active" id="tab-sasaran">
 
-                            <!-- table sasaran -->
+                            <!-- table KPI/Sasaran -->
                             <div class="card">
                                 <div class="col-md-12 col-sm-12 ">
 
@@ -485,14 +484,14 @@
                                             <div class="block-header">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <h6><b>SASARAN</b></h6>`
+                                                        <h6><b>KPI</b></h6>`
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                                         <div class="col-12">
                                                             <div class="d-flex justify-content-end align-items-center mtop20">
 
                                                                 <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalinputSasaran">
-                                                                    <i class="fa fa-plus"></i>&nbsp;INPUT SASARAN
+                                                                    <i class="fa fa-plus"></i>&nbsp;INPUT KPI
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -511,7 +510,7 @@
                                                             <thead class="thead-light">
                                                                 <tr>
                                                                     <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                                    <th class="align-middle text-center" style="width: 90%;">Daftar Sasaran</th>
+                                                                    <th class="align-middle text-center" style="width: 90%;">Daftar KPI</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -522,7 +521,7 @@
                                                                         <table class="table table-bordered m-0">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center" style="width: 85%;">Sasaran</th>
+                                                                                    <th class="align-middle text-center" style="width: 85%;">KPI</th>
                                                                                     <th class="align-middle text-center" style="width: 15%;">Action</th>
                                                                                 </tr>
                                                                             </thead>
@@ -555,12 +554,12 @@
                                 </div>
                             </div>
 
-                            <!-- input sasaran -->
+                            <!-- input KPI/sasaran -->
                             <div class="modal fade" id="modalinputSasaran" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Form Input Sasaran</h5>
+                                            <h5 class="modal-title">Form Input KPI</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -590,7 +589,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Sasaran<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">KPI<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <textarea name="sasaran_nama" rows="3" required="required" class="form-control"></textarea>
                                                     </div>
@@ -607,13 +606,13 @@
                                 </div>
                             </div>
 
-                            <!-- edit sasaran -->
+                            <!-- edit KPI/Sasaran -->
                             @foreach ($listsasaran as $item)
                             <div class="modal fade" id="editModalSasaran{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="editModalSasaranLabel{{$item->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalSasaranLabel{{$item->id}}">Edit Sasaran</h5>
+                                            <h5 class="modal-title" id="editModalSasaranLabel{{$item->id}}">Edit KPI</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -647,7 +646,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right ">Sasaran<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right ">KPI<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <textarea name="sasaran_nama" rows="3" required="required" class="form-control" required="required">{{ $item->sasaran_nama }}</textarea>
                                                     </div>
@@ -664,10 +663,10 @@
                             @endforeach
                         </div>
 
-                        <!-- 1.2 tujuan -->
+                        <!-- 1.2 Program Kerja/tujuan -->
                         <div class="tab-pane fade" id="tab-tujuan">
 
-                            <!-- table tujuan -->
+                            <!-- table Program Kerja/tujuan -->
                             <div class="card">
                                 <div class="col-md-12 col-sm-12 ">
 
@@ -676,14 +675,14 @@
                                             <div class="block-header">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <h6><b>TUJUAN</b></h6>`
+                                                        <h6><b>PROGRAM KERJA</b></h6>`
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                                         <div class="col-12">
                                                             <div class="d-flex justify-content-end align-items-center mtop20">
 
                                                                 <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalinputTujuan">
-                                                                    <i class="fa fa-plus"></i>&nbsp;INPUT TUJUAN
+                                                                    <i class="fa fa-plus"></i>&nbsp;INPUT PROGRAM KERJA
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -702,7 +701,7 @@
                                                             <thead class="thead-light">
                                                                 <tr>
                                                                     <th class="align-middle text-center col-tahun">Tahun</th>
-                                                                    <th class="align-middle text-center col-tujuan-list">Daftar Tujuan</th>
+                                                                    <th class="align-middle text-center col-tujuan-list">Daftar Program Kerja</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -713,8 +712,8 @@
                                                                         <table class="table table-bordered m-0 table-fixed">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center col-sasaran">Sasaran</th>
-                                                                                    <th class="align-middle text-center col-tujuan">List Tujuan</th>
+                                                                                    <th class="align-middle text-center col-sasaran">KPI</th>
+                                                                                    <th class="align-middle text-center col-tujuan">List Program Kerja</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -726,7 +725,7 @@
                                                                                         <table class="table table-bordered table-fixed">
                                                                                             <thead>
                                                                                                 <tr>
-                                                                                                    <th class="align-middle text-center col-tujuan">Tujuan</th>
+                                                                                                    <th class="align-middle text-center col-tujuan">Program Kerja</th>
                                                                                                     <th class="align-middle text-center col-action">Action</th>
                                                                                                 </tr>
                                                                                             </thead>
@@ -764,12 +763,12 @@
                                 </div>
                             </div>
 
-                            <!-- input tujuan -->
+                            <!-- input Program Kerja/tujuan -->
                             <div class="modal fade" id="modalinputTujuan" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Form Input Tujuan</h5>
+                                            <h5 class="modal-title">Form Input Program Kerja</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -799,16 +798,16 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Sasaran<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">KPI<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select id="sasaran-select" name="sasaran_id" class="form-control">
-                                                            <option value="">-- Pilih Sasaran --</option>
+                                                            <option value="">-- Pilih KPI --</option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tujuan<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Program Kerja<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <textarea name="tujuan_nama" rows="3" required="required" class="form-control" required="required"></textarea>
                                                     </div>
@@ -825,13 +824,13 @@
                                 </div>
                             </div>
 
-                            <!-- edit tujuan -->
+                            <!-- edit Program Kerja/tujuan -->
                             @foreach ($listtujuan as $item)
                             <div class="modal fade" id="editModalTujuan{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="editModalTujuanLabel{{$item->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalTujuanLabel{{$item->id}}">Edit Tujuan</h5>
+                                            <h5 class="modal-title" id="editModalTujuanLabel{{$item->id}}">Edit Program Kerja</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -865,7 +864,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Sasaran<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">KPI<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select name="sasaran_id" class="form-control">
                                                             @foreach ($listsasaranedit as $sasaran)
@@ -879,7 +878,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tujuan<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Program Kerja<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <textarea name="tujuan_nama" rows="3" required="required" class="form-control" required="required">{{ $item->tujuan_nama }}</textarea>
 
@@ -897,10 +896,10 @@
                             @endforeach
                         </div>
 
-                        <!-- 1.3 Event -->
+                        <!-- 1.3 Kegiatan/Event -->
                         <div class="tab-pane fade" id="tab-event">
 
-                            <!-- table event -->
+                            <!-- table kegiatan/event -->
                             <div class="card">
                                 <div class="col-md-12 col-sm-12 ">
 
@@ -909,14 +908,14 @@
                                             <div class="block-header">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <h6><b>EVENT</b></h6>`
+                                                        <h6><b>KEGIATAN</b></h6>`
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                                         <div class="col-12">
                                                             <div class="d-flex justify-content-end align-items-center mtop20">
 
                                                                 <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalinputEvent">
-                                                                    <i class="fa fa-plus"></i>&nbsp;INPUT EVENT
+                                                                    <i class="fa fa-plus"></i>&nbsp;INPUT KEGIATAN
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -943,7 +942,7 @@
                                                             <thead class="thead-light">
                                                                 <tr>
                                                                     <th class="align-middle text-center col-thn-10">Tahun</th>
-                                                                    <th class="align-middle text-center col-main-90">Daftar Sasaran, Tujuan & Event</th>
+                                                                    <th class="align-middle text-center col-main-90">Daftar KPI, Program Kerja & Kegiatan</th>
                                                                 </tr>
                                                             </thead>
 
@@ -960,8 +959,8 @@
                                                                             </colgroup>
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center col-sasaran-20">Sasaran</th>
-                                                                                    <th class="align-middle text-center col-tujuanlist-80">List Tujuan</th>
+                                                                                    <th class="align-middle text-center col-sasaran-20">KPI</th>
+                                                                                    <th class="align-middle text-center col-tujuanlist-80">List Program Kerja</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -977,8 +976,8 @@
                                                                                             </colgroup>
                                                                                             <thead>
                                                                                                 <tr>
-                                                                                                    <th class="align-middle text-center col-tujuan-20">Tujuan</th>
-                                                                                                    <th class="align-middle text-center col-eventlist-80">List Event</th>
+                                                                                                    <th class="align-middle text-center col-tujuan-20">Program Kerja</th>
+                                                                                                    <th class="align-middle text-center col-eventlist-80">List Kegiatan</th>
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
@@ -994,7 +993,7 @@
                                                                                                             </colgroup>
                                                                                                             <thead>
                                                                                                                 <tr>
-                                                                                                                    <th class="align-middle text-center col-event-85">Event</th>
+                                                                                                                    <th class="align-middle text-center col-event-85">Kegiatan</th>
                                                                                                                     <th class="align-middle text-center col-action-15">Action</th>
                                                                                                                 </tr>
                                                                                                             </thead>
@@ -1078,16 +1077,16 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tujuan<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Program Kerja<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select id="tujuan-select" name="tujuan_id" class="form-control">
-                                                            <option value="">-- Pilih Tujuan --</option>
+                                                            <option value="">-- Pilih Program Kerja --</option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Event<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kegiatan<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <textarea name="event_nama" rows="3" required="required" class="form-control" required="required"></textarea>
 
@@ -1111,7 +1110,7 @@
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalEventLabel{{$item->id}}">Edit Tujuan</h5>
+                                            <h5 class="modal-title" id="editModalEventLabel{{$item->id}}">Edit Kegiatan</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -1145,7 +1144,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tujuan<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Program Kerja<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select name="tujuan_id" class="form-control">
                                                             @foreach ($listtujuanedit as $tujuan)
@@ -1159,7 +1158,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Event<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kegiatan<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
 
                                                         <textarea name="event_nama" rows="3" required="required" class="form-control" required="required">{{ $item->event_nama }}</textarea>
@@ -1215,7 +1214,7 @@
                                                             <thead class="thead-light">
                                                                 <tr>
                                                                     <th class="align-middle text-center col-year-10">Tahun</th>
-                                                                    <th class="align-middle text-center col-wide-90">Daftar Sasaran, Tujuan, Event & Resiko</th>
+                                                                    <th class="align-middle text-center col-wide-90">Daftar KPI, Program Kerja, Kegiatan & Resiko</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1226,8 +1225,8 @@
                                                                         <table class="table table-bordered m-0 table-fixed">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="align-middle text-center col-20">Sasaran</th>
-                                                                                    <th class="align-middle text-center col-80">List Tujuan</th>
+                                                                                    <th class="align-middle text-center col-20">KPI</th>
+                                                                                    <th class="align-middle text-center col-80">List Program Kerja</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -1238,8 +1237,8 @@
                                                                                         <table class="table table-bordered m-0 table-fixed">
                                                                                             <thead>
                                                                                                 <tr>
-                                                                                                    <th class="align-middle text-center col-20">Tujuan</th>
-                                                                                                    <th class="align-middle text-center col-80">List Event</th>
+                                                                                                    <th class="align-middle text-center col-20">Program Kerja</th>
+                                                                                                    <th class="align-middle text-center col-80">List Kegiatan</th>
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
@@ -1250,7 +1249,7 @@
                                                                                                         <table class="table table-bordered m-0 table-fixed">
                                                                                                             <thead>
                                                                                                                 <tr>
-                                                                                                                    <th class="align-middle text-center col-20">Event</th>
+                                                                                                                    <th class="align-middle text-center col-20">Kegiatan</th>
                                                                                                                     <th class="align-middle text-center col-80">List Resiko</th>
                                                                                                                 </tr>
                                                                                                             </thead>
@@ -1262,9 +1261,10 @@
                                                                                                                         <table class="table table-bordered m-0 table-fixed">
                                                                                                                             <thead>
                                                                                                                                 <tr>
-                                                                                                                                    <th class="align-middle text-center col-kategori">Kategori Resiko</th>
+                                                                                                                                    <th class="align-middle text-center col-kategori">Kriteria Resiko</th>
                                                                                                                                     <th class="align-middle text-center col-nama">Nama Resiko</th>
                                                                                                                                     <th class="align-middle text-center col-penyebab">Penyebab Resiko</th>
+                                                                                                                                    <th class="align-middle text-center col-dampak">Dampak</th>
                                                                                                                                     <th class="align-middle text-center col-action15">Action</th>
                                                                                                                                 </tr>
                                                                                                                             </thead>
@@ -1274,6 +1274,7 @@
                                                                                                                                     <td>{{ $item->namaKategori['kategori_nama'] ?? '-' }}</td>
                                                                                                                                     <td>{{ $item->resiko_nama }}</td>
                                                                                                                                     <td>{{ $item->resiko_penyebab }}</td>
+                                                                                                                                    <td>{{ $item->dampak }}</td>
                                                                                                                                     <td class="col-action15">
                                                                                                                                         <a href="#" class="btn btn-sm btn-info"
                                                                                                                                             data-toggle="modal"
@@ -1356,7 +1357,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Event<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kegiatan<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select id="event-select" name="event_id" class="form-control">
                                                             <option value="">-- Pilih Event --</option>
@@ -1365,7 +1366,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kategori Resiko<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kriteria Resiko<span class="required"></span></label>
                                                     <div class="col-md-4 col-sm-4">
                                                         <select id="kategori_id" name="kategori_id" class="form-control" required>
                                                             <option value="" selected disabled>Pilih Kategori</option>
@@ -1390,6 +1391,13 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group row align-items-center">
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak<span class="required"></span></label>
+                                                    <div class="col-md-8 col-sm-9">
+                                                        <textarea name="dampak" rows="3" required="required" class="form-control" required="required"></textarea>
+                                                    </div>
+                                                </div>
+
                                                 <hr>
 
                                                 <hr>
@@ -1407,7 +1415,7 @@
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalResikoLabel{{$item->id}}">Edit Tujuan</h5>
+                                            <h5 class="modal-title" id="editModalResikoLabel{{$item->id}}">Edit Resiko</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -1441,7 +1449,7 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Event<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kegiatan<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select name="event_id" class="form-control">
                                                             @foreach ($listeventedit as $event)
@@ -1454,10 +1462,10 @@
                                                 </div>
 
                                                 <div class="form-group row align-items-center">
-                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kategori<span class="required"></span></label>
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kriteria<span class="required"></span></label>
                                                     <div class="col-md-8 col-sm-9">
                                                         <select id="kategori_id" name="kategori_id" class="form-control" required>
-                                                            <option value="" selected disabled>Pilih Kategori</option>
+                                                            <option value="" selected disabled>Pilih Kriteria</option>
                                                             @foreach ($listkategori as $kategori)
                                                             <option value="{{$kategori->id}}" {{ $item->kategori_id == $kategori->id ? 'selected' : '' }}> {{$kategori->kategori_nama}}</option>
                                                             @endforeach
@@ -1479,6 +1487,13 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group row align-items-center">
+                                                    <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak<span class="required"></span></label>
+                                                    <div class="col-md-8 col-sm-9">
+                                                        <textarea name="dampak" rows="3" required="required" class="form-control" required="required">{{ $item->dampak }}</textarea>
+                                                    </div>
+                                                </div>
+
                                                 <br>
                                                 <hr>
                                                 <button type=" submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp; <b>UPDATE</b></button>
@@ -1491,14 +1506,10 @@
 
                         </div>
                     </div>
-
-
                 </div>
-
-
             </div>
 
-            <!-- 2. Pengukuran -->
+            <!-- 2. Pengukuran/Analisa Evaluasi -->
             <div class="tab-pane fade" id="tabPengukuran">
 
                 <!-- table Pengukuran -->
@@ -1510,7 +1521,7 @@
                                 <div class="block-header">
                                     <div class="row align-items-center mb-3">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <h6 class="mb-0"><b>PENGUKURAN RESIKO</b></h6>
+                                            <h6 class="mb-0"><b>ANALISA EVALUASI</b></h6>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <form method="GET" action="{{ route('input-risk') }}" class="d-flex justify-content-end align-items-center">
@@ -1539,7 +1550,7 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th class="align-middle text-center col-year-10">Tahun</th>
-                                                        <th class="align-middle text-center col-90">Daftar Pengukuran Resiko</th>
+                                                        <th class="align-middle text-center col-90">Daftar Anaisa Evaluasi Resiko</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1551,13 +1562,13 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center sticky-col left-col-0 col-nama">Resiko</th>
-                                                                        <th class="text-center sticky-col col-kategori">Kategori</th>
-                                                                        <th class="text-center col-dampak">Dampak</th>
-                                                                        <th class="text-center col-strategi">Strategi</th>
-                                                                        <th class="text-center col-prosedur">Prosedur</th>
-                                                                        <th class="text-center col-10">inh P</th>
-                                                                        <th class="text-center col-10">inh D</th>
-                                                                        <th class="text-center col-10">inh Nilai</th>
+                                                                        <th class="text-center sticky-col col-kategori">Kriteria</th>
+                                                                        <th class="text-center col-dampak">Pengendalian</th>
+                                                                        <th class="text-center col-strategi">PIC</th>
+                                                                        <th class="text-center col-prosedur">Jangka Waktu</th>
+                                                                        <th class="text-center col-10">EXP P</th>
+                                                                        <th class="text-center col-10">EXP D</th>
+                                                                        <th class="text-center col-10">EXP Nilai</th>
                                                                         <th class="text-center col-10">Kategori</th>
                                                                         <th class="text-center col-10">Action</th>
                                                                     </tr>
@@ -1570,9 +1581,9 @@
                                                                     <tr>
                                                                         <td class="sticky-col left-col-0">{{ $resiko->resiko_nama }}</td>
                                                                         <td class="sticky-col ">{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
-                                                                        <td>{{ $item->dampak ?? '-' }}</td>
-                                                                        <td>{{ $item->strategi ?? '-' }}</td>
-                                                                        <td>{{ $item->prosedur ?? '-' }}</td>
+                                                                        <td>{{ $item->pengendalian ?? '-' }}</td>
+                                                                        <td>{{ $item->pic ?? '-' }}</td>
+                                                                        <td>{{ $item->jangka_waktu ?? '-' }}</td>
                                                                         <td class="text-right">{{ $item->namaKemungkinan->kmn_level ?? '-' }}</td>
                                                                         <td class="text-right">{{ $item->namaDampak->dampak_level ?? '-' }}</td>
                                                                         <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
@@ -1653,7 +1664,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kategori</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kriteria</label>
                                         <div class="col-md-8 col-sm-9">
                                             <input type="text" class="form-control" value="{{ $resiko->namaKategori->kategori_nama ?? '-' }}" disabled>
                                             <input type="hidden" name="kategori_id" value="{{ $resiko->namaKategori->id ?? 0 }}">
@@ -1661,23 +1672,23 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak Resiko</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Pengendalian</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <textarea name="dampak" rows="3" required="required" class="form-control" required="required"></textarea>
+                                            <textarea name="pengendalian" rows="3" required="required" class="form-control" required="required"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Strategi</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">PIC</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <textarea name="strategi" rows="3" required="required" class="form-control" required="required"></textarea>
+                                            <input type="text" name="pic" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Prosedur</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Jangka Waktu</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <input type="text" name="prosedur" class="form-control">
+                                            <input type="text" name="jangka_waktu" class="form-control">
                                         </div>
                                     </div>
 
@@ -1774,7 +1785,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kategori</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kriteria</label>
                                         <div class="col-md-8 col-sm-9">
                                             <input type="text" class="form-control" value="{{ $item->namaResiko->namaKategori->kategori_nama ?? '-' }}" disabled>
                                             <input type="hidden" name="kategori_id" value="{{ $item->namaResiko->namaKategori->id ?? 0 }}">
@@ -1782,23 +1793,23 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak Resiko</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Pengendalian</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <textarea name="dampak" rows="3" required="required" class="form-control" required="required">{{ $item->dampak }}</textarea>
+                                            <textarea name="pengendalian" rows="3" required="required" class="form-control" required="required">{{ $item->pengendalian }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Strategi</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">PIC</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <textarea name="strategi" rows="3" required="required" class="form-control" required="required">{{ $item->strategi }}</textarea>
+                                            <input type="text" name="pic" class="form-control" value="{{ $item->pic }}">
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Prosedur</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Jangka Waktu</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <input type="text" name="prosedur" class="form-control" value="{{ $item->prosedur }}">
+                                            <input type="text" name="jangka_waktu" class="form-control" value="{{ $item->jangka_waktu }}">
                                         </div>
                                     </div>
 
@@ -1853,7 +1864,7 @@
 
             </div>
 
-            <!-- 3. Pengendalian -->
+            <!-- 3. Pengendalian/Realisasi -->
             <div class="tab-pane fade" id="tabPengendalian">
 
                 <!-- table pengendalian -->
@@ -1865,7 +1876,7 @@
                                 <div class="block-header">
                                     <div class="row align-items-center mb-3">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <h6 class="mb-0"><b>PENGENDALIAN RESIKO</b></h6>
+                                            <h6 class="mb-0"><b>REALISASI</b></h6>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <form method="GET" action="{{ route('input-risk') }}" class="d-flex justify-content-end align-items-center">
@@ -1893,7 +1904,7 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th class="align-middle text-center col-5-pengendalian">Tahun</th>
-                                                        <th class="align-middle text-center col-95-pengendalian">Daftar Pengendalian Resiko</th>
+                                                        <th class="align-middle text-center col-95-pengendalian">Daftar Realisasi Resiko</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1905,15 +1916,16 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center sticky-col col-nama">Resiko</th>
-                                                                        <th class="text-center sticky-col col-15">Kategori</th>
-                                                                        <th class="text-center col-inhern-bobot">Inh Nilai</th>
-                                                                        <th class="text-center col-inhern-kategori">Inh Kategori</th>
-                                                                        <th class="text-center col-rencana">Rencana Pengendalian</th>
-                                                                        <th class="text-center col-pic">PIC</th>
-                                                                        <th class="text-center col-10">Exp P</th>
-                                                                        <th class="text-center col-10">Exp D</th>
-                                                                        <th class="text-center col-10">Exp Nilai</th>
-                                                                        <th class="text-center col-10">Exp Kategori</th>
+                                                                        <th class="text-center sticky-col col-15">Kriteria</th>
+                                                                        <th class="text-center col-inhern-bobot">Exp Nilai</th>
+                                                                        <th class="text-center col-inhern-kategori">Exp Kategori</th>
+                                                                        <th class="text-center col-rencana">Realisasi</th>
+                                                                        <th class="text-center col-10">Real P</th>
+                                                                        <th class="text-center col-10">Real D</th>
+                                                                        <th class="text-center col-10">Real Nilai</th>
+                                                                        <th class="text-center col-10">Real Kategori</th>
+                                                                        <th class="text-center col-pic">Keterangan</th>
+                                                                        <th class="text-center col-pic">Evidence</th>
                                                                         <th class="text-center col-10">Action</th>
                                                                     </tr>
                                                                 </thead>
@@ -1930,12 +1942,19 @@
                                                                         <td class="text-right col-inhern-bobot">{{ $item_pengukuran?->inhern_nilai ?? '-' }}</td>
                                                                         <td class="text-center col-inhern-kategori">{{ $item_pengukuran?->namaBobotInhern->bobot_kategori ?? '-' }}</td>
                                                                         {{-- Kolom dari Pengendalian --}}
-                                                                        <td class="text-left col-rencana"> {{ $item_pengendalian?->rencana ?? '-' }}</td>
-                                                                        <td class="text-left col-pic">{{ $item_pengendalian?->pic ?? '-' }}</td>
+                                                                        <td class="text-left col-rencana"> {{ $item_pengendalian?->realisasi ?? '-' }}</td>
                                                                         <td class="text-right col-5">{{ $item_pengendalian?->namaKemungkinan->kmn_level ?? '-' }}</td>
                                                                         <td class="text-right col-5">{{ $item_pengendalian?->namaDampak->dampak_level ?? '-' }}</td>
                                                                         <td class="text-right col-5">{{ $item_pengendalian?->exp_nilai ?? '-' }}</td>
                                                                         <td class="text-center col-10">{{ $item_pengendalian?->namaBobotExp->bobot_kategori ?? '-' }}</td>
+                                                                        <td class="text-left col-pic">{{ $item_pengendalian?->keterangan ?? '-' }}</td>
+                                                                        <td class="align-middle text-center col-5">
+                                                                            @if($item_pengendalian?->evidence)
+                                                                            <a href="{{asset($item_pengendalian->evidence) }}" target="_blank">View File</a>
+                                                                            @else
+                                                                            No File Uploaded
+                                                                            @endif
+                                                                        </td>
                                                                         <td class="align-middle text-center col-action15">
 
                                                                             @if ($item_pengukuran && ($item_pengendalian === null || $item_pengendalian->exp_nilai === null))
@@ -2233,366 +2252,7 @@
 
             </div>
 
-            <!-- 4. Monitoring -->
-            <div class="tab-pane fade" id="tabMonitoring">
-                <!-- table monitoring -->
-                <div class="card">
-                    <div class="col-md-12 col-sm-12 ">
-
-                        <body data-theme="light" class="font-nunito">
-                            <div id="wrapper" class="theme-cyan">
-                                <div class="block-header">
-                                    <div class="row align-items-center mb-3">
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <h6 class="mb-0"><b>MONITORING RESIKO</b></h6>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <form method="GET" action="{{ route('input-risk') }}" class="d-flex justify-content-end align-items-center">
-                                                <label for="tahun" class="mb-0 mr-2"><b>Tahun</b></label>
-                                                <select name="tahun" id="tahun" class="form-control" style="width: 100px;" onchange="this.form.submit()">
-                                                    @foreach(range(date('Y'), 2020) as $year)
-                                                    <option value="{{ $year }}" {{ $year == $tahun_pengendalian ? 'selected' : '' }}>
-                                                        {{ $year }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </body>
-
-                        <div class="x_panel">
-                            <div class="x_content">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="table-responsive">
-                                            <table id="datatable-monitoring" class="table table-bordered table-hover dataTable table-fixed" style="width:100%">
-                                                <thead class="thead-light">
-                                                    <tr>
-                                                        <th class="align-middle text-center" style="width: 10%;">Tahun</th>
-                                                        <th class="align-middle text-center" style="width: 90%;">Daftar Monitoring Resiko</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($groupedDataResiko_monitoring as $tahun => $listResiko)
-                                                    <tr>
-                                                        <td class="align-middle text-center">{{ $tahun }}</td>
-                                                        <td>
-                                                            <table class="table table-bordered m-0 table-fixed">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center sticky-col">Resiko</th>
-                                                                        <th class="text-center sticky-col">Kategori</th>
-                                                                        <th class="text-center">Rencana Pengendalian</th>
-                                                                        <th class="text-center">PIC</th>
-                                                                        <th class="text-center">Jangka Waktu</th>
-                                                                        <th class="text-center">Peluang Perbaikan</th>
-                                                                        <th class="text-center">Status</th>
-                                                                        <th class="text-center">Keterangan</th>
-                                                                        <th class="text-center col-5">Evidence</th>
-                                                                        <th class="text-center col-5">Action</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($listResiko as $resiko)
-
-                                                                    @php
-                                                                    $item = $listmonitoring->get($resiko->id);
-                                                                    $item_pengendalian = $listpengendalian->get($resiko->id);
-                                                                    @endphp
-
-                                                                    <tr>
-                                                                        <td>{{ $resiko->resiko_nama }}</td>
-                                                                        <td>{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
-                                                                        {{-- Kolom dari Pengendalian --}}
-                                                                        <td>{{ $item_pengendalian->rencana ?? '-' }}</td>
-                                                                        <td>{{ $item_pengendalian->pic ?? '-' }}</td>
-                                                                        {{-- Kolom dari Monitoring --}}
-                                                                        <td>{{ $item->jangka_waktu ?? '-' }}</td>
-                                                                        <td>{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                                        <td class="text-center">
-
-                                                                            @if (isset($item) && ($item->status_mitigasi ?? null))
-                                                                            @if ($item->status_mitigasi === 'Selesai Dilaksanakan')
-                                                                            <span class="badge badge-success"><b>{{ $item->status_mitigasi }}</b></span>
-                                                                            @elseif ($item->status_mitigasi === 'Sedang Dilaksanakan')
-                                                                            <span class="badge badge-info"><b>{{ $item->status_mitigasi }}</b></span>
-                                                                            @elseif ($item->status_mitigasi === 'Belum Dilaksanakan')
-                                                                            <span class="badge badge-warning"><b>{{ $item->status_mitigasi }}</b></span>
-                                                                            @else
-                                                                            <span class="badge badge-secondary"><b>{{ $item->status_mitigasi }}</b></span>
-                                                                            @endif
-                                                                            @else
-                                                                            <span class="badge badge-light text-muted"><b>-</b></span>
-                                                                            @endif
-
-                                                                        </td>
-                                                                        <td>{{ $item->keterangan ?? '-' }}</td>
-                                                                        <td class="align-middle text-center col-5">
-                                                                            @if($item?->evidence)
-                                                                            <a href="{{asset($item->evidence) }}" target="_blank">View File</a>
-                                                                            @else
-                                                                            No File Uploaded
-                                                                            @endif
-                                                                        </td>
-
-                                                                        <td class="align-middle text-center col-5">
-                                                                            @if(optional($item)->peluang_perbaikan === null)
-                                                                            @if($item_pengendalian)
-                                                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalinputMonitoring{{ $item_pengendalian->id }}" data-id="{{ $item_pengendalian->id }}">
-                                                                                <i class="fa fa-plus"></i>
-                                                                            </a>
-                                                                            @else
-                                                                            <span class="text-danger">Data belum tersedia</span>
-                                                                            @endif
-                                                                            @else
-                                                                            @if($item)
-                                                                            <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalMonitoring{{ $item->id }}" data-id="{{ $item->id }}">
-                                                                                <i class="fa fa-edit"></i>
-                                                                            </a>
-                                                                            <a href="input-monitoring-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Monitoring?');">
-                                                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                                                            </a>
-                                                                            @else
-                                                                            <span class="text-danger">Data tidak ditemukan</span>
-                                                                            @endif
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- input Monitoring -->
-                @foreach ($listpengendalian as $item_pengendalian)
-                <div class="modal fade" id="modalinputMonitoring{{ $item_pengendalian->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Form Input Monitoring</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="modal-body">
-                                <form action="{{ route('input-monitoring-add', ['id' => $item_pengendalian->id]) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tahun</label>
-                                        <div class="col-md-2 col-sm-2">
-                                            <select name="tahun" class="form-control" style="height: 34px;">
-                                                @foreach(range(date('Y'), 2020) as $year)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Divisi</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <input type="text" name="divisi_nama" class="form-control" value="{{ $organization_name }}" disabled>
-                                            <input type="hidden" name="divisi_id" value="{{ $organization_id }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Resiko</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" class="form-control" disabled>{{ $item_pengendalian->namaResiko->resiko_nama }}</textarea>
-                                            <input type="hidden" name="resiko_id" value="{{ $item_pengendalian->namaResiko->id }}">
-                                            <input type="hidden" name="pengukuran_id" value="{{ $item_pengendalian->namaPengukuran->id }}">
-                                            <input type="hidden" name="pengendalian_id" value="{{ $item_pengendalian->id }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kategori</label>
-                                        <div class="col-md-3 col-sm-3">
-                                            <input type="text" class="form-control" value="{{ $item_pengendalian->namaResiko->namaKategori->kategori_nama ?? '-' }}" disabled>
-                                            <input type="hidden" name="kategori_id" value="{{ $item_pengendalian->namaResiko->namaKategori->id ?? 0 }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Jangka Waktu</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <input type="text" name="jangka_waktu" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Peluang Perbaikan</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" name="peluang_perbaikan" class="form-control" required></textarea>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Status Mitigasi</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <select class="form-control" id="status_mitigasi" name="status_mitigasi" required>
-                                                <option value="" selected disabled>Pilih Status</option>
-                                                <option value="Belum Dilaksanakan">Belum Dilaksanakan</option>
-                                                <option value="Sedang Dilaksanakan">Sedang Dilaksanakan</option>
-                                                <option value="Selesai Dilaksanakan">Selesai Dilaksanakan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" name="keterangan" class="form-control" required></textarea>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Link Evidence</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <input type="text" name="evidence" class="form-control">
-                                        </div>
-                                    </div>
-
-
-                                    <hr>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp; <b>SIMPAN</b></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
-                <!-- edit pengendalian -->
-                @foreach ($listmonitoring as $item)
-                <div class="modal fade" id="editModalMonitoring{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="editModalMonitoringLabel{{$item->id}}" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalMonitoringLabel{{$item->id}}">Edit Monitoring</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('input-monitoring-update', ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="_method" value="PUT">
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tahun</label>
-                                        <div class="col-md-2 col-sm-2">
-                                            <select name="tahun" class="form-control" style="height: 34px;">
-                                                @foreach(range(date('Y'), 2020) as $year)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Divisi</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <input type="text" name="divisi_nama" class="form-control" value="{{ $organization_name }}" disabled>
-                                            <input type="hidden" name="divisi_id" value="{{ $organization_id }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Resiko</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" class="form-control" disabled> {{ $item->namaResiko->resiko_nama }}</textarea>
-                                            <input type="hidden" name="resiko_id" value="{{ $item->namaResiko->id }}">
-                                            <input type="hidden" name="pengukuran_id" value="{{ $item->namaPengukuran->id }}">
-                                            <input type="hidden" name="pengendalian_id" value="{{ $item->namaPengendalian->id }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kategori</label>
-                                        <div class="col-md-3 col-sm-3">
-                                            <input type="text" class="form-control" value="{{ $item->namaResiko->namaKategori->kategori_nama ?? '-' }}" disabled>
-                                            <input type="hidden" name="kategori_id" value="{{ $item->namaResiko->namaKategori->id ?? 0 }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Jangka Waktu</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <input type="text" name="jangka_waktu" class="form-control" value="{{ $item->jangka_waktu }}" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Peluang Perbaikan</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" name="peluang_perbaikan" class="form-control" required> {{ $item->peluang_perbaikan  }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Status Mitigasi</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <select class="form-control" id="status_mitigasi" name="status_mitigasi">
-                                                <option value="" disabled selected>Pilih Status</option required>
-                                                @foreach([
-                                                'Belum Dilaksanakan',
-                                                'Sedang Dilaksanakan',
-                                                'Selesai Dilaksanakan',
-                                                ] as $status_mitigasi)
-                                                <option value="{{ $status_mitigasi }}" {{ $item->status_mitigasi == $status_mitigasi ? 'selected' : '' }}>{{ $status_mitigasi }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" name="keterangan" class="form-control" required> {{ $item->keterangan  }}</textarea>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Link Evidence</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <input type="text" name="evidence" class="form-control" value="{{ $item->evidence }}" required>
-                                        </div>
-                                    </div>
-
-                                    <br>
-                                    <hr>
-                                    <button type=" submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp; <b>UPDATE</b></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-
-            <!-- 5. Approval -->
+            <!-- 4. Approval -->
             <div class="tab-pane fade" id="tabView">
                 <!-- table Resiko -->
                 <div class="card">
@@ -2729,11 +2389,12 @@
                                             <div class="form-group row align-items-center">
                                                 <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tahun</label>
                                                 <div class="col-md-2 col-sm-2">
-                                                    <select name="tahun" class="form-control" style="height: 34px;">
+                                                    <select name="tahun" class="form-control" style="height: 34px;" disabled>
                                                         @foreach(range(date('Y'), 2020) as $year)
                                                         <option value="{{ $year }}">{{ $year }}</option>
                                                         @endforeach
                                                     </select>
+                                                    <input type="hidden" name="tahun" value="{{ $year }}">
                                                 </div>
                                             </div>
 
@@ -2787,7 +2448,7 @@
                                                                     <thead class="thead-light">
                                                                         <tr>
                                                                             <th class="align-middle text-center col-year-10">Tahun</th>
-                                                                            <th class="align-middle text-center col-wide-90">Daftar Sasaran, Tujuan, Event & Resiko</th>
+                                                                            <th class="align-middle text-center col-wide-90">Daftar KPI, Program Kerja, Kegiatan & Resiko</th>
 
                                                                         </tr>
                                                                     </thead>
@@ -2799,8 +2460,8 @@
                                                                                 <table class="table table-bordered m-0 table-fixed">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Sasaran</th>
-                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Tujuan</th>
+                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">KPI</th>
+                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Program Kerja</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
@@ -2811,8 +2472,8 @@
                                                                                                 <table class="table table-bordered m-0 table-fixed">
                                                                                                     <thead>
                                                                                                         <tr>
-                                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Tujuan</th>
-                                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Event</th>
+                                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Program Kerja</th>
+                                                                                                            <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Kegiatan</th>
                                                                                                         </tr>
                                                                                                     </thead>
                                                                                                     <tbody>
@@ -2823,7 +2484,7 @@
                                                                                                                 <table class="table table-bordered m-0 table-fixed">
                                                                                                                     <thead>
                                                                                                                         <tr>
-                                                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Event</th>
+                                                                                                                            <th class="align-middle text-center col-year-10" style="background-color: #f0f0f5;">Kegiatan</th>
                                                                                                                             <th class="align-middle text-center col-wide-90" style="background-color: #f0f0f5;">List Resiko</th>
                                                                                                                         </tr>
                                                                                                                     </thead>
@@ -2839,21 +2500,18 @@
                                                                                                                                             <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Strategi</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prosedur</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Level</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Pengendalian</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Level</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp P</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp D</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Status</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Realisasi</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real P</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real D</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real Nilai</th>
+                                                                                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Real Kategori</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
                                                                                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                                                                                                         </tr>
@@ -2864,27 +2522,23 @@
                                                                                                                                             <td>{{ $resiko->namaKategori->kategori_nama ?? '-' }}</td>
                                                                                                                                             <td>{{ $resiko->resiko_nama }}</td>
                                                                                                                                             <td>{{ $resiko->resiko_penyebab ?? '-' }}</td>
-                                                                                                                                            {{-- Kolom Pengukuran --}}
-                                                                                                                                            <td class="text-left">{{ $resiko->namaPengukuran->dampak ?? '-' }}</td>
-                                                                                                                                            <td class="text-left">{{ $resiko->namaPengukuran->strategi ?? '-' }}</td>
-                                                                                                                                            <td class="text-left">{{ $resiko->namaPengukuran->prosedur ?? '-' }}</td>
+                                                                                                                                            <td class="text-left">{{ $resiko->dampak ?? '-' }}</td>
+                                                                                                                                            {{-- Kolom Pengukuran/analisa evaluasi --}}
+                                                                                                                                            <td class="text-left">{{ $resiko->namaPengukuran->pengendalian ?? '-' }}</td>
+                                                                                                                                            <td class="text-left">{{ $resiko->namaPengukuran->pic ?? '-' }}</td>
+                                                                                                                                            <td class="text-left">{{ $resiko->namaPengukuran->jangka_waktu ?? '-' }}</td>
                                                                                                                                             <td class="text-right">{{ $resiko->namaPengukuran->namaKemungkinan->kmn_level ?? '-' }}</td>
                                                                                                                                             <td class="text-right">{{ $resiko->namaPengukuran->namaDampak->dampak_level ?? '-' }}</td>
                                                                                                                                             <td class="text-right">{{ $resiko->namaPengukuran->inhern_nilai ?? '-' }}</td>
                                                                                                                                             <td class="text-center">{{ $resiko->namaPengukuran->namaBobotInhern->bobot_kategori ?? '-' }}</td>
-                                                                                                                                            {{-- Kolom Pengendalian --}}
-                                                                                                                                            <td class="text-left">{{ $resiko->namaPengendalian->rencana ?? '-' }}</td>
-                                                                                                                                            <td class="text-left">{{ $resiko->namaPengendalian->pic ?? '-' }}</td>
+                                                                                                                                            {{-- Kolom Pengendalian/realisasi --}}
+                                                                                                                                            <td class="text-left">{{ $resiko->namaPengendalian->realisasi ?? '-' }}</td>
                                                                                                                                             <td class="text-right">{{ $resiko->namaPengendalian->namaKemungkinan->kmn_level ?? '-' }}</td>
                                                                                                                                             <td class="text-right">{{ $resiko->namaPengendalian->namaDampak->dampak_level ?? '-' }}</td>
                                                                                                                                             <td class="text-right">{{ $resiko->namaPengendalian->exp_nilai ?? '-' }}</td>
                                                                                                                                             <td class="text-center">{{ $resiko->namaPengendalian->namaBobotExp->bobot_kategori ?? '-' }}</td>
-                                                                                                                                            {{-- Kolom Monitoring --}}
-                                                                                                                                            <td class="text-center">{{ $resiko->namaMonitoring->jangka_waktu ?? '-' }}</td>
-                                                                                                                                            <td class="text-left">{{ $resiko->namaMonitoring->peluang_perbaikan ?? '-' }}</td>
-                                                                                                                                            <td class="text-center">{{ $resiko->namaMonitoring->status_mitigasi ?? '-' }}</td>
-                                                                                                                                            <td class="text-left">{{ $resiko->namaMonitoring->keterangan ?? '-' }}</td>
-                                                                                                                                            <td class="text-left">{{ $resiko->namaMonitoring->evidence ?? '-' }}</td>
+                                                                                                                                            <td class="text-left">{{ $resiko->namaPengendalian->keterangan ?? '-' }}</td>
+                                                                                                                                            <td class="text-left">{{ $resiko->namaPengendalian->evidence ?? '-' }}</td>
 
                                                                                                                                             {{-- ================== HIDDEN INPUT ================== --}}
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][sasaran_nama]" value="{{ $namaSasaran }}">
@@ -2893,24 +2547,22 @@
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][kategori_nama]" value="{{ $resiko->namaKategori->kategori_nama ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][resiko_nama]" value="{{ $resiko->resiko_nama }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][resiko_penyebab]" value="{{ $resiko->resiko_penyebab ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][dampak]" value="{{ $resiko->namaPengukuran->dampak ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][strategi]" value="{{ $resiko->namaPengukuran->strategi ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][prosedur]" value="{{ $resiko->namaPengukuran->prosedur ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][dampak]" value="{{ $resiko->dampak ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][pengendalian]" value="{{ $resiko->namaPengukuran->pengendalian ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][pic]" value="{{ $resiko->namaPengukuran->pic ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][jangka_waktu]" value="{{ $resiko->namaPengukuran->jangka_waktu ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][inhern_dampak]" value="{{ $resiko->namaPengukuran->namaDampak->dampak_level ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][inhern_kemungkinan]" value="{{ $resiko->namaPengukuran->namaKemungkinan->kmn_level ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][inhern_nilai]" value="{{ $resiko->namaPengukuran->inhern_nilai ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][inhern_bobot]" value="{{ $resiko->namaPengukuran->namaBobotInhern->bobot_kategori ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][rencana]" value="{{ $resiko->namaPengendalian->rencana ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][pic]" value="{{ $resiko->namaPengendalian->pic ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][realisasi]" value="{{ $resiko->namaPengendalian->realisasi ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][exp_kemungkinan]" value="{{ $resiko->namaPengendalian->namaKemungkinan->kmn_level ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][exp_dampak]" value="{{ $resiko->namaPengendalian->namaDampak->dampak_level ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][exp_nilai]" value="{{ $resiko->namaPengendalian->exp_nilai ?? '' }}">
                                                                                                                                             <input type="hidden" name="resiko[{{ $resiko->id }}][exp_bobot]" value="{{ $resiko->namaPengendalian->namaBobotExp->bobot_kategori ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][jangka_waktu]" value="{{ $resiko->namaMonitoring->jangka_waktu ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][peluang_perbaikan]" value="{{ $resiko->namaMonitoring->peluang_perbaikan ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][status_mitigasi]" value="{{ $resiko->namaMonitoring->status_mitigasi ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][keterangan]" value="{{ $resiko->namaMonitoring->keterangan ?? '' }}">
-                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][evidence]" value="{{ $resiko->namaMonitoring->evidence ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][keterangan]" value="{{ $resiko->namaPengendalian->keterangan ?? '' }}">
+                                                                                                                                            <input type="hidden" name="resiko[{{ $resiko->id }}][evidence]" value="{{ $resiko->namaPengendalian->evidence ?? '' }}">
+
                                                                                                                                         </tr>
                                                                                                                                         @endforeach
                                                                                                                                     </tbody>
@@ -2952,7 +2604,6 @@
                             </div>
                         </div>
 
-
                         <!-- Edit Approval -->
                         @foreach ($listapproval as $item)
                         <div class="modal fade" id="EditApproval{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="EditApprovalLabel{{$item->id}}" aria-hidden="true">
@@ -2973,7 +2624,7 @@
                                             <div class="form-group row align-items-center">
                                                 <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Tahun</label>
                                                 <div class="col-md-2 col-sm-2">
-                                                    <select name="tahun" class="form-control" style="height: 34px;">
+                                                    <select name="tahun" class="form-control" style="height: 34px;" disabled>
                                                         @foreach(range(date('Y'), 2020) as $year)
                                                         <option value="{{ $year }}">{{ $year }}</option>
                                                         @endforeach
@@ -3035,28 +2686,25 @@
                                                                 <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                                                     <thead class="thead-light">
                                                                         <tr>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Sasaran</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Tujuan</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Event</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">KPI</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Program Kerja</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kegiatan</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Strategi</th>
-                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prosedur</th>
-                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Level</th>
-                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Rencana Pengendalian</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Pengendalian</th>
                                                                             <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
-                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Level</th>
-                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp P</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp D</th>
                                                                             <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
                                                                             <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Status</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Realisasi</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real P</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real D</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Real Kategori</th>
                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
                                                                             <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                                         </tr>
@@ -3108,21 +2756,18 @@
                                                                             <td>{{ $item->resiko_nama }}</td>
                                                                             <td>{{ $item->resiko_penyebab ?? '-' }}</td>
                                                                             <td class="text-left">{{ $item->dampak ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->strategi ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->pengendalian ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
                                                                             <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->rencana ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->realisasi ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
                                                                             <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
-                                                                            <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                                            <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
                                                                             <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
                                                                             <td class="text-left">{{ $item->evidence ?? '-' }}</td>
                                                                         </tr>
@@ -3228,33 +2873,30 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <div class="table-responsive">
-                                                                <table id="datatable" class="table table-bordered table-hover js-basic-example dataTable table-custom" style="width:100%">
+                                                                <table id="datatable" class="table table-bordered table-hover dataTable table-fixed" style="width:200%">
                                                                     <thead class="thead-light">
                                                                         <tr>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Sasaran</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Tujuan</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Event</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Kategori Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Nama Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Penyebab Resiko</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Strategi</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prosedur</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Level</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Nilai</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Prb Kategori</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Rencana Pengendalian</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">PIC</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Level</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Dampak</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Nilai</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Exp Kategori</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Jangka Waktu</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Peluang perbaikan</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Status</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Keterangan</th>
-                                                                            <th class="align-middle text-center" style="width: 85%; background-color: #f0f0f5;">Evidence</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">KPI</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Program Kerja</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Kegiatan</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Kategori Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Nama Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Penyebab Resiko</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Dampak</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Pengendalian</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">PIC</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Jangka Waktu</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp P</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp D</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Exp Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Exp Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Realisasi</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real P</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real D</th>
+                                                                            <th class="align-middle text-center" style="width: 15%; background-color: #f0f0f5;">Real Nilai</th>
+                                                                            <th class="align-middle text-center" style="width: 25%; background-color: #f0f0f5;">Real Kategori</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Keterangan</th>
+                                                                            <th class="align-middle text-center" style="width: 35%; background-color: #f0f0f5;">Evidence</th>
                                                                         </tr>
                                                                     </thead>
 
@@ -3304,21 +2946,18 @@
                                                                             <td>{{ $item->resiko_nama }}</td>
                                                                             <td>{{ $item->resiko_penyebab ?? '-' }}</td>
                                                                             <td class="text-left">{{ $item->dampak ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->strategi ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->prosedur ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->pengendalian ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                                            <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->inhern_kemungkinan ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->inhern_dampak ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->inhern_nilai ?? '-' }}</td>
                                                                             <td class="text-center">{{ $item->inhern_bobot ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->rencana ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->pic ?? '-' }}</td>
+                                                                            <td class="text-left">{{ $item->realisasi ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->exp_kemungkinan ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->exp_dampak ?? '-' }}</td>
                                                                             <td class="text-right">{{ $item->exp_nilai ?? '-' }}</td>
                                                                             <td class="text-center">{{ $item->exp_bobot ?? '-' }}</td>
-                                                                            <td class="text-center">{{ $item->jangka_waktu ?? '-' }}</td>
-                                                                            <td class="text-left">{{ $item->peluang_perbaikan ?? '-' }}</td>
-                                                                            <td class="text-center">{{ $item->status_mitigasi ?? '-' }}</td>
                                                                             <td class="text-left">{{ $item->keterangan ?? '-' }}</td>
                                                                             <td class="text-left">{{ $item->evidence ?? '-' }}</td>
                                                                         </tr>
@@ -3390,7 +3029,7 @@
             fetch(`/get-sasaran?tahun=${tahun}&divisi_id=${divisiId}`)
                 .then(response => response.json())
                 .then(data => {
-                    sasaranSelect.innerHTML = '<option value="">-- Pilih Sasaran --</option>';
+                    sasaranSelect.innerHTML = '<option value="">-- Pilih KPI --</option>';
                     Object.entries(data).forEach(([id, nama]) => {
                         const opt = document.createElement('option');
                         opt.value = id;
@@ -3420,7 +3059,7 @@
             fetch(`/get-tujuan?tahun=${tahun}&divisi_id=${divisiId}`)
                 .then(response => response.json())
                 .then(data => {
-                    tujuanSelect.innerHTML = '<option value="">-- Pilih Tujuan --</option>';
+                    tujuanSelect.innerHTML = '<option value="">-- Pilih Program Kerja --</option>';
                     Object.entries(data).forEach(([id, nama]) => {
                         const opt = document.createElement('option');
                         opt.value = id;
@@ -3450,7 +3089,7 @@
             fetch(`{{ route('event.byYear') }}?tahun=${encodeURIComponent(tahun)}&divisi_id=${encodeURIComponent(divisiId)}`)
                 .then(r => r.json())
                 .then(data => {
-                    eventSelect.innerHTML = '<option value="">-- Pilih Event --</option>';
+                    eventSelect.innerHTML = '<option value="">-- Pilih Kegiatan --</option>';
                     Object.entries(data).forEach(([id, nama]) => {
                         eventSelect.appendChild(new Option(nama, id));
                     });
