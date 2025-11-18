@@ -87,7 +87,7 @@ Route::middleware($middleware)->group(function () {
     Route::get('/dashboard-divisi', [ResikoController::class, 'index_divisi_dash'])->name('dashboard-divisi');
 
     //print ke word
-    Route::post('/laporan/export-docx', [ResikoController::class, 'exportDocx'])->name('laporan.export.docx');
+    Route::post('/laporan-export-docx', [ResikoController::class, 'exportDocx'])->name('laporan.export.docx');
 
     // Risk Register @masing-masing divisi
     Route::get('/input-risk', [ResikoController::class, 'index'])->name('input-risk');
