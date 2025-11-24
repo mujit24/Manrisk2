@@ -1284,7 +1284,7 @@
                                                                                                                                         </a>
                                                                                                                                         <a href="input-resiko-delete/{{ $item->id }}"
                                                                                                                                             class="btn btn-sm btn-danger"
-                                                                                                                                            onclick="return confirm('Yakin Akan Menghapus Data?');">
+                                                                                                                                            onclick="return confirm('Yakin Akan Menghapus Data Resiko?');">
                                                                                                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                                                                                                         </a>
                                                                                                                                     </td>
@@ -1369,7 +1369,7 @@
                                                     <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kriteria Resiko<span class="required"></span></label>
                                                     <div class="col-md-4 col-sm-4">
                                                         <select id="kategori_id" name="kategori_id" class="form-control" required>
-                                                            <option value="" selected disabled>Pilih Kategori</option>
+                                                            <option value="" selected disabled>Pilih Kriteria</option>
                                                             @foreach ($listkategori as $kategori)
                                                             <option value="{{$kategori->id}}">{{$kategori->kategori_nama}}</option>
                                                             @endforeach
@@ -1597,7 +1597,7 @@
                                                                             <a href=" #" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalPengukuran{{$item->id}}" data-id="{{$item->id}}">
                                                                                 <i class="fa fa-edit"></i>
                                                                             </a>
-                                                                            <a href="input-pengukuran-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Pengukuran?');">
+                                                                            <a href="input-pengukuran-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Analisa Evaluasi?');">
                                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                                             </a>
                                                                             @endif
@@ -1693,7 +1693,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kemungkinan<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Kemungkinan<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="inhern_kemungkinan_id_{{ $resiko->id }}" name="inhern_kemungkinan_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Kemungkinan</option>
@@ -1707,7 +1707,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Dampak<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="inhern_dampak_id_{{ $resiko->id }}" name="inhern_dampak_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Dampak</option>
@@ -1723,7 +1723,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Nilai Inhern</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Nilai</label>
                                         <div class="col-md-5 col-sm-5 d-flex gap-2">
                                             <input type="text" name="inhern_nilai" id="inhern_nilai_{{ $resiko->id }}" class="form-control mr-2" style="max-width: 100px;" readonly>
                                             <input type="text" name="inhern_kategori" id="inhern_kategori_{{ $resiko->id }}" class="form-control" style="max-width: 200px;" readonly>
@@ -1814,7 +1814,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kemungkinan<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Kemungkinan<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="inhern_kemungkinan_id_{{ $item->id }}" name="inhern_kemungkinan_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Kemungkinan</option>
@@ -1828,7 +1828,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Dampak<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="inhern_dampak_id_{{ $item->id }}" name="inhern_dampak_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Dampak</option>
@@ -1844,7 +1844,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Nilai Inhern</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Nilai</label>
                                         <div class="col-md-5 col-sm-5 d-flex gap-2">
                                             <input type="text" name="inhern_nilai" id="inhern_nilai_{{ $item->id }}" class="form-control mr-2" style="max-width: 100px;" value="{{$item->namaBobotInhern->bobot_nilai ?? ''}}" readonly>
                                             <input type="text" name="inhern_kategori" id="inhern_kategori_{{ $item->id }}" class="form-control" style="max-width: 200px;" value="{{$item->namaBobotInhern->bobot_kategori ?? ''}}" readonly>
@@ -1967,7 +1967,7 @@
                                                                             <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editModalPengendalian{{$item_pengendalian->id}}" data-id="{{$item_pengendalian->id}}">
                                                                                 <i class="fa fa-edit"></i>
                                                                             </a>
-                                                                            <a href="input-pengendalian-delete/{{ $item->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Pengendalian?');">
+                                                                            <a href="input-pengendalian-delete/{{ $item_pengendalian->id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Akan Menghapus Data Realisasi?');">
                                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                                             </a>
                                                                             @endif
@@ -1990,7 +1990,7 @@
                     </div>
                 </div>
 
-                <!-- input Pengendalian -->
+                <!-- input Realisasi/Pengendalian -->
                 @foreach ($listpengukuran as $item_pengukuran)
                 <div class="modal fade" id="modalinputPengendalian{{ $item_pengukuran->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
@@ -2043,35 +2043,28 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Inhern Nilai</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Nilai</label>
                                         <div class="col-md-1 col-sm-1">
                                             <input type="text" class="form-control" value="{{ $item_pengukuran->namaBobotInhern->bobot_nilai }}" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Inhern Kategori</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Kategori</label>
                                         <div class="col-md-3 col-sm-3">
                                             <input type="text" class="form-control" value="{{ $item_pengukuran->namaBobotInhern->bobot_kategori }}" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Rencana Strategis</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Realisasi</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <textarea name="rencana" rows="3" class="form-control" required></textarea>
+                                            <textarea name="realisasi" rows="4" class="form-control" required></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">PIC</label>
-                                        <div class="col-md-4 col-sm-4">
-                                            <input type="text" name="pic" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kemungkinan<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Kemungkinan<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="exp_kemungkinan_id_{{ $item_pengukuran->id }}" name="exp_kemungkinan_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Kemungkinan</option>
@@ -2085,7 +2078,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Dampak<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="exp_dampak_id_{{ $item_pengukuran->id }}" name="exp_dampak_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Dampak</option>
@@ -2101,11 +2094,25 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Nilai Expected</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Nilai</label>
                                         <div class="col-md-5 col-sm-5 d-flex gap-2">
                                             <input type="text" name="exp_nilai" id="exp_nilai_{{ $item_pengukuran->id }}" class="form-control mr-2" style="max-width: 100px;" readonly>
                                             <input type="text" name="exp_kategori" id="exp_kategori_{{ $item_pengukuran->id }}" class="form-control" style="max-width: 200px;" readonly>
                                             <input type="hidden" name="exp_bobot_id" id="exp_bobot_id_{{ $item_pengukuran->id }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
+                                        <div class="col-md-8 col-sm-9">
+                                            <textarea name="keterangan" rows="3" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Evidence</label>
+                                        <div class="col-md-8 col-sm-9">
+                                            <textarea name="evidence" rows="3" class="form-control" required></textarea>
                                         </div>
                                     </div>
 
@@ -2118,7 +2125,7 @@
                 </div>
                 @endforeach
 
-                <!-- edit pengendalian -->
+                <!-- edit realisasi/pengendalian -->
                 @foreach ($listpengendalian as $item)
                 <div class="modal fade" id="editModalPengendalian{{$item->id}}" tabindex="1" role="dialog" aria-labelledby="editModalPengendalianLabel{{$item->id}}" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
@@ -2173,36 +2180,28 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Inhern Nilai</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Nilai</label>
                                         <div class="col-md-1 col-sm-1">
                                             <input type="text" class="form-control" value="{{ $item->namaPengukuran->namaBobotInhern->bobot_nilai }}" disabled>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Inhern Kategori</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Exp Kategori</label>
                                         <div class="col-md-3 col-sm-3">
                                             <input type="text" class="form-control" value="{{ $item->namaPengukuran->namaBobotInhern->bobot_kategori }}" disabled>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Rencana Strategis</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Realisasi</label>
                                         <div class="col-md-8 col-sm-9">
-                                            <textarea rows="3" name="rencana" class="form-control">{{ $item->rencana }}</textarea>
-
+                                            <textarea rows="4" name="rencana" class="form-control">{{ $item->realisasi }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">PIC</label>
-                                        <div class="col-md-8 col-sm-9">
-                                            <input type="text" name="pic" class="form-control" value="{{ $item->pic }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Kemungkinan<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Real Kemungkinan<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="exp_kemungkinan_id_{{ $item->id }}" name="exp_kemungkinan_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Kemungkinan</option>
@@ -2216,7 +2215,7 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Dampak<span class="required"></span></label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Real Dampak<span class="required"></span></label>
                                         <div class="col-md-8 col-sm-9">
                                             <select id="exp_dampak_id_{{ $item->id }}" name="exp_dampak_id" class="form-control" required>
                                                 <option value="" selected disabled>Pilih Dampak</option>
@@ -2232,13 +2231,28 @@
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Nilai Expected</label>
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Real Nilai</label>
                                         <div class="col-md-5 col-sm-5 d-flex gap-2">
                                             <input type="text" name="exp_nilai" id="exp_nilai_{{ $item->id }}" class="form-control mr-2" style="max-width: 100px;" value="{{$item->namaBobotExp->bobot_nilai ?? ''}}" readonly>
                                             <input type="text" name="exp_kategori" id="exp_kategori_{{ $item->id }}" class="form-control" style="max-width: 200px;" value="{{$item->namaBobotExp->bobot_kategori ?? ''}}" readonly>
                                             <input type="hidden" name="exp_bobot_id" id="exp_bobot_id_{{ $item->id }}" value="{{ $item->exp_bobot_id ?? '' }}">
                                         </div>
                                     </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Keterangan</label>
+                                        <div class="col-md-8 col-sm-9">
+                                            <textarea rows="3" name="keterangan" class="form-control">{{ $item->keterangan }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-2 col-sm-3 label-align text-right">Evidence</label>
+                                        <div class="col-md-8 col-sm-9">
+                                            <textarea rows="3" name="evidence" class="form-control">{{ $item->evidence }}</textarea>
+                                        </div>
+                                    </div>
+
 
                                     <br>
                                     <hr>
