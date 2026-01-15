@@ -136,4 +136,10 @@ Route::middleware($middleware)->group(function () {
     Route::get('/input-monitoring-edit', [ResikoController::class, 'edit_monitoring'])->name('input-monitoring-edit');
     Route::match(['put', 'patch'], '/input-monitoring-update/{id}', [ResikoController::class, 'update_monitoring'])->name('input-monitoring-update');
     Route::get('/input-monitoring-delete/{id}', [ResikoController::class, 'destroy_monitoring'])->name('input-monitoring-delete');
+
+    Route::get('/kategori-by-tahun/{tahun}', function ($tahun) {
+        return \App\Models\Kategori::where('tahun', $tahun)
+            ->orderBy('kategori_nama')
+            ->get(['id', 'kategori_nama']);
+    });
 });

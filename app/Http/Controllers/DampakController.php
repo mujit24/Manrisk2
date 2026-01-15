@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class DampakController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Input Dampak';
         $dampak = Dampak::with('namaKategori')->get();
@@ -18,7 +18,8 @@ class DampakController extends Controller
                 return $item->namaKategori->kategori_nama ?? 'Tanpa Kategori';
             });
         });
-        $listkategori = Kategori::all();
+        $tahun = $request->input('tahun', date('Y'));
+        $listkategori = Kategori::where('tahun', $tahun)->get();
 
         return view('pages.input-dampak', [
             'title' => $title,
